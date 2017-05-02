@@ -1,0 +1,55 @@
+---
+title: "Notation"
+author: "JJB"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Notation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+- $N$ being the number of observations
+- $J$ being the number of assessments.
+- $K$ being the number of attributes.
+- $i$ being the individual being observed.
+- $s$ represents the slipping
+- $g$ represents the guessing
+
+## Response Matrix
+
+$$\mathbf{Y} = {\left( {{\mathbf{Y}_1}, \cdots ,{\mathbf{Y}_N}} \right)^T}_{N \times J}$$
+
+is a matrix of dichotomous random variables
+
+$$\mathbf{Y}_i = \left( {Y_{i1}, \cdots , Y_{iJ} }\right)_{J \times 1}^T$$
+
+is the $J$-dimensional vector of binary responses for individual $i$
+
+## Q Matrix
+
+
+$$\mathbf{Q} =\left(q_{j1},\dots, q_{iK}\right)^T_{J \times K}$$ 
+where $q_{jk}=1$ indicates that attribute $k$ is required to answer item $j$
+and zero otherwise.
+
+## Attribute Matrix
+
+$$\mathbf{\alpha}_i=\left(\alpha_{i1},\dots,\alpha_{iK}\right)^T_{2^K \times 1}$$ 
+
+where $\alpha_{ik}=1$ states that subject $i$ has attribute $k$. 
+
+The presence of $\boldsymbol a_c\in \left\{0,1\right\}^K$ indicates a value of
+$2^K$.
+
+
+## ETA Matrix
+
+$$\eta_{ij}=\mathcal {I} \left( \alpha_{ik}\geq q_{jk} \text{ for all $k$}\right)=\mathcal {I} \left(\mathbf{\alpha}_i'\mathbf{q}_j=\mathbf{q}_j'\mathbf{q}_j\right)$$
+
+## Guessing and Slipping
+
+- $g_j$ represents guessing or the probability of correctly answering item $j$
+  when at least one attribute is lacking, e.g. $g_j=P\left(Y_{ij}=1|\eta_{ij}=0\right)$
+- $s_j$ represents slipping or the probability of an incorrect response for
+  individuals with all of the required attributes, e.g. $s_j=P\left(Y_{ij}=0|\eta_{ij}=1\right)$.
