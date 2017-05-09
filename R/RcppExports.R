@@ -295,23 +295,3 @@ dina_Gibbs_Q <- function(Y, K, burnin, chain_length = 10000L) {
     .Call('ecdm_dina_Gibbs_Q', PACKAGE = 'ecdm', Y, K, burnin, chain_length)
 }
 
-#' @title Generate Multinomial Random Variable
-#' @description Sample a multinomial random variable for given probabilities.
-#' @usage rmultinomial(ps)
-#' @param ps A \code{vector} for the probability of each category.
-#' @return A \code{vector} from a multinomial with probability ps.
-#' @author Steven Andrew Culpepper
-rmultinomial <- function(ps) {
-    .Call('ecdm_rmultinomial', PACKAGE = 'ecdm', ps)
-}
-
-#' @title Generate Dirichlet Random Variable
-#' @description Sample a Dirichlet random variable.
-#' @usage rDirichlet(deltas)
-#' @param deltas A \code{vector} of Dirichlet parameters.
-#' @return A \code{vector} from a Dirichlet.
-#' @author Steven Andrew Culpepper
-rDirichlet <- function(deltas) {
-    .Call('ecdm_rDirichlet', PACKAGE = 'ecdm', deltas)
-}
-

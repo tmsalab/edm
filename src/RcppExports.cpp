@@ -326,25 +326,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rmultinomial
-double rmultinomial(const arma::vec& ps);
-RcppExport SEXP ecdm_rmultinomial(SEXP psSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type ps(psSEXP);
-    rcpp_result_gen = Rcpp::wrap(rmultinomial(ps));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rDirichlet
-arma::vec rDirichlet(const arma::vec& deltas);
-RcppExport SEXP ecdm_rDirichlet(SEXP deltasSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type deltas(deltasSEXP);
-    rcpp_result_gen = Rcpp::wrap(rDirichlet(deltas));
-    return rcpp_result_gen;
-END_RCPP
-}

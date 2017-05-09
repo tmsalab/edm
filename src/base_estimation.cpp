@@ -1,4 +1,5 @@
 #include "ecdm.h"
+#include <rgen.h>
 
 //' Bijection Vector
 //'
@@ -709,7 +710,7 @@ void parm_update_nomiss(unsigned int N, unsigned int J, unsigned int K,
 
     arma::vec numerator = pY % pis;
     arma::vec PS = numerator / arma::sum(numerator);
-    double class_i = rmultinomial(PS);
+    double class_i = rgen::rmultinomial(PS);
     CLASS(i) = class_i;
 
     // update guess and slip full conditional beta parms
@@ -722,7 +723,7 @@ void parm_update_nomiss(unsigned int N, unsigned int J, unsigned int K,
   arma::uvec class_sum =
       arma::hist(CLASS, arma::linspace<arma::vec>(0, nClass - 1, nClass));
   arma::vec deltatilde = arma::conv_to<arma::vec>::from(class_sum) + 1.;
-  pis = rDirichlet(deltatilde);
+  pis = rgen::rdirichlet(deltatilde);
 
   // update guess and slip probabilities
   for (unsigned int j = 0; j < J; ++j) {
@@ -805,9 +806,12 @@ Rcpp::List dina_Gibbs_Q(const arma::mat &Y, unsigned int K, unsigned int burnin,
   arma::vec CLASS = arma::randi<arma::vec>(N, arma::distr_param(0, nClass - 1));
   arma::vec ss = arma::randu<arma::vec>(J);
   arma::vec gs = (arma::ones<arma::vec>(J) - ss) % arma::randu<arma::vec>(J);
+  // 2^k ewk!
+  // Conjugate prior for latent probabilities
   arma::vec delta0 = arma::ones<arma::vec>(nClass);
-  arma::vec pis = rDirichlet(delta0);
 
+  // Latent Probabilities
+  arma::vec pis = rgen::rdirichlet(delta0);
   arma::mat Q = random_Q(J, K);
   arma::mat ETA = ETAmat(K, J, Q);
   arma::cube ETAmatnokonemac = ETAmat_nok_one_m_ac(K);
