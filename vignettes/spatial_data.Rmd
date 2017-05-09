@@ -1,0 +1,86 @@
+---
+title: "Assessing Spatial Data"
+author: "JJB"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Assessing Spatial Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Install the required packages
+
+```r
+# install.packages("devtools")
+
+devtools::install_github("tmsalab/ecdm", auth_token = "secret")
+devtools::install_github("tmsalab/tmsadata", auth_token = "secret")
+```
+
+# Using the `ecdm` package
+
+## Load the packages
+
+```{r}
+# Load required packages
+library("ecdm")
+library("tmsadata")
+
+# Load data
+data("trial_matrix", package="tmsadata")
+```
+
+## Perform Estimation Routine
+
+```{r spatial, cache = TRUE}
+# Version of package used
+message("Running simulation with ecdm v",
+        as.character(utils::packageVersion("ecdm")),
+        sep = "")
+
+
+### Configuration
+
+# Burn in
+burnin = 20000
+
+# Length of chain
+chain_length = burnin + 10000
+
+# Number of attributes
+K = 4
+
+# Coerce to matrix
+trial_matrix = as.matrix(trial_matrix)
+
+# Launch job
+system.time({
+    out <- dina_Gibbs_Q(trial_matrix, K, burnin, chain_length)
+})
+```
+
+## Evaluate Results of Q Matrix Estimation
+
+```{r results_analyze, cache = TRUE}
+# Validation Q matrix
+vj = bijectionvector(J)
+m_Qs = apply(out$QS, c(1, 2), mean)
+(m_Qsvj = t(m_Qs) %*% vj)
+```
+
+## Evaluate Results of IRT Estimation
+
+```{r results_analyzenoq, cache = T}
+#### Parameters
+
+# Guessing
+(m_gs = apply(out$GS, 1, mean))
+
+# Slipping
+(m_ss = apply(out$SS, 1, mean))
+
+# Latent Probabilities
+(m_pi = apply(out$PIs, 1, mean))
+```
+
