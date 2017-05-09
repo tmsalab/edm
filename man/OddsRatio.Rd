@@ -15,7 +15,7 @@ OddsRatio(N, J, Yt)
 with dimensions \eqn{N \times J}{N x J}.}
 }
 \value{
-A \code{matrix}.
+A \code{matrix} with dimensions \eqn{J \times J}{J x J}.
 }
 \description{
 Calculates the Odds Ratio

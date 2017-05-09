@@ -27,5 +27,5 @@ all of the required attributes}
 A \code{mat}
 }
 \description{
-Calculates the Odds Ratio
+Simulation the Y Response for a DINA Model
 }

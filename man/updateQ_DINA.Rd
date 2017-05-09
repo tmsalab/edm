@@ -7,7 +7,7 @@
 updateQ_DINA(Q, Y, alpha, ss, gs)
 }
 \arguments{
-\item{Q}{Q Matrix with dimensions \eqn{K x J}.}
+\item{Q}{Q Matrix with dimensions \eqn{J x K}.}
 
 \item{Y}{Binary responses to assessements in \code{matrix} form with
 dimensions \eqn{N \times J}{N x J}.}

@@ -4,7 +4,7 @@
 \alias{dina_Gibbs_Q}
 \title{Exploratory Determinatistic Input, Noise and Gate Model (EDINA)}
 \usage{
-dina_Gibbs_Q(Y, K, burnin, chain_length = 10000L)
+dina_Gibbs_Q(Y, K, burnin = 1000L, chain_length = 10000L)
 }
 \arguments{
 \item{Y}{Binary responses to assessements in \code{matrix} form with

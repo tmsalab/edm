@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{cond_threshold}
 \alias{cond_threshold}
-\title{Condition Threshold}
+\title{Condition Threshold Mean}
 \usage{
 cond_threshold(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok)
 }
@@ -21,6 +21,8 @@ cond_threshold(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok)
 
 \item{CLASS}{Does the individual possess all the necessary attributes?}
 
+\item{Q}{Q Matrix with dimensions \eqn{J x K}.}
+
 \item{gj}{The probability of guessing or the probability subject
 correctly answers item \eqn{j} when at least one attribute
 is lacking.}
@@ -30,12 +32,10 @@ incorrect response for individuals with all of the required
 attributes}
 
 \item{ETAmatnok}{A variant on the \eqn{\eta} matrix.}
-
-\item{ETA}{Alpha profile matrix.}
 }
 \value{
 A \code{double} indicating the conditional threshold.
 }
 \description{
-Condition Threshold
+Computes the conditional threshold mean
 }

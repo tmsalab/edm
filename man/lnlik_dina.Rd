@@ -16,7 +16,7 @@ lnlik_dina(N, J, nClass, Y, ETA, pis, gs, ss)
 \item{Y}{Binary responses to assessements in \code{matrix} form with
 dimensions \eqn{N \times J}{N x J}.}
 
-\item{ETA}{Q Matrix with dimensions \eqn{K x J}.}
+\item{ETA}{\eqn{\eta} Matrix with dimensions \eqn{J \times 2^K}{J x 2^K}.}
 
 \item{pis}{Latent Class Probabilities with length \eqn{K}}
 

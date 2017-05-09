@@ -6,6 +6,20 @@
 \usage{
 pYjeq1(ETAbyQ, pis, nClass, sj, gj)
 }
+\arguments{
+\item{ETAbyQ}{Column vectrom from ETAbyQ matrix.}
+
+\item{pis}{Latent Class Probabilities with length \eqn{2^K}}
+
+\item{nClass}{Classification number}
+
+\item{sj}{Slipping Value}
+
+\item{gj}{Guessing value}
+}
 \description{
-Probability for Equation 1?
+Compute a probability
+}
+\details{
+Not used in source
 }

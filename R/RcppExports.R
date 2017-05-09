@@ -5,6 +5,7 @@
 #'
 #' @param K number of levels
 #' @return A \code{vec} with length \eqn{K}.
+#' @export
 bijectionvector <- function(K) {
     .Call('ecdm_bijectionvector', PACKAGE = 'ecdm', K)
 }
@@ -14,6 +15,7 @@ bijectionvector <- function(K) {
 #' @param CL A \code{double} that controls ...
 #' @inheritParams bijectionvector
 #' @return A \code{vec} with length \eqn{K}.
+#' @export
 inv_bijectionvector <- function(K, CL) {
     .Call('ecdm_inv_bijectionvector', PACKAGE = 'ecdm', K, CL)
 }
@@ -24,6 +26,7 @@ inv_bijectionvector <- function(K, CL) {
 #' @param J      Number of Assessment Items
 #' @param Q      Q Matrix with dimensions \eqn{K \times J}{K x J}.
 #' @return A `mat` with dimensions \eqn{J \times 2^K}{J x 2^K}.
+#' @export
 ETAmat <- function(K, J, Q) {
     .Call('ecdm_ETAmat', PACKAGE = 'ecdm', K, J, Q)
 }
@@ -32,6 +35,7 @@ ETAmat <- function(K, J, Q) {
 #'
 #' @param K      Number of Attribute Levels
 #' @return A `cube` with dimensions \eqn{K \times 2^{K-1} \times 2^K}{J x 2^{K-1} x 2^K}.
+#' @export
 ETAmat_nok <- function(K) {
     .Call('ecdm_ETAmat_nok', PACKAGE = 'ecdm', K)
 }
@@ -40,6 +44,7 @@ ETAmat_nok <- function(K) {
 #'
 #' @param K      Number of Attribute Levels
 #' @return A `cube` with dimensions \eqn{K \times 2^{K-1} \times 2^K}{J x 2^{K-1} x 2^K}.
+#' @export
 ETAmat_nok_one_m_ac <- function(K) {
     .Call('ecdm_ETAmat_nok_one_m_ac', PACKAGE = 'ecdm', K)
 }
@@ -52,6 +57,7 @@ ETAmat_nok_one_m_ac <- function(K) {
 #' @param qj   \eqn{j}th row of the \eqn{Q} matrix.
 #' @param Yj    Binary responses for individual \eqn{i} in the form of \code{vec}
 #' @param alpha Attribute profile as a \code{mat}.
+#' @export
 abcount_old <- function(K, k, qj, Yj, alpha) {
     .Call('ecdm_abcount_old', PACKAGE = 'ecdm', K, k, qj, Yj, alpha)
 }
@@ -64,6 +70,7 @@ abcount_old <- function(K, k, qj, Yj, alpha) {
 #' @param CLASS          Does the individual possess all the necessary attributes? (1 or 0)
 #' @param ETAtnokimes1ma something?
 #' @return A `vec` containing the counts of AB parameters of the IRT
+#' @export
 abcounts <- function(N, Yj, CLASS, ETAtnokimes1ma) {
     .Call('ecdm_abcounts', PACKAGE = 'ecdm', N, Yj, CLASS, ETAtnokimes1ma)
 }
@@ -73,6 +80,7 @@ abcounts <- function(N, Yj, CLASS, ETAtnokimes1ma) {
 #' Construct a classification matrix by Q Matrix
 #' @param K Number of Attribute Levels as an `unsigned integer`.
 #' @return A `mat`.
+#' @export
 ClassbyQmat <- function(K) {
     .Call('ecdm_ClassbyQmat', PACKAGE = 'ecdm', K)
 }
@@ -86,6 +94,7 @@ ClassbyQmat <- function(K) {
 #' @param gj     Guessing value
 #' @param sj     Slipping Value
 #' @return A `double` containing the log likelihood
+#' @export
 llj <- function(N, Yj, ETAj, CLASS, gj, sj) {
     .Call('ecdm_llj', PACKAGE = 'ecdm', N, Yj, ETAj, CLASS, gj, sj)
 }
@@ -97,7 +106,7 @@ llj <- function(N, Yj, ETAj, CLASS, gj, sj) {
 #' @param J      Number of Assessment Items
 #' @param Y      Binary responses to assessements in `matrix` form with
 #'               dimensions \eqn{N \times J}{N x J}.
-#' @param ETA    Q Matrix with dimensions \eqn{K x J}.
+#' @param ETA    \eqn{\eta} Matrix with dimensions \eqn{J \times 2^K}{J x 2^K}.
 #' @param CLASS  Does the individual possess all the necessary attributes?
 #' @param pis    Latent Class Probabilities with length \eqn{K}
 #' @param gs     A \code{vec} describing the probability of guessing or
@@ -106,16 +115,40 @@ llj <- function(N, Yj, ETAj, CLASS, gj, sj) {
 #' @param ss     A \code{vec} describing the probability of slipping or
 #'               the probability of an incorrect response for individuals with
 #'               all of the required attributes
+#' @export
 lnlik_dina_condclass <- function(N, J, Y, ETA, CLASS, pis, gs, ss) {
     .Call('ecdm_lnlik_dina_condclass', PACKAGE = 'ecdm', N, J, Y, ETA, CLASS, pis, gs, ss)
 }
 
 #' Probability for Equation 1?
+#'
+#' Compute a probability
+#' @param ETAbyQ Column vectrom from ETAbyQ matrix.
+#' @param pis    Latent Class Probabilities with length \eqn{2^K}
+#' @param nClass Classification number
+#' @param gj     Guessing value
+#' @param sj     Slipping Value
+#' @details
+#' Not used in source
+#' @export
 pYjeq1 <- function(ETAbyQ, pis, nClass, sj, gj) {
     .Call('ecdm_pYjeq1', PACKAGE = 'ecdm', ETAbyQ, pis, nClass, sj, gj)
 }
 
-#' Probability...
+#' Probability of Y
+#'
+#' New way to compute probability per it
+#' @param ETA_it A column from the \eqn{\eta} matrix  with
+#'               length \eqn{J}.
+#' @param Y_it   Binary responses to assessements in `vec` form with
+#'               length \eqn{J}.
+#' @param ss     A \code{vec} describing the probability of slipping or
+#'               the probability of an incorrect response for individuals with
+#'               all of the required attributes
+#' @param gs     A \code{vec} describing the probability of guessing or
+#'               the probability subject correctly answers item \eqn{j} when at
+#'               least one attribute is lacking.
+#' @export
 pYit <- function(ETA_it, Y_it, ss, gs) {
     .Call('ecdm_pYit', PACKAGE = 'ecdm', ETA_it, Y_it, ss, gs)
 }
@@ -128,7 +161,7 @@ pYit <- function(ETA_it, Y_it, ss, gs) {
 #' @param nClass Number of Classes typically \eqn{2^K}.
 #' @param Y      Binary responses to assessements in `matrix` form with
 #'               dimensions \eqn{N \times J}{N x J}.
-#' @param ETA    Q Matrix with dimensions \eqn{K x J}.
+#' @param ETA    \eqn{\eta} Matrix with dimensions \eqn{J \times 2^K}{J x 2^K}.
 #' @param pis    Latent Class Probabilities with length \eqn{K}
 #' @param gs     A \code{vec} describing the probability of guessing or
 #'               the probability subject correctly answers item \eqn{j} when at
@@ -137,6 +170,7 @@ pYit <- function(ETA_it, Y_it, ss, gs) {
 #'               the probability of an incorrect response for individuals with
 #'               all of the required attributes
 #' @return The likelihood in `double` form.
+#' @export
 lnlik_dina <- function(N, J, nClass, Y, ETA, pis, gs, ss) {
     .Call('ecdm_lnlik_dina', PACKAGE = 'ecdm', N, J, nClass, Y, ETA, pis, gs, ss)
 }
@@ -147,6 +181,7 @@ lnlik_dina <- function(N, J, nClass, Y, ETA, pis, gs, ss) {
 #' @param J Number of Assessment Items as an `unsigned integer`.
 #' @param K Number of Attribute Levels as an `unsigned integer`.
 #' @return A `mat`.
+#' @export
 random_Q <- function(J, K) {
     .Call('ecdm_random_Q', PACKAGE = 'ecdm', J, K)
 }
@@ -156,6 +191,7 @@ random_Q <- function(J, K) {
 #' Performs a check to see if Q is identifable or not.
 #' @param Q The Q matrix to be checked with dimensions \eqn{K \times J}{K x J}.
 #' @return A double with value either: 0 or 1
+#' @export
 identify_check <- function(Q) {
     .Call('ecdm_identify_check', PACKAGE = 'ecdm', Q)
 }
@@ -163,7 +199,7 @@ identify_check <- function(Q) {
 #' Update the Q
 #'
 #' Updation step for DINA
-#' @param Q     Q Matrix with dimensions \eqn{K x J}.
+#' @param Q     Q Matrix with dimensions \eqn{J x K}.
 #' @param Y     Binary responses to assessements in \code{matrix} form with
 #'              dimensions \eqn{N \times J}{N x J}.
 #' @param alpha Profile Matrix
@@ -173,6 +209,7 @@ identify_check <- function(Q) {
 #' @param gs    A \code{vec} describing the probability of guessing or
 #'              the probability subject correctly answers item \eqn{j} when at
 #'              least one attribute is lacking.
+#' @export
 updateQ_DINA <- function(Q, Y, alpha, ss, gs) {
     invisible(.Call('ecdm_updateQ_DINA', PACKAGE = 'ecdm', Q, Y, alpha, ss, gs))
 }
@@ -183,7 +220,7 @@ updateQ_DINA <- function(Q, Y, alpha, ss, gs) {
 #' @param N         Number of Observations
 #' @param J         Number of Assessment Items
 #' @param K         Number of Attribute Levels as an `unsigned integer`.
-#' @param Q         Q Matrix with dimensions \eqn{K x J}.
+#' @param Q         Q Matrix with dimensions \eqn{J x K}.
 #' @param Y         Binary responses to assessements in \code{matrix} form with
 #'                  dimensions \eqn{N \times J}{N x J}.
 #' @param CLASS     Does the individual possess all the necessary attributes?
@@ -199,11 +236,14 @@ updateQ_DINA <- function(Q, Y, alpha, ss, gs) {
 #' @param vv        Bijection vector with respect to \eqn{K}.
 #' @details
 #' No return is done here as the update is done by reference.
+#' @export
 updateQ_DINA_new <- function(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv) {
     invisible(.Call('ecdm_updateQ_DINA_new', PACKAGE = 'ecdm', N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv))
 }
 
-#' Condition Threshold
+#' Condition Threshold Mean
+#'
+#' Computes the conditional threshold mean
 #' @param k         Present attribute level as `unsigned int`.
 #' @param j         Present assessment items as `unsigned int`.
 #' @param n_noks    Number of n okay observations?
@@ -211,7 +251,7 @@ updateQ_DINA_new <- function(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q
 #' @param K         Number of Observations
 #' @param Yj        Number of Observations
 #' @param CLASS     Does the individual possess all the necessary attributes?
-#' @param ETA       Alpha profile matrix.
+#' @param Q         Q Matrix with dimensions \eqn{J x K}.
 #' @param gj        The probability of guessing or the probability subject
 #'                  correctly answers item \eqn{j} when at least one attribute
 #'                  is lacking.
@@ -220,13 +260,14 @@ updateQ_DINA_new <- function(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q
 #'                  attributes
 #' @param ETAmatnok A variant on the \eqn{\eta} matrix.
 #' @return A `double` indicating the conditional threshold.
+#' @export
 cond_threshold <- function(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok) {
     .Call('ecdm_cond_threshold', PACKAGE = 'ecdm', k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok)
 }
 
 #' Simulate Binary Responses for DINA Model
 #'
-#' Calculates the Odds Ratio
+#' Simulation the Y Response for a DINA Model
 #' @param N     Number of Observations
 #' @param J     Number of Assessment Items
 #' @param CLASS Does the individual possess all the necessary attributes?
@@ -238,6 +279,7 @@ cond_threshold <- function(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok) 
 #'              the probability of an incorrect response for individuals with
 #'              all of the required attributes
 #' @return A `mat`
+#' @export
 sim_Y_dina <- function(N, J, CLASS, ETA, gs, ss) {
     .Call('ecdm_sim_Y_dina', PACKAGE = 'ecdm', N, J, CLASS, ETA, gs, ss)
 }
@@ -260,6 +302,9 @@ sim_Y_dina <- function(N, J, CLASS, ETA, gs, ss) {
 #'               all of the required attributes
 #' @param CLASS  Does the individual possess all the necessary attributes? (1 or 0)
 #' @param pis    Latent Class Probabilities with length \eqn{K}
+#' @details
+#' gs, ss, CLASS, and pis are updated under this function.
+#' @export
 parm_update_nomiss <- function(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis) {
     invisible(.Call('ecdm_parm_update_nomiss', PACKAGE = 'ecdm', N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis))
 }
@@ -271,7 +316,8 @@ parm_update_nomiss <- function(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis) {
 #' @param J  Number of Assessment Items
 #' @param Yt Estimated binary responses to assessements in \code{matrix} form
 #'           with dimensions \eqn{N \times J}{N x J}.
-#' @return A `matrix`.
+#' @return A `matrix` with dimensions \eqn{J \times J}{J x J}.
+#' @export
 OddsRatio <- function(N, J, Yt) {
     .Call('ecdm_OddsRatio', PACKAGE = 'ecdm', N, J, Yt)
 }
@@ -284,6 +330,7 @@ OddsRatio <- function(N, J, Yt) {
 #' @param K      Number of Attribute Levels as an \code{unsigned integer}.
 #' @param burnin Number of Observations to discard on the chain.
 #' @param chain_length Length of the MCMC chain
+#' @export
 #' @return
 #' A `list` containing:
 #' - **GS**: Guessing
@@ -291,7 +338,7 @@ OddsRatio <- function(N, J, Yt) {
 #' - **PIs**: Latent Class Probabilities with length \eqn{K}
 #' - **QS**: Q matrix
 #' - **ORs**: Odds Ratio
-dina_Gibbs_Q <- function(Y, K, burnin, chain_length = 10000L) {
+dina_Gibbs_Q <- function(Y, K, burnin = 1000L, chain_length = 10000L) {
     .Call('ecdm_dina_Gibbs_Q', PACKAGE = 'ecdm', Y, K, burnin, chain_length)
 }
 

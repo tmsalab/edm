@@ -13,7 +13,7 @@ updateQ_DINA_new(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv)
 
 \item{J}{Number of Assessment Items}
 
-\item{Q}{Q Matrix with dimensions \eqn{K x J}.}
+\item{Q}{Q Matrix with dimensions \eqn{J x K}.}
 
 \item{Y}{Binary responses to assessements in \code{matrix} form with
 dimensions \eqn{N \times J}{N x J}.}

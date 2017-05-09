@@ -14,7 +14,7 @@ lnlik_dina_condclass(N, J, Y, ETA, CLASS, pis, gs, ss)
 \item{Y}{Binary responses to assessements in \code{matrix} form with
 dimensions \eqn{N \times J}{N x J}.}
 
-\item{ETA}{Q Matrix with dimensions \eqn{K x J}.}
+\item{ETA}{\eqn{\eta} Matrix with dimensions \eqn{J \times 2^K}{J x 2^K}.}
 
 \item{CLASS}{Does the individual possess all the necessary attributes?}
 

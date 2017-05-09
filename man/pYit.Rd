@@ -2,10 +2,25 @@
 % Please edit documentation in R/RcppExports.R
 \name{pYit}
 \alias{pYit}
-\title{Probability...}
+\title{Probability of Y}
 \usage{
 pYit(ETA_it, Y_it, ss, gs)
 }
+\arguments{
+\item{ETA_it}{A column from the \eqn{\eta} matrix  with
+length \eqn{J}.}
+
+\item{Y_it}{Binary responses to assessements in \code{vec} form with
+length \eqn{J}.}
+
+\item{ss}{A \code{vec} describing the probability of slipping or
+the probability of an incorrect response for individuals with
+all of the required attributes}
+
+\item{gs}{A \code{vec} describing the probability of guessing or
+the probability subject correctly answers item \eqn{j} when at
+least one attribute is lacking.}
+}
 \description{
-Probability...
+New way to compute probability per it
 }

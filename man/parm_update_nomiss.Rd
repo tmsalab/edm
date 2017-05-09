@@ -35,3 +35,6 @@ all of the required attributes}
 \description{
 Perform a parameter update
 }
+\details{
+gs, ss, CLASS, and pis are updated under this function.
+}
