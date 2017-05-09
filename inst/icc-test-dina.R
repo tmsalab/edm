@@ -1,22 +1,35 @@
+##########################################################
+# Simulation runner                                      #
+#                                                        #
+##########################################################
+# Example Call:                                          #
+#                                                        #
+# Rscript icc-test-dina.R --args 0 30 0 3 "results.rda"  #
+#                                                        #
+##########################################################
+
 options(width = 10000, max.print = 100000)
 
 # Set library via bash profile
 # ~/Rlib
 library("ecdm")
 
-cat("Running simulation with ecdm v", utils::packageVersion("ecdm"), "\n")
+message("Running simulation with ecdm v",
+        as.character(utils::packageVersion("ecdm")),
+        sep = "")
 
-# Parm values
-cmdargs = as.numeric(commandArgs(trailingOnly = TRUE))
-rep     = cmdargs[1]
-N       = cmdargs[2]
-rho     = cmdargs[3]
-K       = cmdargs[4]
+# Param values
+cmdargs = commandArgs(trailingOnly = TRUE)
 
-compval = cmdargs[5]
+# Assign sim helpers
+nrep    = as.numeric(cmdargs[2])
+N       = as.numeric(cmdargs[3])
+rho     = as.numeric(cmdargs[4])
+K       = as.numeric(cmdargs[5])
+
+compval = cmdargs[6]
 
 J = 18
-
 
 # Specify Q
 if (K == 3) {
