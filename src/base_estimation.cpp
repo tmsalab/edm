@@ -71,12 +71,12 @@ arma::cube ETAmat_nok(unsigned int K) {
   unsigned int nqjs = pow(2, K - 1);
   arma::vec zero_to_Km1 = arma::linspace(0, K - 1, K);
   arma::cube ETA_nok(K, nqjs, nClass);
-  for (unsigned int k = 0; k < K; k++) {
+  for (unsigned int k = 0; k < K; ++k) {
     arma::uvec ks = find(zero_to_Km1 != k);
-    for (unsigned int cc = 0; cc < nClass; cc++) {
+    for (unsigned int cc = 0; cc < nClass; ++cc) {
       arma::vec alpha_c = inv_bijectionvector(K, cc);
       arma::vec alpha_c_nok = alpha_c(ks);
-      for (unsigned int cq = 0; cq < nqjs; cq++) {
+      for (unsigned int cq = 0; cq < nqjs; ++cq) {
         arma::vec qj = inv_bijectionvector(K - 1, cq);
           // switched to as_scalar
         double compare = arma::as_scalar(qj.t() * alpha_c_nok - qj.t() * qj);
@@ -99,11 +99,11 @@ arma::cube ETAmat_nok_one_m_ac(unsigned int K) {
   arma::cube ETA_nok(K, nqjs, nClass);
   for (unsigned int k = 0; k < K; ++k) {
     arma::uvec ks = find(zero_to_Km1 != k);
-    for (unsigned int cc = 0; cc < nClass; cc++) {
+    for (unsigned int cc = 0; cc < nClass; ++cc) {
       arma::vec alpha_c = inv_bijectionvector(K, cc);
       double alpha_c_k = alpha_c(k);
       arma::vec alpha_c_nok = alpha_c(ks);
-      for (unsigned int cq = 0; cq < nqjs; cq++) {
+      for (unsigned int cq = 0; cq < nqjs; ++cq) {
         arma::vec qj = inv_bijectionvector(K - 1, cq);
           // as_scalar
         double compare = arma::as_scalar(qj.t() * alpha_c_nok - qj.t() * qj);
@@ -161,7 +161,7 @@ arma::vec abcounts(unsigned int N, const arma::vec &Yj,
                    const arma::vec &ETAtnokimes1ma) {
 
   arma::vec ab = arma::zeros<arma::vec>(2);
-  for (unsigned int i = 0; i < N; i++) {
+  for (unsigned int i = 0; i < N; ++i) {
     ab(Yj(i)) += ETAtnokimes1ma(CLASS(i));
   }
   return ab;
@@ -176,9 +176,9 @@ arma::vec abcounts(unsigned int N, const arma::vec &Yj,
 arma::mat ClassbyQmat(unsigned int K) {
   double nClass = pow(2, K);
   arma::mat ETAbyQ(nClass, nClass - 1);
-  for (unsigned int cc = 0; cc < nClass; cc++) {
+  for (unsigned int cc = 0; cc < nClass; ++cc) {
     arma::vec alpha_c = inv_bijectionvector(K, cc);
-    for (unsigned int r = 0; r < nClass - 1; r++) {
+    for (unsigned int r = 0; r < nClass - 1; ++r) {
       arma::vec qj = inv_bijectionvector(K, r + 1);
         // converted to as_scalar
       double compare = arma::as_scalar(qj.t() * alpha_c - qj.t() * qj);
@@ -202,7 +202,7 @@ double llj(unsigned int N, const arma::vec &Yj,
            const arma::vec &ETAj, const arma::vec &CLASS,
            double gj, double sj) {
   arma::mat abmat = arma::zeros<arma::mat>(2, 2);
-  for (unsigned int i = 0; i < N; i++) {
+  for (unsigned int i = 0; i < N; ++i) {
     abmat(Yj(i), ETAj(CLASS(i))) += 1.;
   }
   double log_lik = abmat(0, 1) * log(sj) + abmat(1, 1) * log(1. - sj) +
@@ -232,10 +232,10 @@ double lnlik_dina_condclass(unsigned int N, unsigned int J, const arma::mat &Y,
                             const arma::vec &pis, const arma::vec &gs,
                             const arma::vec &ss) {
   double log_lik = 0.;
-  for (unsigned int i = 0; i < N; i++) {
+  for (unsigned int i = 0; i < N; ++i) {
     arma::rowvec Yi = Y.row(i);
     arma::vec eta_i = ETA.col(CLASS(i));
-    for (unsigned int j = 0; j < J; j++) {
+    for (unsigned int j = 0; j < J; ++j) {
       double sj = ss(j);
       double gj = gs(j);
       double Yij = Y(j);
@@ -375,7 +375,7 @@ arma::mat random_Q(unsigned int J, unsigned int K) {
     // Use sample()
     arma::vec jks_w_1s =
         arma::randi<arma::vec>(Jm2KmJ1, arma::distr_param(0, K - 1));
-    for (unsigned int j = 0; j < Jm2KmJ1; j++) {
+    for (unsigned int j = 0; j < Jm2KmJ1; ++j) {
       U2(j, jks_w_1s(j)) = 1;
     }
 
@@ -447,8 +447,9 @@ void updateQ_DINA(arma::mat &Q, const arma::mat &Y, const arma::mat &alpha,
   arma::vec flag(K);
   arma::vec zero_to_Km1 = arma::linspace(0, K - 1, K);
 
-  for (unsigned int j = 0; j < J; j++) {
-    for (unsigned int k = 0; k < K; k++) {
+  for (unsigned int j = 0; j < J; ++j) {
+
+    for (unsigned int k = 0; k < K; ++k) {
       // qjk = Q(j,k);
       // checking whether 1 is possible
       arma::mat Q1 = Q;
@@ -526,12 +527,14 @@ void updateQ_DINA_new(unsigned int N, unsigned int K, unsigned int J,
   double qjk, flag1;
   arma::vec zero_to_Km1 = arma::linspace(0, K - 1, K);
   arma::vec abn;
-  for (unsigned int j = 0; j < J; j++) {
+
+  for (unsigned int j = 0; j < J; ++j) {
+
     arma::vec Yj = Y.col(j);
     double s_d_1mg = ss(j) / (1.0 - gs(j));
     double Onems_d_g = (1.0 - ss(j)) / gs(j);
 
-    for (unsigned int k = 0; k < K; k++) {
+    for (unsigned int k = 0; k < K; ++k) {
       qjk = Q(j, k);
       // checking whether 1 is possible
       arma::mat Q0 = Q;
@@ -662,10 +665,10 @@ arma::mat sim_Y_dina(unsigned int N, unsigned int J, const arma::vec &CLASS,
                      const arma::mat &ETA, const arma::vec &gs,
                      const arma::vec &ss) {
   arma::mat Y(N, J);
-  for (unsigned int i = 0; i < N; i++) {
+  for (unsigned int i = 0; i < N; ++i) {
     double class_i = CLASS(i);
     arma::vec ETA_i = ETA.col(class_i);
-    for (unsigned int j = 0; j < J; j++) {
+    for (unsigned int j = 0; j < J; ++j) {
       double u = R::runif(0, 1);
       Y(i, j) = 1. * (gs(j) * (1. - ETA_i(j)) + (1. - ss(j)) * ETA_i(j) > u);
     }
@@ -700,7 +703,7 @@ void parm_update_nomiss(unsigned int N, unsigned int J, unsigned int K,
   arma::vec pY(nClass);
   arma::cube ab_tilde = arma::zeros<arma::cube>(J, 2, 2);
   // update alpha
-  for (unsigned int i = 0; i < N; i++) {
+  for (unsigned int i = 0; i < N; ++i) {
     arma::vec Yi = (Y.row(i)).t();
 
     for (unsigned int cc = 0; cc < nClass; ++cc) {
