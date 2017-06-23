@@ -49,7 +49,7 @@ burnin = 20000
 chain_length = burnin + 10000
 
 # Number of attributes
-K = 4
+K = 3
 
 # Coerce to matrix
 trial_matrix = as.matrix(trial_matrix)
