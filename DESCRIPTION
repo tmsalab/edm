@@ -17,3 +17,4 @@ Roxygen: list(markdown = TRUE)
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
+SystemRequirements: C++11
