@@ -9,7 +9,7 @@
 #' @return A `mat` with dimensions \eqn{J \times 2^K}{J x 2^K}.
 #' @export
 ETAmat <- function(K, J, Q) {
-    .Call(ecdm_ETAmat, K, J, Q)
+    .Call(`_ecdm_ETAmat`, K, J, Q)
 }
 
 #' \eqn{\eta} Matrix
@@ -18,7 +18,7 @@ ETAmat <- function(K, J, Q) {
 #' @return A `cube` with dimensions \eqn{K \times 2^{K-1} \times 2^K}{J x 2^{K-1} x 2^K}.
 #' @export
 ETAmat_nok <- function(K) {
-    .Call(ecdm_ETAmat_nok, K)
+    .Call(`_ecdm_ETAmat_nok`, K)
 }
 
 #' \eqn{\eta} Matrix \eqn{1-\alpha_{ck}}
@@ -27,7 +27,7 @@ ETAmat_nok <- function(K) {
 #' @return A `cube` with dimensions \eqn{K \times 2^{K-1} \times 2^K}{J x 2^{K-1} x 2^K}.
 #' @export
 ETAmat_nok_one_m_ac <- function(K) {
-    .Call(ecdm_ETAmat_nok_one_m_ac, K)
+    .Call(`_ecdm_ETAmat_nok_one_m_ac`, K)
 }
 
 #' Count AB (Old Version)
@@ -40,7 +40,7 @@ ETAmat_nok_one_m_ac <- function(K) {
 #' @param alpha Attribute profile as a \code{mat}.
 #' @export
 abcount_old <- function(K, k, qj, Yj, alpha) {
-    .Call(ecdm_abcount_old, K, k, qj, Yj, alpha)
+    .Call(`_ecdm_abcount_old`, K, k, qj, Yj, alpha)
 }
 
 #' Count AB
@@ -53,7 +53,7 @@ abcount_old <- function(K, k, qj, Yj, alpha) {
 #' @return A `vec` containing the counts of AB parameters of the IRT
 #' @export
 abcounts <- function(N, Yj, CLASS, ETAtnokimes1ma) {
-    .Call(ecdm_abcounts, N, Yj, CLASS, ETAtnokimes1ma)
+    .Call(`_ecdm_abcounts`, N, Yj, CLASS, ETAtnokimes1ma)
 }
 
 #' Classification Matrix by Q Matrix
@@ -63,7 +63,7 @@ abcounts <- function(N, Yj, CLASS, ETAtnokimes1ma) {
 #' @return A `mat`.
 #' @export
 ClassbyQmat <- function(K) {
-    .Call(ecdm_ClassbyQmat, K)
+    .Call(`_ecdm_ClassbyQmat`, K)
 }
 
 #' Log likelihood associated with assessment item \eqn{j}.
@@ -77,7 +77,7 @@ ClassbyQmat <- function(K) {
 #' @return A `double` containing the log likelihood
 #' @export
 llj <- function(N, Yj, ETAj, CLASS, gj, sj) {
-    .Call(ecdm_llj, N, Yj, ETAj, CLASS, gj, sj)
+    .Call(`_ecdm_llj`, N, Yj, ETAj, CLASS, gj, sj)
 }
 
 #' Likelihood Function for DINA
@@ -98,7 +98,7 @@ llj <- function(N, Yj, ETAj, CLASS, gj, sj) {
 #'               all of the required attributes
 #' @export
 lnlik_dina_condclass <- function(N, J, Y, ETA, CLASS, pis, gs, ss) {
-    .Call(ecdm_lnlik_dina_condclass, N, J, Y, ETA, CLASS, pis, gs, ss)
+    .Call(`_ecdm_lnlik_dina_condclass`, N, J, Y, ETA, CLASS, pis, gs, ss)
 }
 
 #' Probability for Equation 1?
@@ -113,7 +113,7 @@ lnlik_dina_condclass <- function(N, J, Y, ETA, CLASS, pis, gs, ss) {
 #' Not used in source
 #' @export
 pYjeq1 <- function(ETAbyQ, pis, nClass, sj, gj) {
-    .Call(ecdm_pYjeq1, ETAbyQ, pis, nClass, sj, gj)
+    .Call(`_ecdm_pYjeq1`, ETAbyQ, pis, nClass, sj, gj)
 }
 
 #' Probability of Y
@@ -131,7 +131,7 @@ pYjeq1 <- function(ETAbyQ, pis, nClass, sj, gj) {
 #'               least one attribute is lacking.
 #' @export
 pYit <- function(ETA_it, Y_it, ss, gs) {
-    .Call(ecdm_pYit, ETA_it, Y_it, ss, gs)
+    .Call(`_ecdm_pYit`, ETA_it, Y_it, ss, gs)
 }
 
 #' Compute Likelihood for DINA
@@ -153,7 +153,7 @@ pYit <- function(ETA_it, Y_it, ss, gs) {
 #' @return The likelihood in `double` form.
 #' @export
 lnlik_dina <- function(N, J, nClass, Y, ETA, pis, gs, ss) {
-    .Call(ecdm_lnlik_dina, N, J, nClass, Y, ETA, pis, gs, ss)
+    .Call(`_ecdm_lnlik_dina`, N, J, nClass, Y, ETA, pis, gs, ss)
 }
 
 #' Generate a Random Q Matrix
@@ -164,7 +164,7 @@ lnlik_dina <- function(N, J, nClass, Y, ETA, pis, gs, ss) {
 #' @return A `mat`.
 #' @export
 random_Q <- function(J, K) {
-    .Call(ecdm_random_Q, J, K)
+    .Call(`_ecdm_random_Q`, J, K)
 }
 
 #' Verify Q Matrix is Identifiable
@@ -174,7 +174,7 @@ random_Q <- function(J, K) {
 #' @return A double with value either: 0 or 1
 #' @export
 identify_check <- function(Q) {
-    .Call(ecdm_identify_check, Q)
+    .Call(`_ecdm_identify_check`, Q)
 }
 
 #' Update the Q
@@ -192,7 +192,7 @@ identify_check <- function(Q) {
 #'              least one attribute is lacking.
 #' @export
 updateQ_DINA <- function(Q, Y, alpha, ss, gs) {
-    invisible(.Call(ecdm_updateQ_DINA, Q, Y, alpha, ss, gs))
+    invisible(.Call(`_ecdm_updateQ_DINA`, Q, Y, alpha, ss, gs))
 }
 
 #' Simulate Binary Responses for DINA Model
@@ -219,7 +219,7 @@ updateQ_DINA <- function(Q, Y, alpha, ss, gs) {
 #' No return is done here as the update is done by reference.
 #' @export
 updateQ_DINA_new <- function(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv) {
-    invisible(.Call(ecdm_updateQ_DINA_new, N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv))
+    invisible(.Call(`_ecdm_updateQ_DINA_new`, N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv))
 }
 
 #' Condition Threshold Mean
@@ -243,7 +243,7 @@ updateQ_DINA_new <- function(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q
 #' @return A `double` indicating the conditional threshold.
 #' @export
 cond_threshold <- function(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok) {
-    .Call(ecdm_cond_threshold, k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok)
+    .Call(`_ecdm_cond_threshold`, k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok)
 }
 
 #' Simulate Binary Responses for DINA Model
@@ -262,7 +262,7 @@ cond_threshold <- function(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok) 
 #' @return A `mat`
 #' @export
 sim_Y_dina <- function(N, J, CLASS, ETA, gs, ss) {
-    .Call(ecdm_sim_Y_dina, N, J, CLASS, ETA, gs, ss)
+    .Call(`_ecdm_sim_Y_dina`, N, J, CLASS, ETA, gs, ss)
 }
 
 #' Update the Parameters
@@ -287,7 +287,7 @@ sim_Y_dina <- function(N, J, CLASS, ETA, gs, ss) {
 #' gs, ss, CLASS, and pis are updated under this function.
 #' @export
 parm_update_nomiss <- function(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis) {
-    invisible(.Call(ecdm_parm_update_nomiss, N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis))
+    invisible(.Call(`_ecdm_parm_update_nomiss`, N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis))
 }
 
 #' Compute the Odds Ratio
@@ -300,18 +300,13 @@ parm_update_nomiss <- function(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis) {
 #' @return A `matrix` with dimensions \eqn{J \times J}{J x J}.
 #' @export
 OddsRatio <- function(N, J, Yt) {
-    .Call(ecdm_OddsRatio, N, J, Yt)
+    .Call(`_ecdm_OddsRatio`, N, J, Yt)
 }
 
 #' Exploratory Determinatistic Input, Noise and Gate Model (EDINA)
 #'
 #' Compute the EDINA model
-#' @param Y      Binary responses to assessements in \code{matrix} form with
-#'               dimensions \eqn{N \times J}{N x J}.
-#' @param K      Number of Attribute Levels as an \code{unsigned integer}.
-#' @param burnin Number of Observations to discard on the chain.
-#' @param chain_length Length of the MCMC chain
-#' @export
+#' @inheritParams edina
 #' @return
 #' A `list` containing:
 #' - **GS**: Guessing
@@ -319,8 +314,8 @@ OddsRatio <- function(N, J, Yt) {
 #' - **PIs**: Latent Class Probabilities with length \eqn{K}
 #' - **QS**: Q matrix
 #' - **ORs**: Odds Ratio
-dina_Gibbs_Q <- function(Y, K, burnin = 1000L, chain_length = 10000L) {
-    .Call(ecdm_dina_Gibbs_Q, Y, K, burnin, chain_length)
+edina_Gibbs_Q <- function(Y, K, burnin = 1000L, chain_length = 10000L) {
+    .Call(`_ecdm_edina_Gibbs_Q`, Y, K, burnin, chain_length)
 }
 
 #' Simulate rRUM Data
@@ -340,7 +335,7 @@ dina_Gibbs_Q <- function(Y, K, burnin = 1000L, chain_length = 10000L) {
 #' @param alpha    Matrix with dimensions \eqn{N \times K}{N x K} of 1s and 0s.
 #' @export
 simrRUM <- function(N, J, K, Q, rstar, pistar, alpha) {
-    .Call(ecdm_simrRUM, N, J, K, Q, rstar, pistar, alpha)
+    .Call(`_ecdm_simrRUM`, N, J, K, Q, rstar, pistar, alpha)
 }
 
 #' Parameter Update Routine for rRUM Gibbs Sampler
@@ -364,7 +359,7 @@ simrRUM <- function(N, J, K, Q, rstar, pistar, alpha) {
 #'                 classes.
 #' @export
 parm_update <- function(N, J, K, C, Y, Q, alpha, X, Smat, Gmat, pi, vv, delta0) {
-    .Call(ecdm_parm_update, N, J, K, C, Y, Q, alpha, X, Smat, Gmat, pi, vv, delta0)
+    .Call(`_ecdm_parm_update`, N, J, K, C, Y, Q, alpha, X, Smat, Gmat, pi, vv, delta0)
 }
 
 #' rRUM Gibbs-based Estimation
@@ -379,7 +374,7 @@ parm_update <- function(N, J, K, C, Y, Q, alpha, X, Smat, Gmat, pi, vv, delta0) 
 #' @param chain_length Number of iterations
 #' @export
 rRUM_Gibbs <- function(Y, Q, chain_length = 10000L) {
-    .Call(ecdm_rRUM_Gibbs, Y, Q, chain_length)
+    .Call(`_ecdm_rRUM_Gibbs`, Y, Q, chain_length)
 }
 
 #' Update Parameters in Metropolis-Hastings Approach
@@ -410,7 +405,7 @@ rRUM_Gibbs <- function(Y, Q, chain_length = 10000L) {
 #' @param Amat     TBA?
 #' @export
 parm_update_MH <- function(N, J, K, C, Y, Q, alpha, pistar, rstar, pi, vv, delta0, delta, Amat) {
-    .Call(ecdm_parm_update_MH, N, J, K, C, Y, Q, alpha, pistar, rstar, pi, vv, delta0, delta, Amat)
+    .Call(`_ecdm_parm_update_MH`, N, J, K, C, Y, Q, alpha, pistar, rstar, pi, vv, delta0, delta, Amat)
 }
 
 #' rRUM Metropolis-Hastings-based Estimation
@@ -436,7 +431,7 @@ parm_update_MH <- function(N, J, K, C, Y, Q, alpha, pistar, rstar, pi, vv, delta
 #'                            values for rstar was accepted or rejected.
 #' @export
 rRUM_MH <- function(Y, Q, Amat, delta, chain_length = 10000L) {
-    .Call(ecdm_rRUM_MH, Y, Q, Amat, delta, chain_length)
+    .Call(`_ecdm_rRUM_MH`, Y, Q, Amat, delta, chain_length)
 }
 
 #' Bijection Vector
@@ -445,7 +440,7 @@ rRUM_MH <- function(Y, Q, Amat, delta, chain_length = 10000L) {
 #' @return A \code{vec} with length \eqn{K}.
 #' @export
 bijectionvector <- function(K) {
-    .Call(ecdm_bijectionvector, K)
+    .Call(`_ecdm_bijectionvector`, K)
 }
 
 #' Inverse Bijection Vector
@@ -455,6 +450,6 @@ bijectionvector <- function(K) {
 #' @return A \code{vec} with length \eqn{K}.
 #' @export
 inv_bijectionvector <- function(K, CL) {
-    .Call(ecdm_inv_bijectionvector, K, CL)
+    .Call(`_ecdm_inv_bijectionvector`, K, CL)
 }
 

@@ -787,12 +787,7 @@ arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat &Yt) {
 //' Exploratory Determinatistic Input, Noise and Gate Model (EDINA)
 //'
 //' Compute the EDINA model
-//' @param Y      Binary responses to assessements in \code{matrix} form with
-//'               dimensions \eqn{N \times J}{N x J}.
-//' @param K      Number of Attribute Levels as an \code{unsigned integer}.
-//' @param burnin Number of Observations to discard on the chain.
-//' @param chain_length Length of the MCMC chain
-//' @export
+//' @inheritParams edina
 //' @return
 //' A `list` containing:
 //' - **GS**: Guessing
@@ -801,7 +796,7 @@ arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat &Yt) {
 //' - **QS**: Q matrix
 //' - **ORs**: Odds Ratio
 // [[Rcpp::export]]
-Rcpp::List dina_Gibbs_Q(const arma::mat &Y, unsigned int K,
+Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
                         unsigned int burnin = 1000,
                         unsigned int chain_length = 10000) {
 
