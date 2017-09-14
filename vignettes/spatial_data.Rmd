@@ -1,4 +1,4 @@
----
+ ---
 title: "Assessing Spatial Data"
 author: "JJB"
 date: "`r Sys.Date()`"
@@ -49,38 +49,44 @@ burnin = 20000
 chain_length = burnin + 10000
 
 # Number of attributes
-K = 3
+K = 4
 
 # Coerce to matrix
 trial_matrix = as.matrix(trial_matrix)
 
 # Launch job
 system.time({
-    out <- dina_Gibbs_Q(trial_matrix, K, burnin, chain_length)
+    out <- edina(trial_matrix, K, burnin, chain_length)
 })
 ```
 
-## Evaluate Results of Q Matrix Estimation
-
-```{r results_analyze, cache = TRUE}
-# Validation Q matrix
-vj = bijectionvector(J)
-m_Qs = apply(out$QS, c(1, 2), mean)
-(m_Qsvj = t(m_Qs) %*% vj)
-```
-
-## Evaluate Results of IRT Estimation
+## Evaluate Results of Q and IRT Estimation
 
 ```{r results_analyzenoq, cache = T}
 #### Parameters
 
+## Guessing and Slipping
+out$coefficients
+
 # Guessing
-(m_gs = apply(out$GS, 1, mean))
+out$coefficients[, 1]
 
 # Slipping
-(m_ss = apply(out$SS, 1, mean))
+out$coefficients[, 2]
 
-# Latent Probabilities
-(m_pi = apply(out$PIs, 1, mean))
+# Pi
+out$pi_classes
+
+# Q Matrix
+out$est_Q
+
+### Print methods
+print(edina_model)
+
+### Calculate model heuristic with default alpha = 0.05
+summary(edina_model)
+
+### Calculate model heuristic
+summary(edina_model, alpha = 0.10)
 ```
 
