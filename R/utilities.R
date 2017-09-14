@@ -21,8 +21,11 @@ convert_seconds_to_time = function(seconds) {
               class = "seconds_to_time")
 }
 
+format.seconds_to_time = function(x, ...){
+    paste0("Days: ", x$day,", Hours: ", x$hour, ", Minutes: ", x$minute, ", Seconds: ", x$second, collapse="\n")
+}
+
 #' @export
 print.seconds_to_time = function(x, ...) {
-    x = paste0("Days: ", x$day,", Hours: ", x$hour, ", Minutes: ", x$minute, ", Seconds: ", x$second, collapse="\n")
-    cat(x)
+    cat(format(x))
 }
