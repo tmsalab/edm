@@ -33,8 +33,9 @@ auto_edina = function(data, k = 2:4,
 
     # Compute the number of _K_ to estimate
     num_k = length(k)
+    num_j = ncol(data)
 
-    message("The estimated runtime for searching this space is: ", convert_seconds_to_time(sum(2^(k+4))))
+    message("The estimated runtime for searching this space is: ", format(convert_seconds_to_time(sum(2^(k+4)))))
 
     if(save_results) {
         # Get the length of the string e.g. 200 => 3
@@ -52,9 +53,17 @@ auto_edina = function(data, k = 2:4,
     for(i in seq_along(k)) {
         k_idx = k[i]
         message("Working on k = ", k_idx)
+        message("Estimated runtime is: ", format(convert_seconds_to_time(2^(k_idx+4))))
+
+        modeled_value = edina(data,
+                              k = k_idx,
+                              burnin = burnin,
+                              chain_length = chain_length)
+
+        modeled_value_summary = summary(modeled_value)
 
         # Launch job
-        outobj[[i]] = edina(data, k = k_idx, burnin = burnin, chain_length = chain_length)
+        outobj[[i]] = modeled_value_summary
 
         heuristics[i] = outobj[[i]][["model_fit"]]
 
@@ -76,15 +85,17 @@ auto_edina = function(data, k = 2:4,
                                   "best_model_fit" = heuristics[best_model_id]),
                    "model_fits" = heuristics,
                    "k" = k
+                   "k" = k,
+                   "j" = num_j
                    )
               , class = "auto_edina" )
 }
 
-
+#' @export
 print.auto_edina = function(x, ...){
-    cat("The results of searching Q-matrices of ", min(object$k), " and ", max(object$k), "...\n")
-    cat("Best Fit Model K=", object$best_fit['best_k'],
-           " with value ", round(object$best_fit['best_model_fit'], 2), "\n")
+    cat("The results of searching Q-matrices between", min(x$k), "and", max(x$k), "...\n")
+    cat("Best Fit Model K =", x$best_fit['best_k'],
+           "with value", round(x$best_fit['best_model_fit'], 2), "\n")
 }
 
 #' Graph the Auto EDINA Object
