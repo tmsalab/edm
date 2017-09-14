@@ -4,10 +4,20 @@
 \alias{new_edina}
 \title{Construct an EDINA object}
 \usage{
-new_edina(x, k, burnin, chain_length, timing, sample_OR, model_fit)
+new_edina(coefs, pis, est_q, or_tested, sample_or, k, burnin, chain_length,
+  timing)
 }
 \arguments{
-\item{x}{\code{edina} object.}
+\item{coefs}{Matrix with means of guessing and slipping coefficients.}
+
+\item{pis}{Estimated latent classes}
+
+\item{est_q}{Estimated Q Matrix}
+
+\item{or_tested}{Sample empirical odds ratio compared against simulated
+odds ratio divided by the number of simulations.}
+
+\item{sample_or}{Sample empirical odds ratio based on the trial matrix.}
 
 \item{k}{Number of Attribute Levels as a positive \code{integer}.}
 
@@ -16,10 +26,6 @@ new_edina(x, k, burnin, chain_length, timing, sample_OR, model_fit)
 \item{chain_length}{Length of the MCMC chain}
 
 \item{timing}{Number of Seconds that have elapsed since run time.}
-
-\item{sample_OR}{Odds Ratio based on the trial matrix.}
-
-\item{model_fit}{How well the model fit according to the heuristic}
 }
 \description{
 Constructor function to satisfy the EDINA object definition

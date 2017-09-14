@@ -4,14 +4,13 @@
 \alias{model_heuristic}
 \title{Model Heuristic used for Model Selection}
 \usage{
-model_heuristic(sample_OR, bayesian_OR)
+model_heuristic(object, alpha = 0.05)
 }
 \arguments{
-\item{sample_OR}{A \code{matrix} with dimensions \code{J x J}
-containing the empirical odds ratio.}
+\item{object}{An \code{edina} object}
 
-\item{bayesian_OR}{An \code{array} with dimensions \code{J x J}.
-containing the bayesian odds ratio.}
+\item{alpha}{Defining region to indicate the level of extremeness
+the data must before the model is problematic.}
 }
 \value{
 A \code{double} that is the mean.

@@ -4,27 +4,14 @@
 \alias{new_edina_summary}
 \title{Construct a Summary EDINA object}
 \usage{
-new_edina_summary(m_gs, m_ss, m_pi, k, burnin, chain_length, timing, sample_OR,
-  model_fit)
+new_edina_summary(edina, model_fit, alpha)
 }
 \arguments{
-\item{m_gs}{Mean of the Guessing Values}
+\item{edina}{An \code{edina} object}
 
-\item{m_ss}{Mean of the Slipping Values}
+\item{model_fit}{Computed model heuristic value}
 
-\item{m_pi}{Mean of the PIs}
-
-\item{k}{Number of Attribute Levels as a positive \code{integer}.}
-
-\item{burnin}{Number of Observations to discard on the chain.}
-
-\item{chain_length}{Length of the MCMC chain}
-
-\item{timing}{Number of Seconds that have elapsed since run time.}
-
-\item{sample_OR}{Odds Ratio based on the trial matrix.}
-
-\item{model_fit}{How well the model fit according to the heuristic}
+\item{alpha}{The region used in the computation of the heuristic.}
 }
 \description{
 Constructor function to satisfy the Summary EDINA object definition

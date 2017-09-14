@@ -4,11 +4,14 @@
 \alias{summary.edina}
 \title{Summarizing the EDINA Object}
 \usage{
-\method{summary}{edina}(object, ...)
+\method{summary}{edina}(object, alpha = 0.05, ...)
 }
 \arguments{
 \item{object}{An \code{edina} object}
+
+\item{alpha}{Defining region to indicate the level of extremeness
+the data must before the model is problematic.}
 }
 \description{
-Summarizing the EDINA Object
+Determine whether the \code{edina} object is summarized appropriately.
 }
