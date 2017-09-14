@@ -817,12 +817,12 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Chain length after burn
   unsigned int chain_m_burn = chain_length - burnin;
 
-  // Temporary burn?
-  unsigned int tmburn;
-
   // --- Saving output
   // Q Matrices
-  arma::cube QS(J, K, chain_m_burn);
+
+  arma::mat Q_summed(J, K);
+
+  // arma::cube QS(J, K, chain_m_burn);
 
   // Latent probabilities
   arma::mat PIs(nClass, chain_m_burn);
@@ -832,6 +832,11 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
 
   // Guessing
   arma::mat GS(J, chain_m_burn);
+
+  // Compute the sample Odds Ratio
+  arma::mat Sample_OR = OddsRatio(N, J, Y);
+
+  arma::mat OR_tested_summed(J, J);
 
   // --- Setup
 
@@ -869,9 +874,6 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Classification by Q Matrix
   arma::mat a_by_q = ClassbyQmat(K);
 
-  // Odds Ratio
-  arma::cube ORs(J, J, chain_m_burn);
-
   // --- Start Markov chain
 
   for (unsigned int t = 0; t < chain_length; ++t) {
@@ -894,19 +896,32 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
       ETA = ETAmat(K, J, Q);
 
       if (t > burnin - 1) {
-          tmburn = t - burnin;
+          int tmburn = t - burnin;
           // update parameter value via pointer. save classes and PIs
           SS.col(tmburn) = ss;
           GS.col(tmburn) = gs;
           PIs.col(tmburn) = pis;
-          QS.slice(tmburn) = Q;
+          Q_summed += Q/chain_m_burn;
           arma::mat Yt = sim_Y_dina(N, J, CLASS, ETA, gs, ss);
-          ORs.slice(tmburn) = OddsRatio(N, J, Yt);
+          OR_tested_summed += arma::conv_to<arma::mat>::from(OddsRatio(N, J, Yt) > Sample_OR)/chain_m_burn;
       }
   }
 
+
+  // Take means by row (e.g. 1)
+  arma::mat coefs(J, 2);
+  coefs.col(0) = mean(GS, 1);
+  coefs.col(1) = mean(SS, 1);
+
+  arma::vec PI_summed = mean(PIs, 1);
+
+  // Estimated Q value
+  arma::umat Qest = Q_summed > .5;
+
   // Release
-  return Rcpp::List::create(Rcpp::Named("GS", GS), Rcpp::Named("SS", SS),
-                            Rcpp::Named("PIs", PIs), Rcpp::Named("QS", QS),
-                            Rcpp::Named("ORs", ORs));
+  return Rcpp::List::create(Rcpp::Named("coefficients", coefs),
+                            Rcpp::Named("pis", PI_summed),
+                            Rcpp::Named("est_q", Qest),
+                            Rcpp::Named("or_tested", OR_tested_summed),
+                            Rcpp::Named("sample_or", Sample_OR));
 }
