@@ -46,7 +46,7 @@ message("Running simulation with ecdm v",
 burnin = 20000
 
 # Length of chain
-chain_length = burnin + 10000
+chain_length = 10000
 
 # Number of attributes
 K = 4
@@ -55,9 +55,7 @@ K = 4
 trial_matrix = as.matrix(trial_matrix)
 
 # Launch job
-system.time({
-    out <- edina(trial_matrix, K, burnin, chain_length)
-})
+edina_model = edina(trial_matrix, K, burnin, chain_length)
 ```
 
 ## Evaluate Results of Q and IRT Estimation
