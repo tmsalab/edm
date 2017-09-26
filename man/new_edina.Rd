@@ -4,15 +4,13 @@
 \alias{new_edina}
 \title{Construct an EDINA object}
 \usage{
-new_edina(coefs, pis, avg_q, est_q, or_tested, sample_or, k, burnin,
-  chain_length, timing, dataset_name)
+new_edina(coefs, pis, est_q, or_tested, sample_or, k, burnin, chain_length,
+  timing)
 }
 \arguments{
 \item{coefs}{Matrix with means of guessing and slipping coefficients.}
 
 \item{pis}{Estimated latent classes}
-
-\item{avg_q}{Averaged Q Matrix over Iterations}
 
 \item{est_q}{Estimated Q Matrix}
 
@@ -28,8 +26,6 @@ odds ratio divided by the number of simulations.}
 \item{chain_length}{Length of the MCMC chain}
 
 \item{timing}{Number of Seconds that have elapsed since run time.}
-
-\item{dataset_name}{Name of the data set the estimation procedure ran on.}
 }
 \description{
 Constructor function to satisfy the EDINA object definition

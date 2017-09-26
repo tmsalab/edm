@@ -3,35 +3,32 @@
 #' Constructor function to satisfy the EDINA object definition
 #' @param coefs        Matrix with means of guessing and slipping coefficients.
 #' @param pis          Estimated latent classes
-#' @param avg_q        Averaged Q Matrix over Iterations
 #' @param est_q        Estimated Q Matrix
 #' @param or_tested    Sample empirical odds ratio compared against simulated
 #'                     odds ratio divided by the number of simulations.
 #' @param sample_or    Sample empirical odds ratio based on the trial matrix.
 #' @inheritParams edina
 #' @param timing       Number of Seconds that have elapsed since run time.
-#' @param dataset_name Name of the data set the estimation procedure ran on.
 #' @keywords internal
-new_edina = function(coefs, pis, avg_q, est_q, or_tested, sample_or, k, burnin,
-                     chain_length,  timing, dataset_name) {
+new_edina = function(coefs, pis, est_q, or_tested, sample_or, k, burnin, chain_length,  timing) {
 
-    colnames(coefs) = c("Guessing", "SD(Guessing)", "Slipping", "SD(Slipping)")
-    rownames(coefs) = paste0("Item", seq_len(nrow(coefs)) )
+    item_nums = paste0("Item", seq_len(nrow(coefs)) )
 
-    est_q = format_q_matrix(est_q)
-    avg_q = format_q_matrix(avg_q)
+    colnames(coefs) = c("Guessing", "Slipping")
+    rownames(coefs) = item_nums
+
+    colnames(est_q) = paste0("Trait", seq_len(ncol(est_q)))
+    rownames(est_q) = item_nums
 
     structure(list("coefficients" = coefs,
                    "pi_classes"   = pis,
-                   "avg_q"        = avg_q,
                    "est_q"        = est_q,
                    "or_tested"    = or_tested,
                    "sample_or"    = sample_or,
                    "k"            = k,
                    "burnin"       = burnin,
                    "chain_length" = chain_length,
-                   "timing"       = timing,
-                   "dataset_name" = dataset_name),
+                   "timing"       = timing),
                    class = "edina")
 }
 
@@ -109,18 +106,14 @@ edina = function(data, k = 3, burnin = 10000, chain_length = 20000){
 
     })[1:3]
 
-    dataset_name = deparse(substitute(data))
-
     new_edina(edina_model$coefficients,
               edina_model$pis,
-              edina_model$avg_q,
               edina_model$est_q,
               edina_model$or_tested,
               edina_model$sample_or,
               k,
               burnin, chain_length,
-              time_info,
-              dataset_name
+              time_info
               )
 }
 
@@ -130,11 +123,11 @@ edina = function(data, k = 3, burnin = 10000, chain_length = 20000){
 #' @param x An `edina` object
 #' @export
 print.edina = function(x, ...){
-    cat("The EDINA model for", x$dataset_name, "with K =", x$k,
-        "\ntook", format(convert_seconds_to_time(x$timing[3])), "\n")
+    cat("The EDINA model for K =", x$k,
+        "took", format(convert_seconds_to_time(x$timing[3])), "\n")
 
     cat("\nThe estimated coefficients for the EDINA model are:\n")
-    print(x$coefficients[,c(1,3)])
+    print(x$coefficients)
 
     cat("\nThe estimated Q matrix is:\n")
     print(x$est_q)
@@ -164,15 +157,7 @@ summary.edina = function(object, alpha = 0.05, ...) {
 print.summary_edina = function(x, ...) {
     # Rely upon the specification of the `edina` object in the summary class.
     # NextMethod()
-
-    cat("The EDINA model for", x$dataset_name, "with K =", x$k,
-        "\ntook", format(convert_seconds_to_time(x$timing[3])), "\n")
-
-    cat("\nThe estimated coefficients for the EDINA model are:\n")
-    print(x$coefficients[,c(1,3)])
-
-    cat("\nThe estimated Q matrix is:\n")
-    print(x$est_q)
-
+    cat("The EDINA model for K =", x$k,
+        "took", format(convert_seconds_to_time(x$timing[3])), "\n")
     cat("\nThe model fit under the heuristic alpha =", x$alpha ,"is:", x$model_fit, "\n")
 }

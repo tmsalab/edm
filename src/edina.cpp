@@ -820,7 +820,7 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // --- Saving output
   // Q Matrices
 
-  arma::mat Q_summed = arma::zeros<arma::mat>(J, K);
+  arma::mat Q_summed(J, K);
 
   // arma::cube QS(J, K, chain_m_burn);
 
@@ -836,7 +836,7 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Compute the sample Odds Ratio
   arma::mat Sample_OR = OddsRatio(N, J, Y);
 
-  arma::mat OR_tested_summed = arma::zeros<arma::mat>(J, J);
+  arma::mat OR_tested_summed(J, J);
 
   // --- Setup
 
@@ -909,17 +909,9 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
 
 
   // Take means by row (e.g. 1)
-  arma::mat coefs(J, 4);
-
-  // Guessing Parameter Estimates
+  arma::mat coefs(J, 2);
   coefs.col(0) = mean(GS, 1);
-  // norm_type = 0: Using N-1 in STD denominator
-  coefs.col(1) = stddev(GS, 0, 1);
-
-  // Slipping parameter estimates
-  coefs.col(2) = mean(SS, 1);
-  // norm_type = 0: Using N-1 in STD denominator
-  coefs.col(3) = stddev(SS, 0, 1);
+  coefs.col(1) = mean(SS, 1);
 
   arma::vec PI_summed = mean(PIs, 1);
 
@@ -929,7 +921,6 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Release
   return Rcpp::List::create(Rcpp::Named("coefficients", coefs),
                             Rcpp::Named("pis", PI_summed),
-                            Rcpp::Named("avg_q", Q_summed),
                             Rcpp::Named("est_q", Qest),
                             Rcpp::Named("or_tested", OR_tested_summed),
                             Rcpp::Named("sample_or", Sample_OR));
