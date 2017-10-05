@@ -4,11 +4,15 @@
 \alias{new_edina}
 \title{Construct an EDINA object}
 \usage{
-new_edina(coefs, pis, avg_q, est_q, or_tested, sample_or, k, burnin,
-  chain_length, timing, dataset_name)
+new_edina(coefs, loglike_summed, loglike_pmean, pis, avg_q, est_q, or_tested,
+  sample_or, n, burnin, chain_length, timing, dataset_name)
 }
 \arguments{
 \item{coefs}{Matrix with means of guessing and slipping coefficients.}
+
+\item{loglike_summed}{Log-likelihood over the iterations.}
+
+\item{loglike_pmean}{Log-likelihood at the mean point}
 
 \item{pis}{Estimated latent classes}
 
@@ -21,7 +25,7 @@ odds ratio divided by the number of simulations.}
 
 \item{sample_or}{Sample empirical odds ratio based on the trial matrix.}
 
-\item{k}{Number of Attribute Levels as a positive \code{integer}.}
+\item{n}{Number of Observations}
 
 \item{burnin}{Number of Observations to discard on the chain.}
 

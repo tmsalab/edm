@@ -3,11 +3,15 @@
 #' Automatically select an appropriate $K$ dimension for a $Q$ matrix
 #' under the Exploratory Determinatistic Input, Noise And gate (EDINA) Model.
 #'
-#' @param data         Binary responses to assessements in `matrix`
-#'                     form with dimensions \eqn{N \times J}{N x J}.
-#' @param k            Number of Attribute Levels as a positive `integer`.
-#' @param burnin       Number of Observations to discard on the chain.
-#' @param chain_length Length of the MCMC chain
+#' @param data          Binary responses to assessements in `matrix`
+#'                      form with dimensions \eqn{N \times J}{N x J}.
+#' @param k             Number of Attribute Levels as a positive `integer`.
+#' @param burnin        Number of Observations to discard on the chain.
+#' @param chain_length  Length of the MCMC chain
+#' @param save_results  Output intermediary estimations to R binary.
+#'                      Default: `FALSE`
+#' @param save_filename Name stem to save each `k` iteration to. Relevant if
+#'                      `save_results` is enabled.
 #' @return An `auto_edina` object
 #' @export
 #' @examples
@@ -23,7 +27,7 @@
 #' edina_models = auto_edina(trial_matrix, k = 1:2)
 #' }
 auto_edina = function(data, k = 2:4,
-                      burnin = 20000, chain_length = 10000,
+                      burnin = 10000, chain_length = 20000,
                       save_results = FALSE, save_filename = "edina_model_data") {
 
     stopifnot(is.logical(save_results))
@@ -48,7 +52,8 @@ auto_edina = function(data, k = 2:4,
     # Setup storage for EDINA Object
     outobj = vector('list', num_k)
 
-    heuristics = rep(NA, num_k)
+    criterions = matrix(NA, nrow = num_k, ncol = 4)
+    colnames(criterions) = c("k", "bic", "dic", "heuristic")
 
     for(i in seq_along(k)) {
         k_idx = k[i]
@@ -62,10 +67,9 @@ auto_edina = function(data, k = 2:4,
 
         modeled_value_summary = summary(modeled_value)
 
-        # Launch job
         outobj[[i]] = modeled_value_summary
 
-        heuristics[i] = outobj[[i]][["model_fit"]]
+        criterions[i,] = outobj[[i]][["model_fit"]]
 
         message("Time Elapsed: ",  outobj[[i]][["timing"]][3])
 
@@ -77,24 +81,35 @@ auto_edina = function(data, k = 2:4,
         }
     }
 
-    best_model_id = which.min(heuristics)
     # Output all EDINA objects
     structure(list("edina_models" = outobj,
-                   "best_fit" = c("best_model_id" = best_model_id,
-                                  "best_k" = k[best_model_id],
-                                  "best_model_fit" = heuristics[best_model_id]),
-                   "model_fits" = heuristics,
-                   "k" = k,
+                   "criterions" = criterions,
+                   "k_checked" = k,
                    "j" = num_j
                    )
               , class = "auto_edina" )
 }
 
+#' Extract the Best Model
+#'
+#' Extracts the best model from the `auto_*` search procedure.
+#'
+#' @param x  An `auto_edina` object
+#' @param ic Selection criteria
+#' @return An `edina` object
+#' @export
+best_model = function(x, ic = c("bic", "dic", "heuristic")) {
+ ic = tolower(ic)
+ ic = match.arg(ic)
+
+ x$edina_models[[which.min(x$criterion[,ic])]]
+}
+
 #' @export
 print.auto_edina = function(x, ...){
-    cat("The results of searching Q-matrices between", min(x$k), "and", max(x$k), "...\n")
-    cat("Best Fit Model K =", x$best_fit['best_k'],
-           "with value", round(x$best_fit['best_model_fit'], 2), "\n")
+    cat("The results of searching Q-matrices between", min(x$k_checked),
+        "and", max(x$k_checked), "...\n")
+    print(as.data.frame(x$criterions), row.names = FALSE)
 }
 
 #' Graph the Auto EDINA Object
@@ -103,9 +118,14 @@ print.auto_edina = function(x, ...){
 #' on a graph
 #' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw
 #' @param object An `auto_edina` object.
-#' @param type   Kind of graph to display. Valid types: `"selection"`, `"guessing"`, or `"slipping"`.
+#' @param type   Kind of graph to display. Valid types: `"selection"` or `"evolution"`.
 #' @export "autoplot.auto_edina"
-autoplot.auto_edina = function(object, type = "selection", ...) {
+autoplot.auto_edina = function(object,
+                               type = c("selection", "evolution"),
+                               ...) {
+
+    type = tolower(type)
+    type = match.arg(type)
 
     switch(type,
            "selection" = model_selection_graph(object, ...),
@@ -123,16 +143,29 @@ model_selection_graph = function(x, ...){
 
 #' @export
 model_selection_graph.auto_edina = function(x, ...) {
-    df = data.frame(k = x$k, Heuristic = x$model_fits)
 
-    ggplot(df, aes(x = k, y = Heuristic)) +
+    colnames(x$criterions) = toupper(colnames(x$criterions))
+    ic_type_names = colnames(x$criterions)[-1]
+
+    df = reshape(as.data.frame(x$criterions),
+            varying   = list(ic_type_names),
+            direction = "long",
+            idvar     = "k",
+            v.names   = "ic_value",
+            timevar   = "ic_type",
+            times     = ic_type_names)
+
+    subset_df = do.call(rbind, by(df, df$ic_type, function(x) x[which.min(x$ic_value), ] ))
+
+    ggplot(df, aes(x = K, y = ic_value)) +
+        facet_wrap(~ic_type) +
         geom_line() +
-        geom_point(colour="blue") +
-        geom_point(data = df[x$best_fit['best_model_id'], ],
+        geom_point() +
+        geom_point(data = subset_df,
                    colour="red", size = 3) +
         labs(title = "Auto EDINA Model Selection",
-             subtitle = paste0("Best Fit Model K=", x$best_fit['best_k'],
-                               " with value ", round(x$best_fit['best_model_fit'], 2)  )) +
+             y     = "Information Criterion Score",
+             x     = "K Dimension of Q Matrix") +
         theme_bw()
 }
 
@@ -142,12 +175,12 @@ model_selection_graph.default = function(x, ...){
 }
 
 #' @export
-parameter_evolution_graph = function(x, type = c("guessing", "slipping"), ...) {
+parameter_evolution_graph = function(x, ...) {
     UseMethod("parameter_evolution_graph", x)
 }
 
 #' @export
-parameter_evolution_graph.auto_edina = function(x, type = c("guessing", "slipping"), ...) {
+parameter_evolution_graph.auto_edina = function(x, ...) {
 
     J = x$j
     nmodels = length(x$edina_models)
@@ -155,39 +188,37 @@ parameter_evolution_graph.auto_edina = function(x, type = c("guessing", "slippin
     # Get the length of the string e.g. 200 => 3
     nlen = nchar(J)
 
-
-    if(type == "guessing") {
-        param_name = "g"
-        param_estimates = sapply(x$edina_models, `[[`, 1)[, 1]
-    } else {
-        param_name = "s"
-        param_estimates = sapply(x$edina_models, `[[`, 1)[, 2]
-    }
-
     # Potentially add pis class? unlist(m_pi))
 
+    extract_estimates = do.call(rbind, lapply(edina_models$edina_models, `[[`, 1))
 
-    o = data.frame(k        = rep(seq_len(nmodels), each = J),
-                   method   = rep(paste0(param_name,
-                                         sprintf(paste0("%0", nlen, "d"), seq_len(J))),
-                                  nmodels),
-                   estimate = param_estimates
+    o = data.frame(k          = rep(rep(x$k_checked, each = J), 2),
+                   param_name = c(rep(
+                                    rep(sprintf(paste0("Item %0", nlen, "d"), seq_len(J)),
+                                    nmodels), 2)
+                   ),
+                   param_type = c(rep("Guessing", J*nmodels),
+                                  rep("Slipping", J*nmodels)
+                   ),
+                   estimate   = c(extract_estimates[,"Guessing"], extract_estimates[,"Slipping"])
+
     )
 
-    ggplot(o, aes(x = k, y = estimate)) +
+    ggplot(o, aes(x = k, y = estimate, color = param_type)) +
         geom_point() + geom_line() +
-        geom_vline(xintercept = x$best_fit["best_k"], color = "red") +
-        facet_wrap( ~ method) +
+        facet_wrap(~param_name) +
+        #geom_vline(xintercept = x$best_fit["best_k"], color = "red") +
         labs(
-            title = paste0("Evolution of the ", type, " Parameters"),
+            title = paste0("Evolution of the DINA Parameters"),
             subtitle = "Over Changes in Q Matrix's K Dimension",
-            y = paste0("Parameter Estimate of the ", type, " Parameter"),
-            x = "Q Matrix of a given K Dimension"
+            y = "Parameter Estimate of the DINA Parameters",
+            x = "Q Matrix of a given K Dimension",
+            color = "Parameter Type"
         ) +
         theme_bw()
 }
 
 #' @export
-parameter_evolution_graph.default = function(x, type = c("guessing", "slipping"), ...){
+parameter_evolution_graph.default = function(x, ...){
     stop("Please supply an `auto_edina` object.")
 }

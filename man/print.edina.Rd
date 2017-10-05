@@ -4,7 +4,7 @@
 \alias{print.edina}
 \title{Printing out the EDINA Object}
 \usage{
-\method{print}{edina}(x, ...)
+\method{print}{edina}(x, whole = FALSE, ...)
 }
 \arguments{
 \item{x}{An \code{edina} object}

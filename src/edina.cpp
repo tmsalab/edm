@@ -817,6 +817,9 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Chain length after burn
   unsigned int chain_m_burn = chain_length - burnin;
 
+  // Log-likelihood sum over iteration
+  double loglike_summed = 0;
+
   // --- Saving output
   // Q Matrices
 
@@ -902,13 +905,18 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
           GS.col(tmburn) = gs;
           PIs.col(tmburn) = pis;
           Q_summed += Q/chain_m_burn;
+
+          // Simulate new data
           arma::mat Yt = sim_Y_dina(N, J, CLASS, ETA, gs, ss);
+
+          // Compute the loglikelihood of estimated iteration and add it to
+          // total
+          loglike_summed += lnlik_dina(N, J, nClass, Y, ETA, pis, gs, ss);
+
+          // Sum up the positive OR tests (upper diagonal)
           OR_tested_summed += arma::conv_to<arma::mat>::from(OddsRatio(N, J, Yt) > Sample_OR)/chain_m_burn;
       }
   }
-
-
-  Rcpp::Rcout << "fine until here... " << std::endl;
 
   // Take means by row (e.g. 1)
   arma::mat coefs(J, 4);
@@ -923,18 +931,21 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // norm_type = 0: Using N-1 in STD denominator
   coefs.col(3) = stddev(SS, 0, 1);
 
-
-  Rcpp::Rcout << "filled coefs... " << std::endl;
-
   arma::vec PI_summed = mean(PIs, 1);
 
   // Estimated Q value
-  arma::umat Qest = Q_summed > .5;
+  arma::mat Qest = arma::conv_to<arma::mat>::from(Q_summed > .5);
 
-  Rcpp::Rcout << "summed Q... " << std::endl;
+  // Error here?
+  double loglike_pmean = lnlik_dina(N, J, nClass,
+                                    Y, ETAmat(K, J, Qest),
+                                    PI_summed, coefs.col(0), coefs.col(2));
+
 
   // Release
   return Rcpp::List::create(Rcpp::Named("coefficients", coefs),
+                            Rcpp::Named("loglike_summed", loglike_summed),
+                            Rcpp::Named("loglike_pmean", loglike_pmean),
                             Rcpp::Named("pis", PI_summed),
                             Rcpp::Named("avg_q", Q_summed),
                             Rcpp::Named("est_q", Qest),

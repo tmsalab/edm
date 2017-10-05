@@ -4,7 +4,7 @@
 \alias{print.summary_edina}
 \title{Printing out the Summary EDINA Object}
 \usage{
-\method{print}{summary_edina}(x, ...)
+\method{print}{summary_edina}(x, whole = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{summary_edina} object}

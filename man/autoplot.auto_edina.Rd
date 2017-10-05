@@ -4,12 +4,12 @@
 \alias{autoplot.auto_edina}
 \title{Graph the Auto EDINA Object}
 \usage{
-\method{autoplot}{auto_edina}(object, type = "selection", ...)
+\method{autoplot}{auto_edina}(object, type = c("selection", "evolution"), ...)
 }
 \arguments{
 \item{object}{An \code{auto_edina} object.}
 
-\item{type}{Kind of graph to display. Valid types: \code{"selection"}, \code{"guessing"}, or \code{"slipping"}.}
+\item{type}{Kind of graph to display. Valid types: \code{"selection"} or \code{"evolution"}.}
 }
 \description{
 Presents either the fitting of model heuristics or the evolution of parameters

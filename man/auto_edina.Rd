@@ -4,7 +4,7 @@
 \alias{auto_edina}
 \title{Auto EDINA model selection routine}
 \usage{
-auto_edina(data, k = 2:4, burnin = 20000, chain_length = 10000,
+auto_edina(data, k = 2:4, burnin = 10000, chain_length = 20000,
   save_results = FALSE, save_filename = "edina_model_data")
 }
 \arguments{
@@ -16,6 +16,12 @@ form with dimensions \eqn{N \times J}{N x J}.}
 \item{burnin}{Number of Observations to discard on the chain.}
 
 \item{chain_length}{Length of the MCMC chain}
+
+\item{save_results}{Output intermediary estimations to R binary.
+Default: \code{FALSE}}
+
+\item{save_filename}{Name stem to save each \code{k} iteration to. Relevant if
+\code{save_results} is enabled.}
 }
 \value{
 An \code{auto_edina} object
