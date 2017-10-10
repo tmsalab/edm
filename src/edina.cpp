@@ -797,8 +797,8 @@ arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat &Yt) {
 //' - **ORs**: Odds Ratio
 // [[Rcpp::export]]
 Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
-                        unsigned int burnin = 1000,
-                        unsigned int chain_length = 10000) {
+                         unsigned int burnin = 1000,
+                         unsigned int chain_length = 10000) {
 
   // --- Initialize configuration
 
@@ -814,8 +814,9 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // Number of Classes
   unsigned int nClass = pow(2, K);
 
-  // Chain length after burn
-  unsigned int chain_m_burn = chain_length - burnin;
+  // Total Chain length with burn
+  // Prevents overflow
+  unsigned int iter_total = chain_length + burnin;
 
   // Log-likelihood sum over iteration
   double loglike_summed = 0;
@@ -828,13 +829,13 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
   // arma::cube QS(J, K, chain_m_burn);
 
   // Latent probabilities
-  arma::mat PIs(nClass, chain_m_burn);
+  arma::mat PIs(nClass, chain_length);
 
   // Slipping
-  arma::mat SS(J, chain_m_burn);
+  arma::mat SS(J, chain_length);
 
   // Guessing
-  arma::mat GS(J, chain_m_burn);
+  arma::mat GS(J, chain_length);
 
   // Compute the sample Odds Ratio
   arma::mat Sample_OR = OddsRatio(N, J, Y);
@@ -879,7 +880,7 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
 
   // --- Start Markov chain
 
-  for (unsigned int t = 0; t < chain_length; ++t) {
+  for (unsigned int t = 0; t < iter_total; ++t) {
 
       parm_update_nomiss(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis);
 
@@ -904,7 +905,7 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
           SS.col(tmburn) = ss;
           GS.col(tmburn) = gs;
           PIs.col(tmburn) = pis;
-          Q_summed += Q/chain_m_burn;
+          Q_summed += Q/chain_length;
 
           // Simulate new data
           arma::mat Yt = sim_Y_dina(N, J, CLASS, ETA, gs, ss);
@@ -914,7 +915,7 @@ Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
           loglike_summed += lnlik_dina(N, J, nClass, Y, ETA, pis, gs, ss);
 
           // Sum up the positive OR tests (upper diagonal)
-          OR_tested_summed += arma::conv_to<arma::mat>::from(OddsRatio(N, J, Yt) > Sample_OR)/chain_m_burn;
+          OR_tested_summed += arma::conv_to<arma::mat>::from(OddsRatio(N, J, Yt) > Sample_OR)/chain_length;
       }
   }
 
