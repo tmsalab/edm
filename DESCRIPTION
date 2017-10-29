@@ -11,7 +11,7 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp, RcppArmadillo, rgen
 Imports: Rcpp, balamuta, ggplot2 (>= 2.2.1)
-Remotes: coatless/rgen, coatless/balamuta
+Remotes: coatless/balamuta
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests: knitr,
