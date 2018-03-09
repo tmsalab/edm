@@ -98,7 +98,7 @@ auto_edina = function(data, k = 2:4,
 #' @param ic Selection criteria
 #' @return An `edina` object
 #' @export
-best_model = function(x, ic = c("bic", "dic", "heuristic")) {
+best_model = function(x, ic = c("heuristic", "bic", "dic")) {
  ic = tolower(ic)
  ic = match.arg(ic)
 
@@ -116,7 +116,7 @@ print.auto_edina = function(x, ...){
 #'
 #' Presents either the fitting of model heuristics or the evolution of parameters
 #' on a graph
-#' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw
+#' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw theme element_text
 #' @param object An `auto_edina` object.
 #' @param type   Kind of graph to display. Valid types: `"selection"` or `"evolution"`.
 #' @export "autoplot.auto_edina"
@@ -215,7 +215,8 @@ parameter_evolution_graph.auto_edina = function(x, ...) {
             x = "Q Matrix of a given K Dimension",
             color = "Parameter Type"
         ) +
-        theme_bw()
+        theme_bw() +
+        theme(axis.text.x = element_text(hjust = 1, angle = 75))
 }
 
 #' @export

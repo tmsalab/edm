@@ -4,7 +4,7 @@
 \alias{best_model}
 \title{Extract the Best Model}
 \usage{
-best_model(x, ic = c("bic", "dic", "heuristic"))
+best_model(x, ic = c("heuristic", "bic", "dic"))
 }
 \arguments{
 \item{x}{An \code{auto_edina} object}

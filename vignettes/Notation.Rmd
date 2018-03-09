@@ -53,3 +53,13 @@ $$\eta_{ij}=\mathcal {I} \left( \alpha_{ik}\geq q_{jk} \text{ for all $k$}\right
   when at least one attribute is lacking, e.g. $g_j=P\left(Y_{ij}=1|\eta_{ij}=0\right)$
 - $s_j$ represents slipping or the probability of an incorrect response for
   individuals with all of the required attributes, e.g. $s_j=P\left(Y_{ij}=0|\eta_{ij}=1\right)$.
+  
+# Model Selection
+
+### `DIC`
+
+$DIC = -2\left({\log p\left( {\mathbf{y}| \mathbf{\hat{\theta}} } \right)  - 2\left( {\log p\left( {\mathbf{y}| \mathbf{\hat{\theta}} } \right) - \frac{1}{N}\sum\limits_{n = 1}^N {\log p\left( {\mathbf{y}|{\mathbf{\theta} _s}} \right)} } \right)} \right)$
+
+### `BIC`
+
+### Model Heuristic

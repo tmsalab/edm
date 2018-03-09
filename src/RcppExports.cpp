@@ -6,70 +6,6 @@
 
 using namespace Rcpp;
 
-// ETAmat
-arma::mat ETAmat(unsigned int K, unsigned int J, const arma::mat& Q);
-RcppExport SEXP _ecdm_ETAmat(SEXP KSEXP, SEXP JSEXP, SEXP QSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
-    rcpp_result_gen = Rcpp::wrap(ETAmat(K, J, Q));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ETAmat_nok
-arma::cube ETAmat_nok(unsigned int K);
-RcppExport SEXP _ecdm_ETAmat_nok(SEXP KSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    rcpp_result_gen = Rcpp::wrap(ETAmat_nok(K));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ETAmat_nok_one_m_ac
-arma::cube ETAmat_nok_one_m_ac(unsigned int K);
-RcppExport SEXP _ecdm_ETAmat_nok_one_m_ac(SEXP KSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    rcpp_result_gen = Rcpp::wrap(ETAmat_nok_one_m_ac(K));
-    return rcpp_result_gen;
-END_RCPP
-}
-// abcount_old
-arma::vec abcount_old(unsigned int K, unsigned int k, const arma::vec& qj, const arma::vec& Yj, const arma::mat& alpha);
-RcppExport SEXP _ecdm_abcount_old(SEXP KSEXP, SEXP kSEXP, SEXP qjSEXP, SEXP YjSEXP, SEXP alphaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type qj(qjSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type Yj(YjSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(abcount_old(K, k, qj, Yj, alpha));
-    return rcpp_result_gen;
-END_RCPP
-}
-// abcounts
-arma::vec abcounts(unsigned int N, const arma::vec& Yj, const arma::vec& CLASS, const arma::vec& ETAtnokimes1ma);
-RcppExport SEXP _ecdm_abcounts(SEXP NSEXP, SEXP YjSEXP, SEXP CLASSSEXP, SEXP ETAtnokimes1maSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type Yj(YjSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ETAtnokimes1ma(ETAtnokimes1maSEXP);
-    rcpp_result_gen = Rcpp::wrap(abcounts(N, Yj, CLASS, ETAtnokimes1ma));
-    return rcpp_result_gen;
-END_RCPP
-}
 // ClassbyQmat
 arma::mat ClassbyQmat(unsigned int K);
 RcppExport SEXP _ecdm_ClassbyQmat(SEXP KSEXP) {
@@ -78,166 +14,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
     rcpp_result_gen = Rcpp::wrap(ClassbyQmat(K));
-    return rcpp_result_gen;
-END_RCPP
-}
-// llj
-double llj(unsigned int N, const arma::vec& Yj, const arma::vec& ETAj, const arma::vec& CLASS, double gj, double sj);
-RcppExport SEXP _ecdm_llj(SEXP NSEXP, SEXP YjSEXP, SEXP ETAjSEXP, SEXP CLASSSEXP, SEXP gjSEXP, SEXP sjSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type Yj(YjSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ETAj(ETAjSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< double >::type gj(gjSEXP);
-    Rcpp::traits::input_parameter< double >::type sj(sjSEXP);
-    rcpp_result_gen = Rcpp::wrap(llj(N, Yj, ETAj, CLASS, gj, sj));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lnlik_dina_condclass
-double lnlik_dina_condclass(unsigned int N, unsigned int J, const arma::mat& Y, const arma::mat& ETA, const arma::vec& CLASS, const arma::vec& pis, const arma::vec& gs, const arma::vec& ss);
-RcppExport SEXP _ecdm_lnlik_dina_condclass(SEXP NSEXP, SEXP JSEXP, SEXP YSEXP, SEXP ETASEXP, SEXP CLASSSEXP, SEXP pisSEXP, SEXP gsSEXP, SEXP ssSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type ETA(ETASEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type pis(pisSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    rcpp_result_gen = Rcpp::wrap(lnlik_dina_condclass(N, J, Y, ETA, CLASS, pis, gs, ss));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pYjeq1
-double pYjeq1(const arma::vec& ETAbyQ, const arma::vec& pis, double nClass, double sj, double gj);
-RcppExport SEXP _ecdm_pYjeq1(SEXP ETAbyQSEXP, SEXP pisSEXP, SEXP nClassSEXP, SEXP sjSEXP, SEXP gjSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type ETAbyQ(ETAbyQSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type pis(pisSEXP);
-    Rcpp::traits::input_parameter< double >::type nClass(nClassSEXP);
-    Rcpp::traits::input_parameter< double >::type sj(sjSEXP);
-    Rcpp::traits::input_parameter< double >::type gj(gjSEXP);
-    rcpp_result_gen = Rcpp::wrap(pYjeq1(ETAbyQ, pis, nClass, sj, gj));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pYit
-double pYit(const arma::vec& ETA_it, const arma::vec& Y_it, const arma::vec& ss, const arma::vec& gs);
-RcppExport SEXP _ecdm_pYit(SEXP ETA_itSEXP, SEXP Y_itSEXP, SEXP ssSEXP, SEXP gsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type ETA_it(ETA_itSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type Y_it(Y_itSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    rcpp_result_gen = Rcpp::wrap(pYit(ETA_it, Y_it, ss, gs));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lnlik_dina
-double lnlik_dina(unsigned int N, unsigned int J, unsigned int nClass, const arma::mat& Y, const arma::mat& ETA, const arma::vec& pis, const arma::vec& gs, const arma::vec& ss);
-RcppExport SEXP _ecdm_lnlik_dina(SEXP NSEXP, SEXP JSEXP, SEXP nClassSEXP, SEXP YSEXP, SEXP ETASEXP, SEXP pisSEXP, SEXP gsSEXP, SEXP ssSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type nClass(nClassSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type ETA(ETASEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type pis(pisSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    rcpp_result_gen = Rcpp::wrap(lnlik_dina(N, J, nClass, Y, ETA, pis, gs, ss));
-    return rcpp_result_gen;
-END_RCPP
-}
-// random_Q
-arma::mat random_Q(unsigned int J, unsigned int K);
-RcppExport SEXP _ecdm_random_Q(SEXP JSEXP, SEXP KSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    rcpp_result_gen = Rcpp::wrap(random_Q(J, K));
-    return rcpp_result_gen;
-END_RCPP
-}
-// identify_check
-double identify_check(const arma::mat Q);
-RcppExport SEXP _ecdm_identify_check(SEXP QSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat >::type Q(QSEXP);
-    rcpp_result_gen = Rcpp::wrap(identify_check(Q));
-    return rcpp_result_gen;
-END_RCPP
-}
-// updateQ_DINA
-void updateQ_DINA(arma::mat& Q, const arma::mat& Y, const arma::mat& alpha, const arma::vec& ss, const arma::vec& gs);
-RcppExport SEXP _ecdm_updateQ_DINA(SEXP QSEXP, SEXP YSEXP, SEXP alphaSEXP, SEXP ssSEXP, SEXP gsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type Q(QSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    updateQ_DINA(Q, Y, alpha, ss, gs);
-    return R_NilValue;
-END_RCPP
-}
-// updateQ_DINA_new
-void updateQ_DINA_new(unsigned int N, unsigned int K, unsigned int J, arma::mat& Q, const arma::mat& Y, const arma::vec& CLASS, const arma::vec& ss, const arma::vec& gs, const arma::vec& vj, const arma::cube& ETAmatnok, const arma::mat& a_by_q, const arma::vec& vv);
-RcppExport SEXP _ecdm_updateQ_DINA_new(SEXP NSEXP, SEXP KSEXP, SEXP JSEXP, SEXP QSEXP, SEXP YSEXP, SEXP CLASSSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP vjSEXP, SEXP ETAmatnokSEXP, SEXP a_by_qSEXP, SEXP vvSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type Q(QSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type vj(vjSEXP);
-    Rcpp::traits::input_parameter< const arma::cube& >::type ETAmatnok(ETAmatnokSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type a_by_q(a_by_qSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type vv(vvSEXP);
-    updateQ_DINA_new(N, K, J, Q, Y, CLASS, ss, gs, vj, ETAmatnok, a_by_q, vv);
-    return R_NilValue;
-END_RCPP
-}
-// cond_threshold
-double cond_threshold(unsigned int k, unsigned int j, unsigned int n_noks, unsigned int N, unsigned int K, const arma::vec& Yj, const arma::vec& CLASS, const arma::mat& Q, double gj, double sj, const arma::cube& ETAmatnok);
-RcppExport SEXP _ecdm_cond_threshold(SEXP kSEXP, SEXP jSEXP, SEXP n_noksSEXP, SEXP NSEXP, SEXP KSEXP, SEXP YjSEXP, SEXP CLASSSEXP, SEXP QSEXP, SEXP gjSEXP, SEXP sjSEXP, SEXP ETAmatnokSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type j(jSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type n_noks(n_noksSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type Yj(YjSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
-    Rcpp::traits::input_parameter< double >::type gj(gjSEXP);
-    Rcpp::traits::input_parameter< double >::type sj(sjSEXP);
-    Rcpp::traits::input_parameter< const arma::cube& >::type ETAmatnok(ETAmatnokSEXP);
-    rcpp_result_gen = Rcpp::wrap(cond_threshold(k, j, n_noks, N, K, Yj, CLASS, Q, gj, sj, ETAmatnok));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -257,38 +33,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// parm_update_nomiss
-void parm_update_nomiss(unsigned int N, unsigned int J, unsigned int K, unsigned int nClass, const arma::mat& Y, const arma::mat& ETA, arma::vec& gs, arma::vec& ss, arma::vec& CLASS, arma::vec& pis);
-RcppExport SEXP _ecdm_parm_update_nomiss(SEXP NSEXP, SEXP JSEXP, SEXP KSEXP, SEXP nClassSEXP, SEXP YSEXP, SEXP ETASEXP, SEXP gsSEXP, SEXP ssSEXP, SEXP CLASSSEXP, SEXP pisSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type nClass(nClassSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type ETA(ETASEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type gs(gsSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type ss(ssSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type CLASS(CLASSSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type pis(pisSEXP);
-    parm_update_nomiss(N, J, K, nClass, Y, ETA, gs, ss, CLASS, pis);
-    return R_NilValue;
-END_RCPP
-}
-// OddsRatio
-arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat& Yt);
-RcppExport SEXP _ecdm_OddsRatio(SEXP NSEXP, SEXP JSEXP, SEXP YtSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Yt(YtSEXP);
-    rcpp_result_gen = Rcpp::wrap(OddsRatio(N, J, Yt));
-    return rcpp_result_gen;
-END_RCPP
-}
 // edina_Gibbs_Q
 Rcpp::List edina_Gibbs_Q(const arma::mat& Y, unsigned int K, unsigned int burnin, unsigned int chain_length);
 RcppExport SEXP _ecdm_edina_Gibbs_Q(SEXP YSEXP, SEXP KSEXP, SEXP burninSEXP, SEXP chain_lengthSEXP) {
@@ -300,6 +44,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< unsigned int >::type burnin(burninSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type chain_length(chain_lengthSEXP);
     rcpp_result_gen = Rcpp::wrap(edina_Gibbs_Q(Y, K, burnin, chain_length));
+    return rcpp_result_gen;
+END_RCPP
+}
+// errum_Gibbs_Q
+Rcpp::List errum_Gibbs_Q(const arma::mat& Y, unsigned int K, unsigned int burnin, unsigned int chain_length);
+RcppExport SEXP _ecdm_errum_Gibbs_Q(SEXP YSEXP, SEXP KSEXP, SEXP burninSEXP, SEXP chain_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type chain_length(chain_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(errum_Gibbs_Q(Y, K, burnin, chain_length));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -395,6 +153,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// OddsRatio
+arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat& Yt);
+RcppExport SEXP _ecdm_OddsRatio(SEXP NSEXP, SEXP JSEXP, SEXP YtSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Yt(YtSEXP);
+    rcpp_result_gen = Rcpp::wrap(OddsRatio(N, J, Yt));
+    return rcpp_result_gen;
+END_RCPP
+}
 // bijectionvector
 arma::vec bijectionvector(unsigned int K);
 RcppExport SEXP _ecdm_bijectionvector(SEXP KSEXP) {
@@ -420,31 +191,16 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ecdm_ETAmat", (DL_FUNC) &_ecdm_ETAmat, 3},
-    {"_ecdm_ETAmat_nok", (DL_FUNC) &_ecdm_ETAmat_nok, 1},
-    {"_ecdm_ETAmat_nok_one_m_ac", (DL_FUNC) &_ecdm_ETAmat_nok_one_m_ac, 1},
-    {"_ecdm_abcount_old", (DL_FUNC) &_ecdm_abcount_old, 5},
-    {"_ecdm_abcounts", (DL_FUNC) &_ecdm_abcounts, 4},
     {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
-    {"_ecdm_llj", (DL_FUNC) &_ecdm_llj, 6},
-    {"_ecdm_lnlik_dina_condclass", (DL_FUNC) &_ecdm_lnlik_dina_condclass, 8},
-    {"_ecdm_pYjeq1", (DL_FUNC) &_ecdm_pYjeq1, 5},
-    {"_ecdm_pYit", (DL_FUNC) &_ecdm_pYit, 4},
-    {"_ecdm_lnlik_dina", (DL_FUNC) &_ecdm_lnlik_dina, 8},
-    {"_ecdm_random_Q", (DL_FUNC) &_ecdm_random_Q, 2},
-    {"_ecdm_identify_check", (DL_FUNC) &_ecdm_identify_check, 1},
-    {"_ecdm_updateQ_DINA", (DL_FUNC) &_ecdm_updateQ_DINA, 5},
-    {"_ecdm_updateQ_DINA_new", (DL_FUNC) &_ecdm_updateQ_DINA_new, 12},
-    {"_ecdm_cond_threshold", (DL_FUNC) &_ecdm_cond_threshold, 11},
     {"_ecdm_sim_Y_dina", (DL_FUNC) &_ecdm_sim_Y_dina, 6},
-    {"_ecdm_parm_update_nomiss", (DL_FUNC) &_ecdm_parm_update_nomiss, 10},
-    {"_ecdm_OddsRatio", (DL_FUNC) &_ecdm_OddsRatio, 3},
     {"_ecdm_edina_Gibbs_Q", (DL_FUNC) &_ecdm_edina_Gibbs_Q, 4},
+    {"_ecdm_errum_Gibbs_Q", (DL_FUNC) &_ecdm_errum_Gibbs_Q, 4},
     {"_ecdm_simrRUM", (DL_FUNC) &_ecdm_simrRUM, 7},
     {"_ecdm_parm_update", (DL_FUNC) &_ecdm_parm_update, 13},
     {"_ecdm_rRUM_Gibbs", (DL_FUNC) &_ecdm_rRUM_Gibbs, 3},
     {"_ecdm_parm_update_MH", (DL_FUNC) &_ecdm_parm_update_MH, 14},
     {"_ecdm_rRUM_MH", (DL_FUNC) &_ecdm_rRUM_MH, 5},
+    {"_ecdm_OddsRatio", (DL_FUNC) &_ecdm_OddsRatio, 3},
     {"_ecdm_bijectionvector", (DL_FUNC) &_ecdm_bijectionvector, 1},
     {"_ecdm_inv_bijectionvector", (DL_FUNC) &_ecdm_inv_bijectionvector, 2},
     {NULL, NULL, 0}

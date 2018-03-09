@@ -16,6 +16,5 @@ item with dimensions \eqn{J \times K}{J x K}.}
 \item{chain_length}{Number of iterations}
 }
 \description{
-Performs an estimation of the rRUM model using the Metropolis-Hastings
-derivation.
+Performs an estimation of the rRUM model using Gibbs sampling.
 }

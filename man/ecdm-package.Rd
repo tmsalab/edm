@@ -9,13 +9,18 @@
 Perform estimations of cognitive diagnostic models (CDMs) without
 supplying a Q matrix.
 }
+\details{
+The \code{ecdm} package re-exports several functions from other estimation
+packages developed by \code{ecdmcore}. As a result, the \code{ecdm} package is
+partially a virtual package.
+}
 \author{
 \strong{Maintainer}: James Balamuta \email{balamut2@illinois.edu} [copyright holder]
 
 Authors:
 \itemize{
   \item Steven Culpepper \email{sculpepp@illinois.edu} [copyright holder]
+  \item Jeffrey Douglas \email{jeffdoug@illinois.edu} [copyright holder]
 }
 
 }
-\keyword{internal}

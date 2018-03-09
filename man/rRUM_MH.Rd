@@ -23,7 +23,8 @@ item with dimensions \eqn{J \times K}{J x K}.}
 A \code{list} containing:
 \itemize{
 \item \strong{PISTAR}: Estimates of the latent probability class.
-\item \strong{RSTAR}: Estimates of the penalty parameter for missing a required \eqn{k}.
+\item \strong{RSTAR}: Estimates of the penalty parameter for missing a required
+\eqn{k}.
 \item \strong{PIs}: Latent Class Probabilities with length \eqn{K}
 \item \strong{ACCEPTREJECT_PISTAR}: Vector of 1's or 0's indicating whether the
 values for pistar was accepted or rejected.

@@ -4,10 +4,13 @@
 \alias{print.edina}
 \title{Printing out the EDINA Object}
 \usage{
-\method{print}{edina}(x, whole = FALSE, ...)
+\method{print}{edina}(x, binary_q = FALSE, ...)
 }
 \arguments{
 \item{x}{An \code{edina} object}
+
+\item{binary_q}{Boolean to indicate whether the \emph{Q} matrix is shown in
+dichotomous form or in an estimated form.}
 }
 \description{
 Custom print method for computing the EDINA.

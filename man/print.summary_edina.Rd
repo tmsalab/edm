@@ -4,10 +4,13 @@
 \alias{print.summary_edina}
 \title{Printing out the Summary EDINA Object}
 \usage{
-\method{print}{summary_edina}(x, whole = FALSE, ...)
+\method{print}{summary_edina}(x, binary_q = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{summary_edina} object}
+
+\item{binary_q}{Boolean to indicate whether the \emph{Q} matrix is shown in
+dichotomous form or in an estimated form.}
 }
 \description{
 Printing out the Summary EDINA Object
