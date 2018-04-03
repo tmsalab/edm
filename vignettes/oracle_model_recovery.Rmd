@@ -1,0 +1,139 @@
+---
+title: "Oracle Model Recovery"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Oracle Model Recovery}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Overview
+
+Within this vignette, we will show how to estimate and recover the oracle 
+model.
+
+# EDINA
+
+The following model recovery routine is based on the de La Torre (2009).
+
+## Load Package
+
+```{r}
+library("ecdm")
+
+message("Running simulation with ecdm v",
+        as.character(utils::packageVersion("ecdm")),
+        sep = "")
+```
+
+
+## Setup Simulation 
+
+```{r}
+# Assign simulation parameters
+N = 200        # Sample Size
+K = 5          # Number of Attributes
+J = 30         # Number of Items
+delta0 = rep(1, 2 ^ K)
+
+# Creating Q matrix
+Q = matrix(rep(diag(K), 2), 2 * K, K, byrow = TRUE)
+for (mm in 2:K) {
+  temp = combn(seq_len(K), m = mm)
+  tempmat = matrix(0, ncol(temp), K)
+  for (j in seq_len(ncol(temp)))
+    tempmat[j, temp[, j]] = 1
+  Q = rbind(Q, tempmat)
+}
+Q = Q[seq_len(J), ]
+
+# Setting item parameters and generating attribute profiles
+ss = gs = rep(.2, J)
+PIs = rep(1 / (2 ^ K), 2 ^ K)
+CLs = c((1:(2 ^ K)) %*% rmultinom(n = N, size = 1, prob = PIs))
+
+# Defining matrix of possible attribute profiles
+As = rep(0, K)
+for (j in seq_len(K)) {
+  temp = combn(1:K, m = j)
+  tempmat = matrix(0, ncol(temp), K)
+  for (j in seq_len(ncol(temp)))
+    tempmat[j, temp[, j]] = 1
+  As = rbind(As, tempmat)
+}
+As = as.matrix(As)
+
+# Sample true attribute profiles
+Alphas = As[CLs, ]
+```
+
+## Simulate the Data
+
+```{r}
+# Simulate data under DINA model
+Y_sim = sim_dina(Alphas, Q, ss, gs)
+```
+
+## Estimation Routine
+
+```{r}
+# Estimating Q
+burnin = 20000
+chain_length = 10000
+system.time({
+  recovery_edina_model = edina(Y_sim, K, burnin, chain_length)
+})
+```
+
+## View Q Matrix
+
+```{r}
+est_q_matrix = extract_q_matrix(recovery_edina_model)
+est_binary_q_matrix = extract_q_matrix(recovery_edina_model, binary_q = TRUE)
+
+Q
+est_binary_q_matrix
+```
+
+
+# ErRUM
+
+## Setup Simulation Parameters
+
+```{r}
+set.seed(217)
+# Define Simulation Parameters
+N = 1000     # number of individuals
+J = 6        # number of items
+K = 2        # number of attributes
+
+As = simcdm::pi_reference(K) # matrix where rows represent attribute classes
+
+pis = c(.1, .2, .3, .4) # pi
+Q = rbind(c(1,0),
+           c(0,1),
+           c(1,0),
+           c(0,1),
+           c(1,1),
+           c(1,1))
+pistar = rep(.9, J)    # pistar
+rstar = .5 * Q          # rstar
+alpha = As[sample(1:(K ^ 2), N, replace = TRUE, pis),]
+```
+
+## Simulate ErRUM data under a model
+
+```{r}
+# Simulate data
+Y = sim_rrum(Q, rstar, pistar, alpha)
+```
+
+## Estimate the simulated ErRUM model
+
+```{r, eval = FALSE}
+# Recover simulation parameters with Gibbs Sampler
+ecdm:::errum_Gibbs_Q()
+ecdm:::errum_Gibbs_Q(Y, K)
+```
+
