@@ -81,6 +81,8 @@ Specifically, the `ecdm` package imports:
   - `shinyecdm`: User Interface for Modeling with Exploratory Models
   - `simcdm`: Simulate responses underneath a DINA or rRUM model.
   - `rgen`: Simulate Multivariate Probability Distributions
+  - `ecdmdata`: Data package containing psychometric modeling data used
+    in multiple packages.
 
 # License
 
