@@ -1,8 +1,3 @@
-#' @importFrom ggplot2 autoplot
-#' @export autoplot
-autoplot <- autoplot
-
-
 #' Convert the Number of Seconds to Time
 #'
 #' @param seconds A vector containing the amount of time in seconds.
