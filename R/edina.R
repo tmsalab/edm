@@ -123,6 +123,7 @@ BIC.edina = function(object, ...) {
 #' @param k            Number of Attribute Levels as a positive `integer`.
 #' @param burnin       Number of Observations to discard on the chain.
 #' @param chain_length Length of the MCMC chain
+#'
 #' @return An `edina` object that contains:
 #'
 #' @export
@@ -180,6 +181,8 @@ edina = function(data, k = 3, burnin = 10000, chain_length = 20000){
 #' @param x        An `edina` object
 #' @param binary_q Boolean to indicate whether the _Q_ matrix is shown in
 #'                 dichotomous form or in an estimated form.
+#' @param ...      Additional methods passed onto the `print.matrix` method.
+#'
 #' @export
 print.edina = function(x, binary_q = FALSE, ...){
     cat("The EDINA model for", x$dataset_name, "with K =", x$k,"took\n",
@@ -187,16 +190,19 @@ print.edina = function(x, binary_q = FALSE, ...){
 
     est_mat = round(cbind(extract_q_matrix(x, binary_q = binary_q), x$coefficients), 4)
 
-    print(est_mat)
+    print(est_mat, ...)
     invisible(est_mat)
 }
 
 #' Summarizing the EDINA Object
 #'
 #' Determine whether the `edina` object is summarized appropriately.
+#'
 #' @param object An `edina` object
 #' @param alpha  Defining region to indicate the level of extremeness
 #'               the data must before the model is problematic.
+#' @param ...    Not used.
+#'
 #' @export
 summary.edina = function(object, alpha = 0.05, ...) {
 
@@ -215,9 +221,13 @@ summary.edina = function(object, alpha = 0.05, ...) {
 
 #' Printing out the Summary EDINA Object
 #'
+#' Custom print method for displaying the EDINA model summary information.
+#'
 #' @param x        A `summary_edina` object
 #' @param binary_q Boolean to indicate whether the _Q_ matrix is shown in
 #'                 dichotomous form or in an estimated form.
+#' @param ...      Past onto the `print.data.frame` method.
+#'
 #' @export
 print.summary_edina = function(x, binary_q = FALSE,  ...) {
     # Rely upon the specification of the `edina` object in the summary class.
