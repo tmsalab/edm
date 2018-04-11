@@ -276,6 +276,7 @@ sim_Y_dina <- function(N, J, CLASS, ETA, gs, ss) {
 #' - **PIs**: Latent Class Probabilities with length \eqn{K}
 #' - **QS**: Q matrix
 #' - **ORs**: Odds Ratio
+#' @noRd
 edina_Gibbs_Q <- function(Y, K, burnin = 1000L, chain_length = 10000L) {
     .Call(`_ecdm_edina_Gibbs_Q`, Y, K, burnin, chain_length)
 }

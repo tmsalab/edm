@@ -779,6 +779,7 @@ void parm_update_nomiss(unsigned int N, unsigned int J, unsigned int K,
 //' - **PIs**: Latent Class Probabilities with length \eqn{K}
 //' - **QS**: Q matrix
 //' - **ORs**: Odds Ratio
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::List edina_Gibbs_Q(const arma::mat &Y, unsigned int K,
                          unsigned int burnin = 1000,
