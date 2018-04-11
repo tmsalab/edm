@@ -144,6 +144,8 @@ model_selection_graph = function(x, ...){
 #' @export
 model_selection_graph.auto_edina = function(x, ...) {
 
+    K = ic_value = NULL
+
     colnames(x$criterions) = toupper(colnames(x$criterions))
     ic_type_names = colnames(x$criterions)[-1]
 
@@ -182,6 +184,9 @@ parameter_evolution_graph = function(x, ...) {
 #' @export
 parameter_evolution_graph.auto_edina = function(x, ...) {
 
+    # Globals to quiet CRAN check
+    K = ic_value = estimate = param_type = NULL
+
     J = x$j
     nmodels = length(x$edina_models)
 
@@ -192,7 +197,7 @@ parameter_evolution_graph.auto_edina = function(x, ...) {
 
     extract_estimates = do.call(rbind, lapply(x$edina_models, `[[`, 1))
 
-    o = data.frame(k          = rep(rep(x$k_checked, each = J), 2),
+    o = data.frame(K          = rep(rep(x$k_checked, each = J), 2),
                    param_name = c(rep(
                                     rep(sprintf(paste0("Item %0", nlen, "d"), seq_len(J)),
                                     nmodels), 2)
@@ -204,7 +209,7 @@ parameter_evolution_graph.auto_edina = function(x, ...) {
 
     )
 
-    ggplot(o, aes(x = k, y = estimate, color = param_type)) +
+    ggplot(o, aes(x = K, y = estimate, color = param_type)) +
         geom_point() + geom_line() +
         facet_wrap(~param_name) +
         #geom_vline(xintercept = x$best_fit["best_k"], color = "red") +
