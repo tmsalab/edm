@@ -160,7 +160,7 @@ model_selection_graph.auto_edina = function(x, ...) {
     subset_df = do.call(rbind, by(df, df$ic_type, function(x) x[which.min(x$ic_value), ] ))
 
     ggplot(df, aes(x = K, y = ic_value)) +
-        facet_wrap(~ic_type) +
+        facet_wrap(~ic_type, scales = "free_y") +
         geom_line() +
         geom_point() +
         geom_point(data = subset_df,
