@@ -22,7 +22,7 @@ devtools::install_github("tmsalab/tmsadata", auth_token = "secret")
 
 ## Load the packages
 
-```{r}
+```r
 # Load required packages
 library("ecdm")
 library("tmsadata")
@@ -33,7 +33,7 @@ data("trial_matrix", package="tmsadata")
 
 ## Perform Estimation Routine
 
-```{r spatial, cache = TRUE}
+```r
 # Version of package used
 message("Running simulation with ecdm v",
         as.character(utils::packageVersion("ecdm")),
@@ -60,7 +60,7 @@ edina_model = edina(trial_matrix, K, burnin, chain_length)
 
 ## Evaluate Results of Q and IRT Estimation
 
-```{r results_analyzenoq, cache = T}
+```r
 #### Parameters
 
 ## Guessing and Slipping

@@ -19,7 +19,7 @@ The following model recovery routine is based on the de La Torre (2009).
 
 ## Load Package
 
-```{r}
+```r
 library("ecdm")
 
 message("Running simulation with ecdm v",
@@ -30,7 +30,7 @@ message("Running simulation with ecdm v",
 
 ## Setup Simulation 
 
-```{r}
+```r
 # Assign simulation parameters
 N = 200        # Sample Size
 K = 5          # Number of Attributes
@@ -70,14 +70,14 @@ Alphas = As[CLs, ]
 
 ## Simulate the Data
 
-```{r}
+```r
 # Simulate data under DINA model
 Y_sim = sim_dina(Alphas, Q, ss, gs)
 ```
 
 ## Estimation Routine
 
-```{r}
+```r
 # Estimating Q
 burnin = 20000
 chain_length = 10000
@@ -88,7 +88,7 @@ system.time({
 
 ## View Q Matrix
 
-```{r}
+```r
 est_q_matrix = extract_q_matrix(recovery_edina_model)
 est_binary_q_matrix = extract_q_matrix(recovery_edina_model, binary_q = TRUE)
 
@@ -101,7 +101,7 @@ est_binary_q_matrix
 
 ## Setup Simulation Parameters
 
-```{r}
+```r
 set.seed(217)
 # Define Simulation Parameters
 N = 1000     # number of individuals
@@ -124,14 +124,14 @@ alpha = As[sample(1:(K ^ 2), N, replace = TRUE, pis),]
 
 ## Simulate ErRUM data under a model
 
-```{r}
+```r
 # Simulate data
 Y = sim_rrum(Q, rstar, pistar, alpha)
 ```
 
 ## Estimate the simulated ErRUM model
 
-```{r, eval = FALSE}
+```r
 # Recover simulation parameters with Gibbs Sampler
 ecdm:::errum_Gibbs_Q()
 ecdm:::errum_Gibbs_Q(Y, K)
