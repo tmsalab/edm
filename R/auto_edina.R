@@ -116,10 +116,15 @@ print.auto_edina = function(x, ...){
 #'
 #' Presents either the fitting of model heuristics or the evolution of parameters
 #' on a graph
-#' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw theme element_text
+#'
 #' @param object An `auto_edina` object.
 #' @param type   Kind of graph to display. Valid types: `"selection"` or `"evolution"`.
-#' @export "autoplot.auto_edina"
+#' @param ... Not used.
+#'
+#' @return A `ggplot2` object.
+#'
+#' @export
+#' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw theme element_text
 autoplot.auto_edina = function(object,
                                type = c("selection", "evolution"),
                                ...) {
