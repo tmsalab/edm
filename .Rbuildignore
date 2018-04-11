@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^src/\.clang-format$
 ^LICENSE$
+^README\.Rmd$
+^README-.*\.png$
+^\.travis\.yml$
