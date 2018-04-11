@@ -190,7 +190,7 @@ parameter_evolution_graph.auto_edina = function(x, ...) {
 
     # Potentially add pis class? unlist(m_pi))
 
-    extract_estimates = do.call(rbind, lapply(edina_models$edina_models, `[[`, 1))
+    extract_estimates = do.call(rbind, lapply(x$edina_models, `[[`, 1))
 
     o = data.frame(k          = rep(rep(x$k_checked, each = J), 2),
                    param_name = c(rep(
