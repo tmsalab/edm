@@ -10,6 +10,11 @@
 \item{object}{An \code{auto_edina} object.}
 
 \item{type}{Kind of graph to display. Valid types: \code{"selection"} or \code{"evolution"}.}
+
+\item{...}{Not used.}
+}
+\value{
+A \code{ggplot2} object.
 }
 \description{
 Presents either the fitting of model heuristics or the evolution of parameters

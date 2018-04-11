@@ -9,7 +9,7 @@
 \usage{
 extract_q_matrix(x, ...)
 
-\method{extract_q_matrix}{edina}(x, binary_q = FALSE)
+\method{extract_q_matrix}{edina}(x, binary_q = FALSE, ...)
 
 \method{extract_q_matrix}{errum}(x, binary_q = FALSE, ...)
 

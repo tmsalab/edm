@@ -11,7 +11,9 @@
 
 \item{binary_q}{Boolean to indicate whether the \emph{Q} matrix is shown in
 dichotomous form or in an estimated form.}
+
+\item{...}{Past onto the \code{print.data.frame} method.}
 }
 \description{
-Printing out the Summary EDINA Object
+Custom print method for displaying the EDINA model summary information.
 }

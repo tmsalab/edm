@@ -11,6 +11,8 @@
 
 \item{alpha}{Defining region to indicate the level of extremeness
 the data must before the model is problematic.}
+
+\item{...}{Not used.}
 }
 \description{
 Determine whether the \code{edina} object is summarized appropriately.

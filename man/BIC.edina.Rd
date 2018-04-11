@@ -6,6 +6,11 @@
 \usage{
 \method{BIC}{edina}(object, ...)
 }
+\arguments{
+\item{object}{An \code{edina} object}
+
+\item{...}{Not used.}
+}
 \description{
 Calculate BIC for EDINA models.
 }

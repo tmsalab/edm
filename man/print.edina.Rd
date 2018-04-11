@@ -11,6 +11,8 @@
 
 \item{binary_q}{Boolean to indicate whether the \emph{Q} matrix is shown in
 dichotomous form or in an estimated form.}
+
+\item{...}{Additional methods passed onto the \code{print.matrix} method.}
 }
 \description{
 Custom print method for computing the EDINA.
