@@ -15,7 +15,8 @@ Imports: Rcpp, balamuta, ggplot2 (>= 2.2.1), dina, rrum, simcdm
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 SystemRequirements: C++11
 Remotes: coatless/balamuta,
