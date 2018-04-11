@@ -80,15 +80,16 @@ model_heuristic = function(object, alpha = 0.05) {
 #' Calculate DIC for EDINA models.
 #'
 #' @param object An `edina` object
-#' @rdname dic
+#' @param ... Not used.
+#' @rdname DIC
 #' @export
-dic = function(object, ...) {
-    UseMethod("dic")
+DIC = function(object, ...) {
+    UseMethod("DIC")
 }
 
-#' @rdname dic
+#' @rdname DIC
 #' @export
-dic.edina = function(object) {
+DIC.edina = function(object, ...) {
 
     # LogLikelihood at the Mean of the Posterior Distributioon
     L = object$loglike_pmean
@@ -102,22 +103,15 @@ dic.edina = function(object) {
 
 ## 2 * K - I_K fixed allothers to 1's. Then estimate R* matrix and the J pi*
 
-#' @rdname bic
+#' Calculate BIC for EDINA models.
+#' @param object An `edina` object
+#' @param ... Not used.
 #' @export
-bic.edina = function(object, ...) {
+#' @importFrom stats BIC
+BIC.edina = function(object, ...) {
     # K number of attributes and J number of items (count only one slipping/guessing)?
     # -2 * LogLike + ln(n) * (k + j)
     -2*object$loglike_pmean + log(object$n)*((object$k+2)*object$j + 2^object$k)
-}
-
-#' Compute the Bayesian Information Criterion (BIC)
-#'
-#' Calculate BIC for EDINA models.
-#' @param object An `edina` object
-#' @rdname bic
-#' @export
-bic = function(object, ...) {
-    UseMethod("bic")
 }
 
 #' EDINA estimation routine
@@ -206,7 +200,7 @@ print.edina = function(x, binary_q = FALSE, ...){
 #' @export
 summary.edina = function(object, alpha = 0.05, ...) {
 
-    model_fit = matrix(c(object$k, bic(object), dic(object),
+    model_fit = matrix(c(object$k, BIC(object), DIC(object),
                          model_heuristic(object, alpha)), ncol = 4)
 
     colnames(model_fit) = c("k", "bic", "dic", "heuristic")
