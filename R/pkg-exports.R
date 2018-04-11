@@ -13,3 +13,7 @@ dina::dina
 ##' @importFrom rrum rrum
 ##' @export
 rrum::rrum
+
+#' @importFrom ggplot2 autoplot
+#' @export
+ggplot2::autoplot
