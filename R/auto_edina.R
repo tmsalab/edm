@@ -105,11 +105,17 @@ best_model = function(x, ic = c("heuristic", "bic", "dic")) {
  x$edina_models[[which.min(x$criterion[,ic])]]
 }
 
+#' Print method for `auto_dina`
+#'
+#' Custom print method for displaying the results of the Auto EDINA method.
+#'
+#' @param x   An `auto_edina` object
+#' @param ... Additional methods passed onto the `print.data.frame` method.
 #' @export
-print.auto_edina = function(x, ...){
+print.auto_edina = function(x, ...) {
     cat("The results of searching Q-matrices between", min(x$k_checked),
         "and", max(x$k_checked), "...\n")
-    print(as.data.frame(x$criterions), row.names = FALSE)
+    print(as.data.frame(x$criterions), row.names = FALSE, ...)
 }
 
 #' Graph the Auto EDINA Object
@@ -141,6 +147,13 @@ autoplot.auto_edina = function(object,
 
 }
 
+#' View Model Selection Statistics Across Models
+#'
+#' Displays information about the value of each model information criterion
+#' for a given model across the dimensions the Q matrix is estimated.
+#'
+#' @param x   An `auto_edina` or `auto_errum` object.
+#' @param ... Not used
 #' @export
 model_selection_graph = function(x, ...){
     UseMethod("model_selection_graph", x)
@@ -181,6 +194,13 @@ model_selection_graph.default = function(x, ...){
     stop("Please supply an `auto_edina` object.")
 }
 
+#' View Slipping and Guessing Parameter Changes Across Models
+#'
+#' Displays the slipping and guessing parameter changes for each model across
+#' the dimensions the Q matrix is estimated.
+#'
+#' @param x   An `auto_edina` or `auto_errum` object.
+#' @param ... Not used
 #' @export
 parameter_evolution_graph = function(x, ...) {
     UseMethod("parameter_evolution_graph", x)
