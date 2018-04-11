@@ -16,7 +16,7 @@ extract_q_matrix = function(x, ...) {
 #' @param binary_q   Classified Q matrix or a rounded Q matrix.
 #' @rdname extract_q
 #' @export
-extract_q_matrix.edina = function(x, binary_q = FALSE) {
+extract_q_matrix.edina = function(x, binary_q = FALSE, ...) {
     stopifnot(inherits(x, "edina"))
     pull_est_q_matrix(x, binary_q)
 }
