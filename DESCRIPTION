@@ -24,4 +24,5 @@ Remotes: coatless/balamuta,
     tmsalab/simcdm,
     tmsalab/dina,
     tmsalab/rrum,
-    tmsalab/ecdmdata
+    tmsalab/ecdmdata,
+    tmsalab/shinyecdm
