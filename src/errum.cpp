@@ -650,18 +650,22 @@ Rcpp::List errum_Gibbs_Q(const arma::mat &Y, unsigned int K, unsigned int burnin
     unsigned int N = Y.n_rows;
     unsigned int J = Y.n_cols;
     unsigned int nClass = pow(2, K);
-    unsigned int chain_m_burn = chain_length - burnin;
+
+    // Total Chain length with burn
+    // Prevents overflow
+    unsigned int iter_total = chain_length + burnin;
+
     unsigned int tmburn;
     arma::vec vv = bijectionvector(K);
 
     // Saving output
-    arma::mat PISTAR(J, chain_m_burn);
-    arma::cube RSTAR(J, K, chain_m_burn);
-    arma::mat PIs(nClass, chain_m_burn);
-    arma::cube QS(J, K, chain_m_burn);
+    arma::mat PISTAR(J, chain_length);
+    arma::cube RSTAR(J, K, chain_length);
+    arma::mat PIs(nClass, chain_length);
+    arma::cube QS(J, K, chain_length);
     arma::mat m_Delta = arma::zeros<arma::mat>(J, K);
-    arma::mat Delta_biject(J, chain_m_burn);
-    arma::cube NUS(K, 2, chain_m_burn);
+    arma::mat Delta_biject(J, chain_length);
+    arma::cube NUS(K, 2, chain_length);
 
     // need to initialize, alphas, X,ss, gs,pis
     arma::vec CLASS =
@@ -692,11 +696,11 @@ Rcpp::List errum_Gibbs_Q(const arma::mat &Y, unsigned int K, unsigned int burnin
     deltas.elem(find(deltas <= 0.5)).zeros();
     double omega = R::runif(0, 1);
 
-    arma::mat M1(chain_m_burn, J);
-    arma::cube M2(J, J, chain_m_burn);
+    arma::mat M1(chain_length, J);
+    arma::cube M2(J, J, chain_length);
 
     // Start Markov chain
-    for (unsigned int t = 0; t < chain_length; t++) {
+    for (unsigned int t = 0; t < iter_total; t++) {
         Rcpp::List output =
             parm_update12(N, J, K, nClass, Y, Q, CLASS, X, ss, gs, pis, match,
                           PmatYeq1, vv, nus, deltas, omega);
