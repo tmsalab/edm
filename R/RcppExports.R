@@ -221,31 +221,6 @@ NULL
 #' @noRd
 NULL
 
-#' Generate the Attribute Matrix
-#'
-#' Creates an Attribute Matrix given Q
-#'
-#' @param Q A `matrix` with dimensions \eqn{J x K}
-#'
-#' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
-#' @export
-#' @examples
-#' q_rand = random_Q(6, 3)
-#' a_mat = alpha_matrix(q_rand)
-alpha_matrix <- function(Q) {
-    .Call(`_ecdm_alpha_matrix`, Q)
-}
-
-#' Classification Matrix by Q Matrix
-#'
-#' Construct a classification matrix by Q Matrix
-#' @param K Number of Attribute Levels as an `unsigned integer`.
-#' @return A `mat`.
-#' @export
-ClassbyQmat <- function(K) {
-    .Call(`_ecdm_ClassbyQmat`, K)
-}
-
 #' Generate a Random Q Matrix
 #'
 #' Creates a random Q matrix containing three identity matrices after
@@ -272,6 +247,31 @@ random_Q <- function(J, K) {
 #' @export
 check_identifiability <- function(Q) {
     .Call(`_ecdm_check_identifiability`, Q)
+}
+
+#' Generate the Attribute Matrix
+#'
+#' Creates an Attribute Matrix given Q
+#'
+#' @param Q A `matrix` with dimensions \eqn{J x K}
+#'
+#' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
+#' @export
+#' @examples
+#' q_rand = random_Q(10, 3)
+#' a_mat = alpha_matrix(q_rand)
+alpha_matrix <- function(Q) {
+    .Call(`_ecdm_alpha_matrix`, Q)
+}
+
+#' Classification Matrix by Q Matrix
+#'
+#' Construct a classification matrix by Q Matrix
+#' @param K Number of Attribute Levels as an `unsigned integer`.
+#' @return A `mat`.
+#' @export
+ClassbyQmat <- function(K) {
+    .Call(`_ecdm_ClassbyQmat`, K)
 }
 
 #' Simulate Binary Responses for DINA Model

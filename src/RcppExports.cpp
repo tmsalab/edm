@@ -6,28 +6,6 @@
 
 using namespace Rcpp;
 
-// alpha_matrix
-arma::mat alpha_matrix(const arma::mat& Q);
-RcppExport SEXP _ecdm_alpha_matrix(SEXP QSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
-    rcpp_result_gen = Rcpp::wrap(alpha_matrix(Q));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ClassbyQmat
-arma::mat ClassbyQmat(unsigned int K);
-RcppExport SEXP _ecdm_ClassbyQmat(SEXP KSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
-    rcpp_result_gen = Rcpp::wrap(ClassbyQmat(K));
-    return rcpp_result_gen;
-END_RCPP
-}
 // random_Q
 arma::mat random_Q(unsigned int J, unsigned int K);
 RcppExport SEXP _ecdm_random_Q(SEXP JSEXP, SEXP KSEXP) {
@@ -48,6 +26,28 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat >::type Q(QSEXP);
     rcpp_result_gen = Rcpp::wrap(check_identifiability(Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alpha_matrix
+arma::mat alpha_matrix(const arma::mat& Q);
+RcppExport SEXP _ecdm_alpha_matrix(SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(alpha_matrix(Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ClassbyQmat
+arma::mat ClassbyQmat(unsigned int K);
+RcppExport SEXP _ecdm_ClassbyQmat(SEXP KSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
+    rcpp_result_gen = Rcpp::wrap(ClassbyQmat(K));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -225,10 +225,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ecdm_alpha_matrix", (DL_FUNC) &_ecdm_alpha_matrix, 1},
-    {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
     {"_ecdm_random_Q", (DL_FUNC) &_ecdm_random_Q, 2},
     {"_ecdm_check_identifiability", (DL_FUNC) &_ecdm_check_identifiability, 1},
+    {"_ecdm_alpha_matrix", (DL_FUNC) &_ecdm_alpha_matrix, 1},
+    {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
     {"_ecdm_sim_Y_dina", (DL_FUNC) &_ecdm_sim_Y_dina, 6},
     {"_ecdm_edina_Gibbs_Q", (DL_FUNC) &_ecdm_edina_Gibbs_Q, 4},
     {"_ecdm_errum_Gibbs_Q", (DL_FUNC) &_ecdm_errum_Gibbs_Q, 4},
