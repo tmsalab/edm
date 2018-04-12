@@ -340,72 +340,25 @@ double lnlik_dina(unsigned int N, unsigned int J, unsigned int nClass,
 //' @examples
 //' Q_matrix = random_Q(15, 4)
 //' @export
-arma::mat random_Q(unsigned int J, unsigned int K)
-{
-
-    // Generate two identity matrices
-    arma::vec one_K = arma::ones<arma::vec>(K);
-    arma::mat I_K = arma::diagmat(one_K);
-    arma::mat Two_I_K = arma::join_cols(I_K, I_K);
-
-    // Generate Q1
-    unsigned int Jm2K = J - 2 * K;
-    unsigned int J1max = K;
-
-    if (K > Jm2K) {
-        J1max = Jm2K;
+// [[Rcpp::export]]
+arma::mat random_Q(unsigned int J, unsigned int K) {
+    unsigned int nClass = pow(2,K);
+    arma::vec vv = bijectionvector(K);
+    arma::vec Q_biject(J);
+    Q_biject(arma::span(0,K-1)) = vv;
+    Q_biject(arma::span(K,2*K-1)) = vv;
+    Q_biject(arma::span(2*K,3*K-1)) = vv;
+    arma::vec Jm3K = arma::randi<arma::vec>(J-3*K,arma::distr_param(1,nClass-1) ) ;
+    Q_biject(arma::span(3*K,J-1)) = Jm3K;
+    Q_biject = arma::shuffle(Q_biject);
+    arma::mat Q(J,K);
+    for(unsigned int j=0;j<J;j++){
+        arma::vec qj = inv_bijectionvector(K,Q_biject(j));
+        Q.row(j) = qj.t();
     }
-
-    unsigned int J1 =
-        arma::as_scalar(arma::randi<arma::vec>(1, arma::distr_param(1, J1max)));
-
-    arma::mat U1 = arma::randu<arma::mat>(J1, K);
-    arma::mat Q1 = arma::zeros<arma::mat>(J1, K);
-
-    // Fix elements so rows are nonzero
-    arma::vec col_ks = arma::randi<arma::vec>(J1, arma::distr_param(0, K - 1));
-
-    for (unsigned int j = 0; j < J1; ++j) {
-        Q1(j, col_ks(j)) = 1;
-    }
-
-    // Fix elements so columns are nonzero
-    arma::vec row_ks = arma::randi<arma::vec>(K, arma::distr_param(0, J1 - 1));
-
-    for (unsigned int k = 0; k < K; ++k) {
-        Q1(row_ks(k), k) = 1;
-    }
-
-    Q1.elem(arma::find(Q1 > .5)).fill(1.0);
-
-    arma::mat Q = arma::join_cols(Two_I_K, Q1);
-
-    // Generating the remaining elements of Q in Q2
-    unsigned int Jm2KmJ1 = Jm2K - J1;
-    arma::mat Q2 = arma::zeros<arma::mat>(Jm2KmJ1, K);
-    if (Jm2KmJ1 > 0) {
-        arma::mat U2 = arma::randu<arma::mat>(Jm2KmJ1, K);
-
-        // Use sample()
-        arma::vec jks_w_1s =
-            arma::randi<arma::vec>(Jm2KmJ1, arma::distr_param(0, K - 1));
-        for (unsigned int j = 0; j < Jm2KmJ1; ++j) {
-            U2(j, jks_w_1s(j)) = 1;
-        }
-
-        Q2.elem(arma::find(U2 > .5)).fill(1.0);
-        Q = arma::join_cols(Q, Q2);
-    }
-
-    // Q
-    arma::uvec P = arma::uvec(J);
-    for (unsigned int j = 0; j < J; ++j) {
-        P(j) = j;
-    }
-
-    P = arma::shuffle(P);
-    return Q.rows(P);
+    return Q;
 }
+
 
 //' Verify Q Matrix is Identifiable
 //'
@@ -413,7 +366,8 @@ arma::mat random_Q(unsigned int J, unsigned int K)
 //'
 //' @param Q The Q matrix to be checked with dimensions \eqn{K \times J}{K x J}.
 //'
-//' @return A double with value either: 0 or 1
+//' @return A `bool` with value either: false or true
+//' @export
 // [[Rcpp::export]]
 bool check_identifiability(const arma::mat Q)
 {

@@ -4,7 +4,8 @@
 \alias{autoplot.auto_edina}
 \title{Graph the Auto EDINA Object}
 \usage{
-\method{autoplot}{auto_edina}(object, type = c("selection", "evolution"), ...)
+\method{autoplot}{auto_edina}(object, type = c("selection", "guessing",
+  "slipping", "evolution"), ...)
 }
 \arguments{
 \item{object}{An \code{auto_edina} object.}

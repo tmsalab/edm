@@ -18,6 +18,23 @@ form with dimensions \eqn{N \times J}{N x J}.}
 }
 \value{
 An \code{edina} object that contains:
+\itemize{
+\item \code{coefficients}: Estimated coefficients of the model fit
+\item \code{loglike_summed}: Summed log-likelihood
+\item \code{loglike_pmean}: Meaned version of log-likelihood
+\item \code{pi_classes}: Latent classes
+\item \code{avg_q}: Estimated Averaged Q Matrix
+\item \code{est_q}: Estimated Dichotomous Q Matrix
+\item \code{or_tested}: Odds Ratio used in the model selection.
+\item \code{sample_or}: Odds Ratio for the sample.
+\item \code{n}: Number of Observations
+\item \code{j}: Number of Items
+\item \code{k}: Number of Traits
+\item \code{burnin}: Amount of iterations to discard
+\item \code{chain_length}: Amount of iterations to retain.
+\item \code{timing}: Duration of the run
+\item \code{dataset_name}: Name of the data set used in estimation.
+}
 }
 \description{
 Exploratory Determinatistic Input, Noise and Gate Model (EDINA)

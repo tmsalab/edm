@@ -132,7 +132,7 @@ print.auto_edina = function(x, ...) {
 #' @export
 #' @importFrom ggplot2 autoplot ggplot geom_line geom_point geom_vline facet_wrap labs aes theme_bw theme element_text
 autoplot.auto_edina = function(object,
-                               type = c("selection", "evolution"),
+                               type = c("selection", "guessing", "slipping", "evolution"),
                                ...) {
 
     type = tolower(type)
@@ -142,6 +142,7 @@ autoplot.auto_edina = function(object,
            "selection" = model_selection_graph(object, ...),
            "guessing"  = parameter_evolution_graph(object, type = type, ...),
            "slipping"  =  parameter_evolution_graph(object, type = type, ...),
+           "evolution"  =  parameter_evolution_graph(object, type = type, ...),
             stop('Only the following types are valid: `"selection"`, `"guessing"`, or `"slipping"`')
           )
 
@@ -177,9 +178,9 @@ model_selection_graph.auto_edina = function(x, ...) {
 
     subset_df = do.call(rbind, by(df, df$ic_type, function(x) x[which.min(x$ic_value), ] ))
 
-    ggplot(df, aes(x = K, y = ic_value)) +
+    ggplot(df, aes(x = as.factor(K), y = ic_value)) +
         facet_wrap(~ic_type, scales = "free_y") +
-        geom_line() +
+        geom_line(aes(group = 1)) +
         geom_point() +
         geom_point(data = subset_df,
                    colour="red", size = 3) +
@@ -207,7 +208,10 @@ parameter_evolution_graph = function(x, ...) {
 }
 
 #' @export
-parameter_evolution_graph.auto_edina = function(x, ...) {
+parameter_evolution_graph.auto_edina = function(x,
+                                                type = c("evolution", "guessing", "slipping"), ...) {
+
+    type = match.arg(type)
 
     # Globals to quiet CRAN check
     K = ic_value = estimate = param_type = NULL
@@ -234,10 +238,13 @@ parameter_evolution_graph.auto_edina = function(x, ...) {
 
     )
 
+    if(type %in% c("guessing", "slipping")) {
+        o = o[grepl(type, o$param_type, ignore.case = TRUE),]
+    }
+
     ggplot(o, aes(x = K, y = estimate, color = param_type)) +
         geom_point() + geom_line() +
         facet_wrap(~param_name) +
-        #geom_vline(xintercept = x$best_fit["best_k"], color = "red") +
         labs(
             title = paste0("Evolution of the DINA Parameters"),
             subtitle = "Over Changes in Q Matrix's K Dimension",

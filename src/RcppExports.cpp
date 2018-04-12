@@ -17,6 +17,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// random_Q
+arma::mat random_Q(unsigned int J, unsigned int K);
+RcppExport SEXP _ecdm_random_Q(SEXP JSEXP, SEXP KSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type J(JSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type K(KSEXP);
+    rcpp_result_gen = Rcpp::wrap(random_Q(J, K));
+    return rcpp_result_gen;
+END_RCPP
+}
 // check_identifiability
 bool check_identifiability(const arma::mat Q);
 RcppExport SEXP _ecdm_check_identifiability(SEXP QSEXP) {
@@ -203,6 +215,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
+    {"_ecdm_random_Q", (DL_FUNC) &_ecdm_random_Q, 2},
     {"_ecdm_check_identifiability", (DL_FUNC) &_ecdm_check_identifiability, 1},
     {"_ecdm_sim_Y_dina", (DL_FUNC) &_ecdm_sim_Y_dina, 6},
     {"_ecdm_edina_Gibbs_Q", (DL_FUNC) &_ecdm_edina_Gibbs_Q, 4},

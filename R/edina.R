@@ -126,6 +126,21 @@ BIC.edina = function(object, ...) {
 #'
 #' @return An `edina` object that contains:
 #'
+#' - `coefficients`: Estimated coefficients of the model fit
+#' - `loglike_summed`: Summed log-likelihood
+#' - `loglike_pmean`: Meaned version of log-likelihood
+#' - `pi_classes`: Latent classes
+#' - `avg_q`: Estimated Averaged Q Matrix
+#' - `est_q`: Estimated Dichotomous Q Matrix
+#' - `or_tested`: Odds Ratio used in the model selection.
+#' - `sample_or`: Odds Ratio for the sample.
+#' - `n`: Number of Observations
+#' - `j`: Number of Items
+#' - `k`: Number of Traits
+#' - `burnin`: Amount of iterations to discard
+#' - `chain_length`: Amount of iterations to retain.
+#' - `timing`: Duration of the run
+#' - `dataset_name`: Name of the data set used in estimation.
 #' @export
 #' @importFrom balamuta is.whole
 #' @examples
