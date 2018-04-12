@@ -198,6 +198,19 @@ q_graph.edina = function(x, binary_q = TRUE, ... ){
     q_heatmap(p, q_title)
 }
 
+#' @export
+#' @rdname q_graph
+q_graph.matrix = function(x, ... ){
+    q_heatmap(x, q_title = "Q Matrix")
+}
+
+#' @export
+#' @rdname q_graph
+q_graph.q_matrix = function(x, ... ){
+    q_heatmap(x, q_title = "Q Matrix")
+}
+
+
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 theme_minimal scale_fill_gradient geom_tile
 q_heatmap = function(x, q_title = "Estimated Q Matrix") {

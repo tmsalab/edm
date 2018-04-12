@@ -4,6 +4,8 @@
 \alias{q_graph}
 \alias{q_graph.auto_edina}
 \alias{q_graph.edina}
+\alias{q_graph.matrix}
+\alias{q_graph.q_matrix}
 \title{Graph Q Matrix}
 \usage{
 q_graph(x, ...)
@@ -12,6 +14,10 @@ q_graph(x, ...)
   "dic"), ...)
 
 \method{q_graph}{edina}(x, binary_q = TRUE, ...)
+
+\method{q_graph}{matrix}(x, ...)
+
+\method{q_graph}{q_matrix}(x, ...)
 }
 \arguments{
 \item{x}{Either an \code{edina}, \code{errum}, or \code{q_matrix} object.}
