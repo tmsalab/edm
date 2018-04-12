@@ -221,6 +221,21 @@ NULL
 #' @noRd
 NULL
 
+#' Generate the Attribute Matrix
+#'
+#' Creates an Attribute Matrix given Q
+#'
+#' @param Q A `matrix` with dimensions \eqn{J x K}
+#'
+#' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
+#' @export
+#' @examples
+#' q_rand = random_Q(6, 3)
+#' a_mat = alpha_matrix(q_rand)
+alpha_matrix <- function(Q) {
+    .Call(`_ecdm_alpha_matrix`, Q)
+}
+
 #' Classification Matrix by Q Matrix
 #'
 #' Construct a classification matrix by Q Matrix

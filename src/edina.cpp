@@ -1,6 +1,34 @@
 #include "ecdm.h"
 #include <rgen.h>
 
+// Modified version of ETAMatrix
+//' Generate the Attribute Matrix
+//'
+//' Creates an Attribute Matrix given Q
+//'
+//' @param Q A `matrix` with dimensions \eqn{J x K}
+//'
+//' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
+//' @export
+//' @examples
+//' q_rand = random_Q(6, 3)
+//' a_mat = alpha_matrix(q_rand)
+// [[Rcpp::export]]
+arma::mat alpha_matrix(const arma::mat& Q) {
+
+    int K = Q.n_cols;
+
+    double nClass = pow(2, K);
+    arma::mat alpha_mat(nClass, K);
+
+    for(unsigned int cc = 0; cc < nClass; cc++){
+        alpha_mat.row(cc) = inv_bijectionvector(K, cc).t();
+    }
+
+    return alpha_mat;
+}
+
+
 //' Generate ideal response \eqn{\eta} Matrix
 //'
 //' Creates the ideal response matrix for each trait

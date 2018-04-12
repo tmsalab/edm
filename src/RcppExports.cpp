@@ -6,6 +6,17 @@
 
 using namespace Rcpp;
 
+// alpha_matrix
+arma::mat alpha_matrix(const arma::mat& Q);
+RcppExport SEXP _ecdm_alpha_matrix(SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(alpha_matrix(Q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ClassbyQmat
 arma::mat ClassbyQmat(unsigned int K);
 RcppExport SEXP _ecdm_ClassbyQmat(SEXP KSEXP) {
@@ -214,6 +225,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_ecdm_alpha_matrix", (DL_FUNC) &_ecdm_alpha_matrix, 1},
     {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
     {"_ecdm_random_Q", (DL_FUNC) &_ecdm_random_Q, 2},
     {"_ecdm_check_identifiability", (DL_FUNC) &_ecdm_check_identifiability, 1},
