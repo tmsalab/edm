@@ -25,7 +25,7 @@ prevent the first and third columns specify
 \code{drop_columns = c(1,3)}. By default, all columns are included.}
 }
 \value{
-A \code{matrix} labeled with row names as \code{subjectXX} and column names as \code{itemYY}
+A \code{matrix} labeled with row names as \code{SubjectXX} and column names as \code{ItemYY}
 }
 \description{
 Allows for a dichotmous items matrix to be imported with standard styling.

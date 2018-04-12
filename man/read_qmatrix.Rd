@@ -25,7 +25,7 @@ prevent the first and third columns specify
 \code{drop_columns = c(1,3)}. By default, all columns are included.}
 }
 \value{
-A \code{matrix} labeled with row names as \code{itemYY} and column names as \code{skillZZ}
+A \code{matrix} labeled with row names as \code{ItemYY} and column names as \code{SkillZZ}
 }
 \description{
 Allows for a dichotmous Q Matrix to be imported with standard styling.

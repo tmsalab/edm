@@ -12,8 +12,10 @@
 #' @importFrom utils read.table
 #'
 #' @noRd
-create_read_matrix = function(colname_prefix = NULL, rowname_prefix = NULL) {
-  function(file, header = FALSE, sep = " ", skip = 0, drop_columns = NULL) {
+read_psych = function(file, header = FALSE, sep = " ", skip = 0,
+                      drop_columns = NULL, colname_prefix = NULL,
+                      rowname_prefix = NULL) {
+
     # Read in data as a data.frame
     generic_df = read.table(file, header = header, sep = sep, skip = skip)
 
@@ -21,7 +23,7 @@ create_read_matrix = function(colname_prefix = NULL, rowname_prefix = NULL) {
     generic_matrix = as.matrix(generic_df)
 
     if(!is.null(drop_columns) & is.integer(drop_columns)) {
-      generic_matrix = generic_matrix[,-drop_columns]
+        generic_matrix = generic_matrix[,-drop_columns]
     }
 
     # Number of Items
@@ -32,17 +34,18 @@ create_read_matrix = function(colname_prefix = NULL, rowname_prefix = NULL) {
 
     # Labeling
     if(!is.null(colname_prefix)) {
-      colnames(generic_matrix) = sprintf(paste0(colname_prefix, "%0", nchar(j), "i"), seq_len(j))
+        colnames(generic_matrix) = sprintf(paste0(colname_prefix, "%0",
+                                                  nchar(j), "i"), seq_len(j))
     } else {
-      colnames(generic_matrix) = NULL
+        colnames(generic_matrix) = NULL
     }
 
     if(!is.null(rowname_prefix)) {
-      rownames(generic_matrix) = sprintf(paste0(rowname_prefix,"%0", nchar(n), "d"), seq_len(n))
+        rownames(generic_matrix) = sprintf(paste0(rowname_prefix,"%0",
+                                                  nchar(n), "d"), seq_len(n))
     }
 
     generic_matrix
-  }
 }
 
 
@@ -61,23 +64,34 @@ create_read_matrix = function(colname_prefix = NULL, rowname_prefix = NULL) {
 #' @param drop_columns columns of the item matrix that should be dropped. To
 #'                     prevent the first and third columns specify
 #'                     `drop_columns = c(1,3)`. By default, all columns are included.
-#' @return A `matrix` labeled with row names as `subjectXX` and column names as `itemYY`
+#' @return A `matrix` labeled with row names as `SubjectXX` and column names as `ItemYY`
 #' @export
 #' @details
 #' This function is designed to specifically read in dichotomous item matrices
 #' into _R_. The matrix must be structured with the appropriate separator.
-read_items = create_read_matrix("item", "subject")
-
-
+read_items = function(file, header = FALSE, sep = " ", skip = 0,
+                      drop_columns = NULL) {
+    read_psych(file, header = header, sep = sep, skip = skip,
+               drop_columns = drop_columns,
+               colname_prefix = "Item", rowname_prefix =  "Subject")
+}
 
 #' Import a Q Matrix
 #'
 #' Allows for a dichotmous Q Matrix to be imported with standard styling.
 #'
 #' @inheritParams read_items
-#' @return A `matrix` labeled with row names as `itemYY` and column names as `skillZZ`
+#' @return A `matrix` labeled with row names as `ItemYY` and column names as `SkillZZ`
 #' @export
 #' @details
 #' This function is designed to specifically read in dichotomous Q matrix
 #' into _R_. The matrix must be structured with the appropriate separator.
-read_qmatrix = create_read_matrix("skill", "item")
+read_qmatrix = function(file, header = FALSE, sep = " ", skip = 0,
+                        drop_columns = NULL) {
+
+    a = read_psych(file, header = header, sep = sep, skip = skip,
+               drop_columns = drop_columns,
+               colname_prefix = "Trait", rowname_prefix =  "Item")
+
+    create_q_matrix(a)
+}
