@@ -124,7 +124,7 @@ bool check_identifiability(const arma::mat Q)
 //' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
 //' @export
 //' @examples
-//' q_rand = random_Q(10, 3)
+//' q_rand = random_Q(13, 3)
 //' a_mat = alpha_matrix(q_rand)
 // [[Rcpp::export]]
 arma::mat alpha_matrix(const arma::mat& Q) {

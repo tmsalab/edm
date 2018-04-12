@@ -16,6 +16,6 @@ A \code{matrix} with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
 Creates an Attribute Matrix given Q
 }
 \examples{
-q_rand = random_Q(6, 3)
+q_rand = random_Q(13, 3)
 a_mat = alpha_matrix(q_rand)
 }
