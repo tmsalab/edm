@@ -3,7 +3,9 @@
 \name{extract_q_matrix}
 \alias{extract_q_matrix}
 \alias{extract_q_matrix.edina}
+\alias{extract_q_matrix.auto_edina}
 \alias{extract_q_matrix.errum}
+\alias{extract_q_matrix.q_matrix}
 \alias{extract_q_matrix.default}
 \title{Extract Q Matrix}
 \usage{
@@ -11,7 +13,12 @@ extract_q_matrix(x, ...)
 
 \method{extract_q_matrix}{edina}(x, binary_q = FALSE, ...)
 
+\method{extract_q_matrix}{auto_edina}(x, binary_q = FALSE,
+  ic = c("heuristic", "bic", "dic"), ...)
+
 \method{extract_q_matrix}{errum}(x, binary_q = FALSE, ...)
+
+\method{extract_q_matrix}{q_matrix}(x, ...)
 
 \method{extract_q_matrix}{default}(x, ...)
 }
@@ -21,6 +28,8 @@ extract_q_matrix(x, ...)
 \item{...}{Additional parameters}
 
 \item{binary_q}{Classified Q matrix or a rounded Q matrix.}
+
+\item{ic}{Selection criteria}
 }
 \value{
 A \code{matrix} that is either dichotomous or estimated.
