@@ -1,6 +1,71 @@
 #include "ecdm.h"
 #include <rgen.h>
 
+
+//' Generate a Random Q Matrix
+//'
+//' Creates a random Q matrix containing three identity matrices after
+//' row permutation
+//'
+//' @param J An `int` that represents the number of items
+//' @param K An `int` that represents the number of attributes/skills
+//' @return A dichotomous `matrix` for Q.
+//'
+//' @examples
+//' Q_matrix = random_Q(15, 4)
+//' @export
+// [[Rcpp::export]]
+arma::mat random_Q(unsigned int J, unsigned int K) {
+    unsigned int nClass = pow(2,K);
+    arma::vec vv = bijectionvector(K);
+    arma::vec Q_biject(J);
+    Q_biject(arma::span(0,K-1)) = vv;
+    Q_biject(arma::span(K,2*K-1)) = vv;
+    Q_biject(arma::span(2*K,3*K-1)) = vv;
+    arma::vec Jm3K = arma::randi<arma::vec>(J-3*K,arma::distr_param(1,nClass-1) ) ;
+    Q_biject(arma::span(3*K,J-1)) = Jm3K;
+    Q_biject = arma::shuffle(Q_biject);
+    arma::mat Q(J,K);
+    for(unsigned int j=0;j<J;j++){
+        arma::vec qj = inv_bijectionvector(K,Q_biject(j));
+        Q.row(j) = qj.t();
+    }
+    return Q;
+}
+
+
+//' Verify Q Matrix is Identifiable
+//'
+//' Performs a check to see if Q is identifable or not.
+//'
+//' @param Q The Q matrix to be checked with dimensions \eqn{K \times J}{K x J}.
+//'
+//' @return A `bool` with value either: false or true
+//' @export
+// [[Rcpp::export]]
+bool check_identifiability(const arma::mat Q)
+{
+    unsigned int K = Q.n_cols;
+    unsigned int J = Q.n_rows;
+
+    arma::mat ones_zero_on_diag = -1 * arma::ones<arma::mat>(K, K);
+    arma::vec zeros_K = arma::zeros<arma::vec>(K);
+    ones_zero_on_diag.diag() = zeros_K;
+
+    arma::vec c_sum = (arma::sum(Q, 0)).t();
+    arma::vec r_sum = arma::sum(Q, 1);
+    arma::mat I_check = Q * ones_zero_on_diag;
+    arma::mat I_count = arma::zeros<arma::mat>(J, K);
+    I_count.elem(arma::find(I_check > -1)).fill(1.0);
+    arma::vec n_ek = (arma::sum(I_count, 0)).t();
+
+    double min_c = (arma::min(c_sum) > 2);
+    double min_r = (arma::min(r_sum) > 0);
+    double min_ek = (arma::min(n_ek) > 1);
+
+    return (min_c + min_r + min_ek > 2);
+}
+
 // Modified version of ETAMatrix
 //' Generate the Attribute Matrix
 //'
@@ -11,7 +76,7 @@
 //' @return A `matrix` with dimensions \eqn{2^K x K}, where \eqn{2^K = C}.
 //' @export
 //' @examples
-//' q_rand = random_Q(6, 3)
+//' q_rand = random_Q(10, 3)
 //' a_mat = alpha_matrix(q_rand)
 // [[Rcpp::export]]
 arma::mat alpha_matrix(const arma::mat& Q) {
@@ -354,70 +419,6 @@ double lnlik_dina(unsigned int N, unsigned int J, unsigned int nClass,
     }
 
     return log_lik;
-}
-
-//' Generate a Random Q Matrix
-//'
-//' Creates a random Q matrix containing three identity matrices after
-//' row permutation
-//'
-//' @param J An `int` that represents the number of items
-//' @param K An `int` that represents the number of attributes/skills
-//' @return A dichotomous `matrix` for Q.
-//'
-//' @examples
-//' Q_matrix = random_Q(15, 4)
-//' @export
-// [[Rcpp::export]]
-arma::mat random_Q(unsigned int J, unsigned int K) {
-    unsigned int nClass = pow(2,K);
-    arma::vec vv = bijectionvector(K);
-    arma::vec Q_biject(J);
-    Q_biject(arma::span(0,K-1)) = vv;
-    Q_biject(arma::span(K,2*K-1)) = vv;
-    Q_biject(arma::span(2*K,3*K-1)) = vv;
-    arma::vec Jm3K = arma::randi<arma::vec>(J-3*K,arma::distr_param(1,nClass-1) ) ;
-    Q_biject(arma::span(3*K,J-1)) = Jm3K;
-    Q_biject = arma::shuffle(Q_biject);
-    arma::mat Q(J,K);
-    for(unsigned int j=0;j<J;j++){
-        arma::vec qj = inv_bijectionvector(K,Q_biject(j));
-        Q.row(j) = qj.t();
-    }
-    return Q;
-}
-
-
-//' Verify Q Matrix is Identifiable
-//'
-//' Performs a check to see if Q is identifable or not.
-//'
-//' @param Q The Q matrix to be checked with dimensions \eqn{K \times J}{K x J}.
-//'
-//' @return A `bool` with value either: false or true
-//' @export
-// [[Rcpp::export]]
-bool check_identifiability(const arma::mat Q)
-{
-    unsigned int K = Q.n_cols;
-    unsigned int J = Q.n_rows;
-
-    arma::mat ones_zero_on_diag = -1 * arma::ones<arma::mat>(K, K);
-    arma::vec zeros_K = arma::zeros<arma::vec>(K);
-    ones_zero_on_diag.diag() = zeros_K;
-
-    arma::vec c_sum = (arma::sum(Q, 0)).t();
-    arma::vec r_sum = arma::sum(Q, 1);
-    arma::mat I_check = Q * ones_zero_on_diag;
-    arma::mat I_count = arma::zeros<arma::mat>(J, K);
-    I_count.elem(arma::find(I_check > -1)).fill(1.0);
-    arma::vec n_ek = (arma::sum(I_count, 0)).t();
-
-    double min_c = (arma::min(c_sum) > 2);
-    double min_r = (arma::min(r_sum) > 0);
-    double min_ek = (arma::min(n_ek) > 1);
-
-    return (min_c + min_r + min_ek > 2);
 }
 
 //' Update the Q
