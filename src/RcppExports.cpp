@@ -17,6 +17,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// check_identifiability
+bool check_identifiability(const arma::mat Q);
+RcppExport SEXP _ecdm_check_identifiability(SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(check_identifiability(Q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // sim_Y_dina
 arma::mat sim_Y_dina(unsigned int N, unsigned int J, const arma::vec& CLASS, const arma::mat& ETA, const arma::vec& gs, const arma::vec& ss);
 RcppExport SEXP _ecdm_sim_Y_dina(SEXP NSEXP, SEXP JSEXP, SEXP CLASSSEXP, SEXP ETASEXP, SEXP gsSEXP, SEXP ssSEXP) {
@@ -192,6 +203,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ecdm_ClassbyQmat", (DL_FUNC) &_ecdm_ClassbyQmat, 1},
+    {"_ecdm_check_identifiability", (DL_FUNC) &_ecdm_check_identifiability, 1},
     {"_ecdm_sim_Y_dina", (DL_FUNC) &_ecdm_sim_Y_dina, 6},
     {"_ecdm_edina_Gibbs_Q", (DL_FUNC) &_ecdm_edina_Gibbs_Q, 4},
     {"_ecdm_errum_Gibbs_Q", (DL_FUNC) &_ecdm_errum_Gibbs_Q, 4},

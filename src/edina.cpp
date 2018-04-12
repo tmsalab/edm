@@ -1,7 +1,9 @@
 #include "ecdm.h"
 #include <rgen.h>
 
-//' \eqn{\eta} Matrix
+//' Generate ideal response \eqn{\eta} Matrix
+//'
+//' Creates the ideal response matrix for each trait
 //'
 //' @param K      Number of Attribute Levels
 //' @param J      Number of Assessment Items
@@ -328,11 +330,16 @@ double lnlik_dina(unsigned int N, unsigned int J, unsigned int nClass,
 
 //' Generate a Random Q Matrix
 //'
-//' Randomly construct a Q Matrix given dimensions
-//' @param J Number of Assessment Items as an `unsigned integer`.
-//' @param K Number of Attribute Levels as an `unsigned integer`.
-//' @return A `mat`.
-//' @noRd
+//' Creates a random Q matrix containing three identity matrices after
+//' row permutation
+//'
+//' @param J An `int` that represents the number of items
+//' @param K An `int` that represents the number of attributes/skills
+//' @return A dichotomous `matrix` for Q.
+//'
+//' @examples
+//' Q_matrix = random_Q(15, 4)
+//' @export
 arma::mat random_Q(unsigned int J, unsigned int K)
 {
 
@@ -403,10 +410,12 @@ arma::mat random_Q(unsigned int J, unsigned int K)
 //' Verify Q Matrix is Identifiable
 //'
 //' Performs a check to see if Q is identifable or not.
+//'
 //' @param Q The Q matrix to be checked with dimensions \eqn{K \times J}{K x J}.
+//'
 //' @return A double with value either: 0 or 1
-//' @noRd
-double identify_check(const arma::mat Q)
+// [[Rcpp::export]]
+bool check_identifiability(const arma::mat Q)
 {
     unsigned int K = Q.n_cols;
     unsigned int J = Q.n_rows;
@@ -462,16 +471,16 @@ void updateQ_DINA(arma::mat &Q, const arma::mat &Y, const arma::mat &alpha,
             // checking whether 1 is possible
             arma::mat Q1 = Q;
             Q1(j, k) = 1;
-            flag1 = identify_check(Q1);
+            flag1 = check_identifiability(Q1);
 
-            if (flag1 == 1) {
+            if (flag1 == true) {
                 // checking whether 0 is possible
                 arma::mat Q0 = Q;
                 Q0(j, k) = 0;
-                flag0 = identify_check(Q0);
+                flag0 = check_identifiability(Q0);
 
                 // update based upon posterior for qjk
-                if (flag0 == 1) {
+                if (flag0 == true) {
                     double s_d_1mg = ss(j) / (1.0 - gs(j));
                     double Onems_d_g = (1.0 - ss(j)) / gs(j);
                     arma::vec qj = (Q.row(j)).t();
@@ -552,9 +561,9 @@ void updateQ_DINA_new(unsigned int N, unsigned int K, unsigned int J,
             // checking whether 1 is possible
             arma::mat Q0 = Q;
             Q0(j, k) = 1. - qjk;
-            flag1 = identify_check(Q0);
+            flag1 = check_identifiability(Q0);
 
-            if (flag1 == 1) {
+            if (flag1 == true) {
 
                 /*
                 // Old
@@ -631,9 +640,9 @@ double cond_threshold(unsigned int k, unsigned int j, unsigned int n_noks,
         qj(ks) = inv_bijectionvector(K - 1, ck);
         qj(k) = 0;
         Q0.row(j) = qj.t();
-        I0(ck) = identify_check(Q0);
+        I0(ck) = check_identifiability(Q0);
         Q0(j, k) = 1.;
-        I1(ck) = identify_check(Q0);
+        I1(ck) = check_identifiability(Q0);
         I0pI1(ck) = I0(ck) + I1(ck);
     }
 
