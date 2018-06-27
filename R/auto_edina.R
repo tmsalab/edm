@@ -115,7 +115,7 @@ best_model = function(x, ic = c("heuristic", "bic", "dic")) {
 print.auto_edina = function(x, ...) {
     cat("The results of searching Q-matrices between", min(x$k_checked),
         "and", max(x$k_checked), "...\n")
-    print(as.data.frame(x$criterions), row.names = FALSE, ...)
+    print(as.data.frame(x$criterions), digits = 4, row.names = FALSE, ...)
 }
 
 #' Graph the Auto EDINA Object

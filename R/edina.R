@@ -203,9 +203,9 @@ print.edina = function(x, binary_q = FALSE, ...){
     cat("The EDINA model for", x$dataset_name, "with K =", x$k,"took\n",
         format(convert_seconds_to_time(x$timing[3])), "\n\n")
 
-    est_mat = round(cbind(extract_q_matrix(x, binary_q = binary_q), x$coefficients), 4)
+    est_mat = cbind(extract_q_matrix(x, binary_q = binary_q), x$coefficients)
 
-    print(est_mat, ...)
+    print(est_mat, digits = 4, ...)
     invisible(est_mat)
 }
 
@@ -255,10 +255,10 @@ print.summary_edina = function(x, binary_q = FALSE,  ...) {
     print(as.data.frame(x$model_fit), row.names = FALSE)
 
     cat("\nThe estimated coefficients for the EDINA model are:\n")
-    print(x$coefficients)
+    print(x$coefficients, digits = 4)
 
     cat("\nThe estimated Q matrix is:\n")
-    print(extract_q_matrix(x, binary_q = binary_q))
+    print(extract_q_matrix(x, binary_q = binary_q), digits = 4)
 
     invisible(x)
 }
