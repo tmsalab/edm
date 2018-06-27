@@ -1,33 +1,50 @@
 ---
-title: "Notation"
-author: "JJB"
+title: "Notation with ECDM Models"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Notation}
+  %\VignetteIndexEntry{Notation with ECDM Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-- $N$ being the number of observations
-- $J$ being the number of assessments.
+Within the documentation and code implementation of ECDM models, we have
+opted to adopt certain notational conventions. The hope of consistent 
+notation is to provide a base vocabulary to communicate about the
+ECDM models.
+
+## Variables 
+
+We adopt the following structure for variable naming.
+
+- $N$ being the number of subjects.
+- $J$ being the number of items.
 - $K$ being the number of attributes.
-- $i$ being the individual being observed.
 - $s$ represents the slipping
 - $g$ represents the guessing
 
+To access values, we use the following indices setup:
+
+- Subjects: $i = 1, \ldots, N$
+- Items: $j = 1, \ldots, J$
+- Attributes: $k = 1,\ldots, K$
+- Time points: $t = 1,\ldots, T$
+
 ## Response Matrix
+
+The item matrix that contains dichotomous random variables corresponding
+to whether the answer was correct or incorrect is denoted by:
 
 $$\mathbf{Y} = {\left( {{\mathbf{Y}_1}, \cdots ,{\mathbf{Y}_N}} \right)^T}_{N \times J}$$
 
-is a matrix of dichotomous random variables
+Referencing a single observation from  $J$-dimensional vector of binary responses for individual $i$ is given by:
 
 $$\mathbf{Y}_i = \left( {Y_{i1}, \cdots , Y_{iJ} }\right)_{J \times 1}^T$$
 
-is the $J$-dimensional vector of binary responses for individual $i$
+## $\mathbf Q$ Matrix
 
-## Q Matrix
-
+The $\mathbf Q$ matrix provides the item to attribute mapping of the items on the
+assessment. We denote $\bf Q$ as:
 
 $$\mathbf{Q} =\left(q_{j1},\dots, q_{iK}\right)^T_{J \times K}$$ 
 where $q_{jk}=1$ indicates that attribute $k$ is required to answer item $j$
@@ -43,7 +60,7 @@ The presence of $\boldsymbol a_c\in \left\{0,1\right\}^K$ indicates a value of
 $2^K$.
 
 
-## ETA Matrix
+## $\eta$ Matrix
 
 $$\eta_{ij}=\mathcal {I} \left( \alpha_{ik}\geq q_{jk} \text{ for all $k$}\right)=\mathcal {I} \left(\mathbf{\alpha}_i'\mathbf{q}_j=\mathbf{q}_j'\mathbf{q}_j\right)$$
 
@@ -60,6 +77,3 @@ $$\eta_{ij}=\mathcal {I} \left( \alpha_{ik}\geq q_{jk} \text{ for all $k$}\right
 
 $DIC = -2\left({\log p\left( {\mathbf{y}| \mathbf{\hat{\theta}} } \right)  - 2\left( {\log p\left( {\mathbf{y}| \mathbf{\hat{\theta}} } \right) - \frac{1}{N}\sum\limits_{n = 1}^N {\log p\left( {\mathbf{y}|{\mathbf{\theta} _s}} \right)} } \right)} \right)$
 
-### `BIC`
-
-### Model Heuristic
