@@ -142,7 +142,7 @@ BIC.edina = function(object, ...) {
 #' - `timing`: Duration of the run
 #' - `dataset_name`: Name of the data set used in estimation.
 #' @export
-#' @importFrom balamuta is.whole
+#' @importFrom bmisc is_whole
 #' @examples
 #' \dontrun{
 #' library("tmsadata")
@@ -160,9 +160,9 @@ edina = function(data, k = 3, burnin = 10000, chain_length = 20000){
 
     stopifnot(is.matrix(data))
 
-    stopifnot(is.whole(k) && length(k) == 1 && k >= 1)
+    stopifnot(is_whole(k) && length(k) == 1 && k >= 1)
 
-    stopifnot(is.whole(chain_length) && length(chain_length) == 1)
+    stopifnot(is_whole(chain_length) && length(chain_length) == 1)
 
     time_info = system.time({
 

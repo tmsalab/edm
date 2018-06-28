@@ -6,8 +6,8 @@
 \alias{ecdm-package}
 \title{ecdm: Exploratory Cognitative Diagnostic Models}
 \description{
-Perform estimations of cognitive diagnostic models (CDMs) without
-supplying a Q matrix.
+Perform bayesian estimations of cognitive diagnostic models (CDMs)
+with (classical) or without (exploratory) supplying a Q matrix.
 }
 \details{
 The \code{ecdm} package re-exports several functions from other estimation
