@@ -142,7 +142,7 @@ BIC.edina = function(object, ...) {
 #' - `timing`: Duration of the run
 #' - `dataset_name`: Name of the data set used in estimation.
 #' @export
-#' @importFrom bmisc is_whole
+#' @importFrom jjb is_whole
 #' @examples
 #' \dontrun{
 #' library("tmsadata")

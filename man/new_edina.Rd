@@ -4,8 +4,8 @@
 \alias{new_edina}
 \title{Construct an EDINA object}
 \usage{
-new_edina(coefs, loglike_summed, loglike_pmean, pis, avg_q, est_q, or_tested,
-  sample_or, n, burnin, chain_length, timing, dataset_name)
+new_edina(coefs, loglike_summed, loglike_pmean, pis, avg_q, est_q,
+  or_tested, sample_or, n, burnin, chain_length, timing, dataset_name)
 }
 \arguments{
 \item{coefs}{Matrix with means of guessing and slipping coefficients.}

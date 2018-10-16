@@ -1,9 +1,13 @@
 Package: ecdm
 Title: Exploratory Cognitative Diagnostic Models
 Version: 0.0.4
-Authors@R: c(person("James", "Balamuta", email = "balamut2@illinois.edu", role = c("aut", "cre", "cph")),
-           person("Steven", "Culpepper", email = "sculpepp@illinois.edu", role = c("aut", "cph")),
-           person("Jeffrey", "Douglas", email = "jeffdoug@illinois.edu", role = c("aut", "cph")))
+Authors@R: c(
+    person("James", "Balamuta", email = "balamut2@illinois.edu", 
+           role = c("aut", "cre", "cph"), 
+           comment = c(ORCID = "0000-0003-2826-8458")),
+    person("Steven", "Culpepper", email = "sculpepp@illinois.edu", role = c("aut", "cph")),
+    person("Jeffrey", "Douglas", email = "jeffdoug@illinois.edu", role = c("aut", "cph"))
+    )
 Description: Perform bayesian estimations of cognitive diagnostic models (CDMs)
     with (classical) or without (exploratory) supplying a Q matrix.
 Depends: R (>= 3.3.0)
@@ -11,8 +15,8 @@ License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp, RcppArmadillo, rgen
-Imports: Rcpp, bmisc, ggplot2 (>= 2.2.1), dina, rrum, simcdm, reshape2
-RoxygenNote: 6.0.1
+Imports: Rcpp, jjb, ggplot2 (>= 2.2.1), dina, rrum, simcdm, reshape2
+RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 Suggests: ecdmdata,
     knitr,
@@ -20,8 +24,7 @@ Suggests: ecdmdata,
     covr
 VignetteBuilder: knitr
 SystemRequirements: C++11
-Remotes: coatless/bmisc,
-    tmsalab/simcdm,
+Remotes: tmsalab/simcdm,
     tmsalab/dina,
     tmsalab/rrum,
     tmsalab/ecdmdata
