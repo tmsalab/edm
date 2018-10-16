@@ -4,13 +4,9 @@
 \name{reexports}
 \alias{reexports}
 \alias{sim_dina}
-\alias{reexports}
 \alias{sim_rrum}
-\alias{reexports}
 \alias{dina}
-\alias{reexports}
 \alias{rrum}
-\alias{reexports}
 \alias{autoplot}
 \title{Objects exported from other packages}
 \keyword{internal}

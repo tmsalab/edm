@@ -7,7 +7,7 @@
 \title{ecdm: Exploratory Cognitative Diagnostic Models}
 \description{
 Perform bayesian estimations of cognitive diagnostic models (CDMs)
-with (classical) or without (exploratory) supplying a Q matrix.
+    with (classical) or without (exploratory) supplying a Q matrix.
 }
 \details{
 The \code{ecdm} package re-exports several functions from other estimation
@@ -15,7 +15,7 @@ packages developed by \code{ecdmcore}. As a result, the \code{ecdm} package is
 partially a virtual package.
 }
 \author{
-\strong{Maintainer}: James Balamuta \email{balamut2@illinois.edu} [copyright holder]
+\strong{Maintainer}: James Balamuta \email{balamut2@illinois.edu} (0000-0003-2826-8458) [copyright holder]
 
 Authors:
 \itemize{
