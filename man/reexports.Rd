@@ -3,8 +3,8 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{sim_dina}
-\alias{sim_rrum}
+\alias{sim_dina_items}
+\alias{sim_rrum_items}
 \alias{dina}
 \alias{rrum}
 \alias{autoplot}
@@ -21,6 +21,6 @@ below to see their documentation.
 
   \item{rrum}{\code{\link[rrum]{rrum}}}
 
-  \item{simcdm}{\code{\link[simcdm]{sim_dina}}, \code{\link[simcdm]{sim_rrum}}}
+  \item{simcdm}{\code{\link[simcdm]{sim_dina_items}}, \code{\link[simcdm]{sim_rrum_items}}}
 }}
 

@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp, RcppArmadillo, rgen
 Imports: Rcpp, jjb, ggplot2 (>= 2.2.1), dina, rrum, simcdm, reshape2
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Suggests: ecdmdata,
     knitr,
