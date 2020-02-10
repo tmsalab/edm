@@ -22,6 +22,10 @@ edina::edina
 ##' @export
 edina::auto_edina
 
+##' @importFrom errum errum
+##' @export
+errum::errum
+
 #' @importFrom ggplot2 autoplot
 #' @export
 ggplot2::autoplot
