@@ -9,6 +9,7 @@
 \alias{rrum}
 \alias{edina}
 \alias{auto_edina}
+\alias{errum}
 \alias{autoplot}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -20,6 +21,8 @@ below to see their documentation.
   \item{dina}{\code{\link[dina]{dina}}}
 
   \item{edina}{\code{\link[edina]{auto_edina}}, \code{\link[edina]{edina}}}
+
+  \item{errum}{\code{\link[errum]{errum}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
 
