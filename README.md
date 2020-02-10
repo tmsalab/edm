@@ -3,16 +3,20 @@
 
 # ecdm
 
-[![Project Status: Active - The project has reached a stable, usable
-state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+<!-- badges: start -->
+
 [![Travis-CI Build
 Status](https://travis-ci.org/tmsalab/ecdm.svg?branch=master)](https://travis-ci.org/tmsalab/ecdm)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ecdm)](https://cran.r-project.org/package=ecdm)
-[![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/ecdm)](http://www.r-pkg.org/pkg/ecdm)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/tmsalab/ecdm/master.svg)](https://codecov.io/github/tmsalab/ecdm?branch=master)
+[![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![CRAN Version
+Badge](http://www.r-pkg.org/badges/version/edina)](https://cran.r-project.org/package=edina)
+[![CRAN
+Status](https://cranchecks.info/badges/worst/edina)](https://cran.r-project.org/web/checks/check_results_edina.html)
+[![RStudio CRAN Mirror’s Monthly
+Downloads](http://cranlogs.r-pkg.org/badges/edina?color=brightgreen)](http://www.r-pkg.org/pkg/edina)
+[![RStudio CRAN Mirror’s Total
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/edina?color=brightgreen)](http://www.r-pkg.org/pkg/edina)
+<!-- badges: end -->
 
 The goal of ecdm is to provide a modeling framework for exploratory
 cognitive diagnostic models and classical cognitive diagnostic models.
@@ -48,7 +52,7 @@ Exploratory CDM models can be estimated with:
 
 ``` r
 edina_model = edina(<data>, <k>)
-errum_model = errum(<data>, <k>)
+errum_model = errum(<data>, <k>, ... )
 ```
 
 Classical CDMs can be estimated using:
@@ -74,9 +78,10 @@ the CDM framework we are building.
 
 Specifically, the `ecdm` package imports:
 
-  - `dina`: Estimating the Deterministic Input, Noisy “And” Gate (DINA)
-    cognitive diagnostic model parameters using a Gibbs sampler.
-  - `rrum`: Estimating the reduced Reparametrized Unified Model (rRUM)
+  - `dina`: Estimating the Deterministic Input, Noisy “And” Gate
+    (‘DINA’) cognitive diagnostic model parameters using a Gibbs
+    sampler.
+  - `rrum`: Estimating the reduced Reparametrized Unified Model (‘rRUM’)
     with a Gibbs sampler.
   - `shinyecdm`: User Interface for Modeling with Exploratory Models
   - `simcdm`: Simulate responses underneath a DINA or rRUM model.
