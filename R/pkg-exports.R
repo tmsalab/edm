@@ -14,6 +14,15 @@ dina::dina
 ##' @export
 rrum::rrum
 
+##' @importFrom edina edina
+##' @export
+edina::edina
+
+##' @importFrom edina auto_edina
+##' @export
+edina::auto_edina
+
 #' @importFrom ggplot2 autoplot
 #' @export
 ggplot2::autoplot
+
