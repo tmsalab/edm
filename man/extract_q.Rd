@@ -27,8 +27,6 @@ extract_q_matrix(x, ...)
 \item{...}{Additional parameters}
 
 \item{binary_q}{Classified Q matrix or a rounded Q matrix.}
-
-\item{ic}{Selection criteria}
 }
 \value{
 A \code{matrix} that is either dichotomous or estimated.

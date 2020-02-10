@@ -6,16 +6,6 @@
 \usage{
 errum(data, k = 3, burnin = 10000, chain_length = 10000)
 }
-\arguments{
-\item{data}{Binary responses to assessements in \code{matrix}
-form with dimensions \eqn{N \times J}{N x J}.}
-
-\item{k}{Number of Attribute Levels as a positive \code{integer}.}
-
-\item{burnin}{Number of Observations to discard on the chain.}
-
-\item{chain_length}{Length of the MCMC chain}
-}
 \value{
 An \code{errum} object that has:
 \itemize{

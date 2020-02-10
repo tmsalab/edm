@@ -24,8 +24,6 @@ q_graph(x, ...)
 \item{...}{Additional paramters not used}
 
 \item{binary_q}{Classified Q matrix or a rounded Q matrix.}
-
-\item{ic}{Selection criteria}
 }
 \description{
 Provides a heatmap approach to showing the estimated binary or averaged
