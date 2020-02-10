@@ -15,5 +15,5 @@ best_model(x, ic = c("heuristic", "bic", "dic"))
 An \code{edina} object
 }
 \description{
-Extracts the best model from the \code{auto_*} search procedure.
+Extracts the best model from the \verb{auto_*} search procedure.
 }

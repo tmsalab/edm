@@ -10,8 +10,7 @@
 \usage{
 q_graph(x, ...)
 
-\method{q_graph}{auto_edina}(x, binary_q = TRUE, ic = c("heuristic",
-  "bic", "dic"), ...)
+\method{q_graph}{auto_edina}(x, binary_q = TRUE, ic = c("heuristic", "bic", "dic"), ...)
 
 \method{q_graph}{edina}(x, binary_q = TRUE, ...)
 

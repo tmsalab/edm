@@ -7,7 +7,7 @@
 ClassbyQmat(K)
 }
 \arguments{
-\item{K}{Number of Attribute Levels as an \code{unsigned integer}.}
+\item{K}{Number of Attribute Levels as an \verb{unsigned integer}.}
 }
 \value{
 A \code{mat}.

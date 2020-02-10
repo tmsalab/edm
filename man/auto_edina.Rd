@@ -4,8 +4,14 @@
 \alias{auto_edina}
 \title{Auto EDINA model selection routine}
 \usage{
-auto_edina(data, k = 2:4, burnin = 10000, chain_length = 20000,
-  save_results = FALSE, save_filename = "edina_model_data")
+auto_edina(
+  data,
+  k = 2:4,
+  burnin = 10000,
+  chain_length = 20000,
+  save_results = FALSE,
+  save_filename = "edina_model_data"
+)
 }
 \arguments{
 \item{data}{Binary responses to assessements in \code{matrix}

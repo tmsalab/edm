@@ -4,8 +4,7 @@
 \alias{read_items}
 \title{Import an Items Matrix}
 \usage{
-read_items(file, header = FALSE, sep = " ", skip = 0,
-  drop_columns = NULL)
+read_items(file, header = FALSE, sep = " ", skip = 0, drop_columns = NULL)
 }
 \arguments{
 \item{file}{name, url, or \link{connections} of the file to be read}

@@ -4,8 +4,7 @@
 \alias{read_qmatrix}
 \title{Import a Q Matrix}
 \usage{
-read_qmatrix(file, header = FALSE, sep = " ", skip = 0,
-  drop_columns = NULL)
+read_qmatrix(file, header = FALSE, sep = " ", skip = 0, drop_columns = NULL)
 }
 \arguments{
 \item{file}{name, url, or \link{connections} of the file to be read}

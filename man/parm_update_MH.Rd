@@ -4,8 +4,22 @@
 \alias{parm_update_MH}
 \title{Update Parameters in Metropolis-Hastings Approach}
 \usage{
-parm_update_MH(N, J, K, C, Y, Q, alpha, pistar, rstar, pi, vv, delta0,
-  delta, Amat)
+parm_update_MH(
+  N,
+  J,
+  K,
+  C,
+  Y,
+  Q,
+  alpha,
+  pistar,
+  rstar,
+  pi,
+  vv,
+  delta0,
+  delta,
+  Amat
+)
 }
 \arguments{
 \item{N}{Number of Subjects}
