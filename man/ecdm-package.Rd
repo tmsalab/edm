@@ -14,6 +14,14 @@ The \code{ecdm} package re-exports several functions from other estimation
 packages developed by \code{ecdmcore}. As a result, the \code{ecdm} package is
 partially a virtual package.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/tmsalab/ecdm}
+  \item Report bugs at \url{https://github.com/tmsalab/ecdm/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: James Balamuta \email{balamut2@illinois.edu} (\href{https://orcid.org/0000-0003-2826-8458}{ORCID}) [copyright holder]
 
