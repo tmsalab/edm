@@ -2,24 +2,31 @@ Package: ecdm
 Title: Exploratory Cognitative Diagnostic Models
 Version: 0.1.0
 Authors@R: c(
-    person("James", "Balamuta", email = "balamut2@illinois.edu", 
+    person("James Joseph", "Balamuta", 
+           email = "balamut2@illinois.edu", 
            role = c("aut", "cre", "cph"), 
            comment = c(ORCID = "0000-0003-2826-8458")),
-    person("Steven", "Culpepper", email = "sculpepp@illinois.edu", role = c("aut", "cph")),
-    person("Jeffrey", "Douglas", email = "jeffdoug@illinois.edu", role = c("aut", "cph"))
+    person("Steven Andrew", "Culpepper", 
+           email = "sculpepp@illinois.edu",
+           role = c("aut", "cph"),
+           comment = c(ORCID = "0000-0003-4226-6176")
+           ),
+    person("Jeffrey A.", "Douglas", 
+           email = "jeffdoug@illinois.edu", 
+           role = c("aut"))
     )
 Description: Perform bayesian estimations of cognitive diagnostic models (CDMs)
     with (classical) or without (exploratory) supplying a Q matrix.
 URL: https://github.com/tmsalab/ecdm
 BugReports: https://github.com/tmsalab/ecdm/issues
 License: GPL (>= 2)
-SystemRequirements: C++11
 Depends: R (>= 3.3.0)
 Imports: dina, rrum, simcdm, edina, errum, ggplot2
 Suggests: ecdmdata,
     knitr,
     rmarkdown,
     covr
+SystemRequirements: C++11
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
