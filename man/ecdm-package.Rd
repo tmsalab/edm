@@ -23,12 +23,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: James Balamuta \email{balamut2@illinois.edu} (\href{https://orcid.org/0000-0003-2826-8458}{ORCID}) [copyright holder]
+\strong{Maintainer}: James Joseph Balamuta \email{balamut2@illinois.edu} (\href{https://orcid.org/0000-0003-2826-8458}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Steven Culpepper \email{sculpepp@illinois.edu} [copyright holder]
-  \item Jeffrey Douglas \email{jeffdoug@illinois.edu} [copyright holder]
+  \item Steven Andrew Culpepper \email{sculpepp@illinois.edu} (\href{https://orcid.org/0000-0003-4226-6176}{ORCID}) [copyright holder]
+  \item Jeffrey A. Douglas \email{jeffdoug@illinois.edu}
 }
 
 }
