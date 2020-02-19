@@ -12,10 +12,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ecdm
+## ecdm
 
 <!-- badges: start -->
-[![Travis-CI Build Status](https://travis-ci.org/tmsalab/ecdm.svg?branch=master)](https://travis-ci.org/tmsalab/ecdm)
+[![R build status](https://github.com/tmsalab/ecdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/ecdm)
 [![Package-License](http://img.shields.io/badge/license-GPL%20(%3E=2)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN Version Badge](http://www.r-pkg.org/badges/version/edina)](https://cran.r-project.org/package=edina)
 [![CRAN Status](https://cranchecks.info/badges/worst/edina)](https://cran.r-project.org/web/checks/check_results_edina.html)
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 The goal of ecdm is to provide a modeling framework for exploratory cognitive
 diagnostic models and classical cognitive diagnostic models.
 
-## Installation
+### Installation
 
 The `ecdm` package is currently only available via GitHub. To install `ecdm`,
 your computer will need to have a compiler. The following guides are avaliable:
@@ -42,7 +42,7 @@ devtools::install_github("tmsalab/ecdm")
 ```
 
 
-## Usage
+### Usage
 
 Load the `ecdm` package into _R_: 
 
@@ -66,7 +66,7 @@ rrum_model = rrum(<data>, <q>)
 
 These classical CDMs are implemented in separate packages: `dina` and `rrum`.
 
-## Details
+### Details
 
 The `ecdm` package is designed to act more as a "virtual" package. The main
 functionalities of `ecdm` are split across multiple packages. The rationale
@@ -76,18 +76,38 @@ enabling fellow psychometricians to be able to incorporate established
 routines into their own code. In addition, we are lowering the amount of
 redundancies, or copy and pasted code, within the CDM framework we are building.
 
-Specifically, the `ecdm` package imports:
+Specifically, the `ecdm` package imports estimation routines from:
 
 - `dina`: Estimating the Deterministic Input, Noisy "And" Gate ('DINA') cognitive
    diagnostic model parameters using a Gibbs sampler.
+- `edina`: Estimating the Exploratory Deterministic Input, Noisy "And" Gate 
+   ('EDINA') cognitive diagnostic model parameters using a Gibbs sampler.
 - `rrum`: Estimating the reduced Reparametrized Unified Model ('rRUM') with a 
   Gibbs sampler.
-- `shinyecdm`: User Interface for Modeling with Exploratory Models
-- `simcdm`: Simulate responses underneath a DINA or rRUM model.
+- `errum`: Estimating the Exploratory reduced Reparametrized Unified Model 
+  ('ErRUM') with a Gibbs sampler.
+
+Moreover, we have additional packages that are used within the modeling process:
+
 - `rgen`: Simulate Multivariate Probability Distributions
+- `simcdm`: Simulate responses underneath a DINA or rRUM model.
+- `shinyecdm`: User Interface for Modeling with Exploratory Models
+
+Lastly, we hace sampled data packages available here: 
+
 - `ecdmdata`: Data package containing psychometric modeling data used in multiple
    packages. 
    
-# License
+### Citing the `ecdm` package
+
+To ensure future development of the package, please cite `ecdm` package
+if used during an analysis or simulation studies. Citation information
+for the package may be acquired by using in *R*:
+
+``` r
+citation("ecdm")
+```
+   
+### License
 
 GPL (>= 2)

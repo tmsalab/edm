@@ -1,0 +1,132 @@
+---
+title: "Overview of ecdm"
+author: "James Balamuta"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview of ecdm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(ecdm)
+library(ecdmdata)
+```
+
+
+# Introduction to Exploratory Cognitive Diagnostic Models 
+
+Exploratory Cognitive Diagnostic Models (ECDMs) are versions of classicial 
+Cognitive Diagnostic Models (CDMs) that do _not_ require the component of 
+an expertly crafted _Q_ matrix. This class of models is new to the world of
+psychometric models. The goal of the `ecdm` package is to provide an official
+implementation of the methodology by the authors that developed it!
+
+Before we continue, please "bookmark" the TMSALab organization on GitHub:
+
+**<https://github.com/tmsalab/>**
+
+The website provides direct access to the developers behind the estimation 
+packages being discussed today. In particular, it features the ability to file 
+issues or bug reports, ask questions, or stay up-to-date in the latest
+breakthroughs.
+
+## Installation
+
+In this section, we show the steps required to _install_ the package locally.
+Please note, that the `ecdm` package is currently only available via GitHub as
+it is still being developed. As a result, you presently _cannot_ install the
+package using `install.packages('ecdm')`. 
+
+Presently, to install the `ecdm` package, your computer will need to have a 
+compiler. To assist in setting up the compiler, we've created the following
+guides:
+
+- [Windows: Rtools](http://thecoatlessprofessor.com/programming/installing-rtools-for-compiled-code-via-rcpp/)
+- [macOS: Rtools](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/)
+
+From there, please use `devtools` to retrieve the latest development version.
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("tmsalab/ecdm")
+```
+
+## Loading the Package
+
+Accessing the `ecdm` rountines requires loading the package into _R_. Please
+load the `ecdm` package by pressing "run"
+
+```{r main-lib}
+library(ecdm)
+```
+
+The `ecdm` package has an accompanying data package called `ecdmdata`. Please
+load this package into _R_ by substituting `ecdm` with `ecdmdata` in the `library()`
+call.
+
+```{r secondary-lib-solution}
+library( ecdmdata )
+```
+
+## Supplementary Data Sets
+
+The `ecdmdata` package presently comes equipped with three different data sets:
+
+- Examination for the Certificate of Proficiency in English (ECPE), Templin, J. and Hoffman, L. (2013). 
+    - `items_ecpe`, N = 2922 subject responses to J = 28 items.
+    - `qmatrix_ecpe`, J = 28 items and K = 3 traits. 
+- Fraction Addition and Subtraction, Tatsuoka, K. K. (1984).
+    - `items_fractions`: N = 536 subject responses to J = 20 items.
+    - `qmatrix_fractions`: J = 20 items and K = 8 traits. 
+- Revised PSVT:R, Culpepper and Balamuta (2013).
+    - `items_spatial`: N = 516 subject responses to J = 30 items.
+    
+We will likely add more data sets as time goes on.
+
+Let's take a look at Fraction Addition and Subtraction data sets. Typing the
+name of each data set and running the command will load the data into _R_ if
+the `ecdmdata` package is loaded. As these data sets are relatively big, 
+let's use the function `head()` to view on the first 6 rows.
+
+```{r data-inc-solution}
+head( items_fractions )
+head( qmatrix_fractions )
+```
+
+Within this guide, we will use the following notation:
+
+- $K$: Number of Traits (columns) in the Q Matrix
+- $J$: Number of Items (rows/columns) in the Q Matrix and Item Matrix
+- $N$: Number of Subjects (rows) in the Item Matrix
+
+To retrieve this information in _R_, we can use the dimension function,
+`dim()`, which lists the size of the data as rows by columns. 
+
+Find the dimensions of the `items_fractions` and `qmatrix_fractions`
+
+```{r dim-info-solution}
+dim(items_fractions)
+dim(qmatrix_fractions)
+```
+
+## Help!
+
+Each function within the package contains a help file that is associated with.
+Some of the functions have _worked_ exercises as well. To view this information
+type either `?function_name` or `help(function_name)`. Let's verify the
+previously acquired numbers for the `items_fractions` data set by checking
+the entry in the documentation.
+
+```{r help-info-solution}
+?items_fractions
+?qmatrix_fractions
+```
+
+If you are curious to see how a function performs, you can opt to use 
+`example(function_name, package = "ecdm")`. Be aware that some examples
+may take considerably longer than the rest.
