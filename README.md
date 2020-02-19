@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/tmsalab/ecdm.svg?branch=master)](https://travis-ci.org/tmsalab/ecdm)
+[![R build
+status](https://github.com/tmsalab/ecdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/ecdm)
 [![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN Version
 Badge](http://www.r-pkg.org/badges/version/edina)](https://cran.r-project.org/package=edina)
@@ -76,16 +76,28 @@ incorporate established routines into their own code. In addition, we
 are lowering the amount of redundancies, or copy and pasted code, within
 the CDM framework we are building.
 
-Specifically, the `ecdm` package imports:
+Specifically, the `ecdm` package imports estimation routines from:
 
   - `dina`: Estimating the Deterministic Input, Noisy “And” Gate
     (‘DINA’) cognitive diagnostic model parameters using a Gibbs
     sampler.
+  - `edina`: Estimating the Exploratory Deterministic Input, Noisy “And”
+    Gate (‘EDINA’) cognitive diagnostic model parameters using a Gibbs
+    sampler.
   - `rrum`: Estimating the reduced Reparametrized Unified Model (‘rRUM’)
     with a Gibbs sampler.
-  - `shinyecdm`: User Interface for Modeling with Exploratory Models
-  - `simcdm`: Simulate responses underneath a DINA or rRUM model.
+  - `errum`: Estimating the Exploratory reduced Reparametrized Unified
+    Model (‘ErRUM’) with a Gibbs sampler.
+
+Moreover, we have additional packages that are used within the modeling
+process:
+
   - `rgen`: Simulate Multivariate Probability Distributions
+  - `simcdm`: Simulate responses underneath a DINA or rRUM model.
+  - `shinyecdm`: User Interface for Modeling with Exploratory Models
+
+Lastly, we hace sampled data packages available here:
+
   - `ecdmdata`: Data package containing psychometric modeling data used
     in multiple packages.
 
