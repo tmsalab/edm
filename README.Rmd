@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## ecdm
+# ecdm
 
 <!-- badges: start -->
 [![R build status](https://github.com/tmsalab/ecdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/ecdm)
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 The goal of ecdm is to provide a modeling framework for exploratory cognitive
 diagnostic models and classical cognitive diagnostic models.
 
-### Installation
+## Installation
 
 The `ecdm` package is currently only available via GitHub. To install `ecdm`,
 your computer will need to have a compiler. The following guides are avaliable:
@@ -42,7 +42,7 @@ devtools::install_github("tmsalab/ecdm")
 ```
 
 
-### Usage
+## Usage
 
 Load the `ecdm` package into _R_: 
 
@@ -64,9 +64,7 @@ dina_model = dina(<data>, <q>)
 rrum_model = rrum(<data>, <q>)
 ```
 
-These classical CDMs are implemented in separate packages: `dina` and `rrum`.
-
-### Details
+## Details
 
 The `ecdm` package is designed to act more as a "virtual" package. The main
 functionalities of `ecdm` are split across multiple packages. The rationale
@@ -98,7 +96,11 @@ Lastly, we hace sampled data packages available here:
 - `ecdmdata`: Data package containing psychometric modeling data used in multiple
    packages. 
    
-### Citing the `ecdm` package
+## Authors
+
+James Joseph Balamuta, Steven Andrew Culpepper, and Jeffrey A. Douglas
+   
+## Citing the `ecdm` package
 
 To ensure future development of the package, please cite `ecdm` package
 if used during an analysis or simulation studies. Citation information
@@ -108,6 +110,6 @@ for the package may be acquired by using in *R*:
 citation("ecdm")
 ```
    
-### License
+## License
 
 GPL (>= 2)
