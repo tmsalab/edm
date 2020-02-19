@@ -6,3 +6,4 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^codecov\.yml$
+^\.github/workflows/R-CMD-check\.yaml$
