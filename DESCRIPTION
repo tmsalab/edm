@@ -20,7 +20,7 @@ Description: Perform bayesian estimations of cognitive diagnostic models (CDMs)
 URL: https://github.com/tmsalab/ecdm
 BugReports: https://github.com/tmsalab/ecdm/issues
 License: GPL (>= 2)
-Depends: R (>= 3.3.0)
+Depends: R (>= 3.5.0)
 Imports: dina, rrum, simcdm, edina, errum, ggplot2
 Suggests: ecdmdata,
     knitr,
