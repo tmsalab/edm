@@ -8,3 +8,6 @@
 ^codecov\.yml$
 ^\.github/workflows/R-CMD-check\.yaml$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

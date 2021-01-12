@@ -1,0 +1,23 @@
+url: https://tmsalab.github.io/edm
+
+template:
+  params:
+    ganalytics: UA-151562227-1
+
+home:
+  strip_header: true
+
+development:
+  mode: auto
+
+authors:
+  James Joseph Balamuta:
+    href: https://thecoatlessprofessor.com
+  Steven Andrew Culpepper:
+    href: https://publish.illinois.edu/sculpepper/
+  Jeffrey Douglas:
+    href: https://publish.illinois.edu/jeffdoug/
+
+navbar:
+  components:
+    home: ~
