@@ -1,9 +1,9 @@
 ---
-title: "Overview of ecdm"
-author: "James Balamuta"
+title: "Overview of EDM"
+author: "James Joseph Balamuta"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Overview of ecdm}
+  %\VignetteIndexEntry{Overview of EDM}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,17 +13,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(ecdm)
-library(ecdmdata)
+library(edm)
+library(edmdata)
 ```
 
 
-# Introduction to Exploratory Cognitive Diagnostic Models 
+# Introduction to Exploratory Diagnostic Models 
 
-Exploratory Cognitive Diagnostic Models (ECDMs) are versions of classicial 
+Exploratory Diagnostic Models (EDMs) are versions of classical 
 Cognitive Diagnostic Models (CDMs) that do _not_ require the component of 
 an expertly crafted _Q_ matrix. This class of models is new to the world of
-psychometric models. The goal of the `ecdm` package is to provide an official
+psychometric models. The goal of the `edm` package is to provide an official
 implementation of the methodology by the authors that developed it!
 
 Before we continue, please "bookmark" the TMSALab organization on GitHub:
@@ -38,11 +38,11 @@ breakthroughs.
 ## Installation
 
 In this section, we show the steps required to _install_ the package locally.
-Please note, that the `ecdm` package is currently only available via GitHub as
+Please note, that the `edm` package is currently only available via GitHub as
 it is still being developed. As a result, you presently _cannot_ install the
-package using `install.packages('ecdm')`. 
+package using `install.packages('edm')`. 
 
-Presently, to install the `ecdm` package, your computer will need to have a 
+Presently, to install the `edm` package, your computer will need to have a 
 compiler. To assist in setting up the compiler, we've created the following
 guides:
 
@@ -52,30 +52,30 @@ guides:
 From there, please use `devtools` to retrieve the latest development version.
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("tmsalab/ecdm")
+if(!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("tmsalab/edm")
 ```
 
 ## Loading the Package
 
-Accessing the `ecdm` rountines requires loading the package into _R_. Please
-load the `ecdm` package by pressing "run"
+Accessing the `edm` rountines requires loading the package into _R_. Please
+load the `edm` package by pressing "run"
 
 ```{r main-lib}
-library(ecdm)
+library(edm)
 ```
 
-The `ecdm` package has an accompanying data package called `ecdmdata`. Please
-load this package into _R_ by substituting `ecdm` with `ecdmdata` in the `library()`
+The `edm` package has an accompanying data package called `edmdata`. Please
+load this package into _R_ by substituting `edm` with `edmdata` in the `library()`
 call.
 
 ```{r secondary-lib-solution}
-library( ecdmdata )
+library( edmdata )
 ```
 
 ## Supplementary Data Sets
 
-The `ecdmdata` package presently comes equipped with three different data sets:
+The `edmdata` package presently comes equipped with three different data sets:
 
 - Examination for the Certificate of Proficiency in English (ECPE), Templin, J. and Hoffman, L. (2013). 
     - `items_ecpe`, N = 2922 subject responses to J = 28 items.
@@ -86,11 +86,9 @@ The `ecdmdata` package presently comes equipped with three different data sets:
 - Revised PSVT:R, Culpepper and Balamuta (2013).
     - `items_spatial`: N = 516 subject responses to J = 30 items.
     
-We will likely add more data sets as time goes on.
-
 Let's take a look at Fraction Addition and Subtraction data sets. Typing the
 name of each data set and running the command will load the data into _R_ if
-the `ecdmdata` package is loaded. As these data sets are relatively big, 
+the `edmdata` package is loaded. As these data sets are relatively big, 
 let's use the function `head()` to view on the first 6 rows.
 
 ```{r data-inc-solution}
@@ -128,5 +126,5 @@ the entry in the documentation.
 ```
 
 If you are curious to see how a function performs, you can opt to use 
-`example(function_name, package = "ecdm")`. Be aware that some examples
+`example(function_name, package = "edm")`. Be aware that some examples
 may take considerably longer than the rest.
