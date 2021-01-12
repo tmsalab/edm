@@ -1,5 +1,5 @@
-Package: ecdm
-Title: Exploratory Cognitative Diagnostic Models
+Package: edm
+Title: Exploratory Diagnostic Models
 Version: 0.1.0
 Authors@R: c(
     person("James Joseph", "Balamuta", 
@@ -15,14 +15,14 @@ Authors@R: c(
            email = "jeffdoug@illinois.edu", 
            role = c("aut"))
     )
-Description: Perform bayesian estimations of cognitive diagnostic models (CDMs)
+Description: Perform bayesian estimations of diagnostic models (DMs)
     with (classical) or without (exploratory) supplying a Q matrix.
-URL: https://github.com/tmsalab/ecdm
-BugReports: https://github.com/tmsalab/ecdm/issues
+URL: https://github.com/tmsalab/edm
+BugReports: https://github.com/tmsalab/edm/issues
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 Imports: dina, rrum, simcdm, edina, errum, ggplot2
-Suggests: ecdmdata,
+Suggests: edmdata,
     knitr,
     rmarkdown,
     covr
@@ -33,6 +33,4 @@ LazyData: true
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 Remotes: 
-    tmsalab/ecdmdata,
-    tmsalab/edina,
-    tmsalab/errum
+    tmsalab/edmdata
