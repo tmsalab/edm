@@ -14,29 +14,29 @@ vignette: >
 ```r
 # install.packages("devtools")
 
-devtools::install_github("tmsalab/ecdm", auth_token = "secret")
-devtools::install_github("tmsalab/tmsadata", auth_token = "secret")
+devtools::install_github("tmsalab/edm", auth_token = "secret")
+devtools::install_github("tmsalab/edmdata", auth_token = "secret")
 ```
 
-# Using the `ecdm` package
+# Using the `edm` package
 
 ## Load the packages
 
 ```r
 # Load required packages
-library("ecdm")
-library("tmsadata")
+library("edm")
+library("edmdata")
 
 # Load data
-data("trial_matrix", package="tmsadata")
+data("items_revised_psvtr", package="edmdata")
 ```
 
 ## Perform Estimation Routine
 
 ```r
 # Version of package used
-message("Running simulation with ecdm v",
-        as.character(utils::packageVersion("ecdm")),
+message("Running simulation with edm v",
+        as.character(utils::packageVersion("edm")),
         sep = "")
 
 
