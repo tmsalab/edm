@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tmsalab.github.io/edm/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/reference/ecdm-package.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/articles/Notation.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/articles/oracle-model-recovery.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/articles/overview-view-of-edm.html</loc>
+  </url>
+  <url>
+    <loc>https://tmsalab.github.io/edm/articles/spatial-data.html</loc>
+  </url>
+</urlset>
