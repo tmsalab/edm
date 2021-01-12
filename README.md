@@ -1,51 +1,43 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ecdm
+# edm
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/tmsalab/ecdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/ecdm)
-[![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN Version
-Badge](http://www.r-pkg.org/badges/version/edina)](https://cran.r-project.org/package=edina)
-[![CRAN
-Status](https://cranchecks.info/badges/worst/edina)](https://cran.r-project.org/web/checks/check_results_edina.html)
-[![RStudio CRAN Mirror’s Monthly
-Downloads](http://cranlogs.r-pkg.org/badges/edina?color=brightgreen)](http://www.r-pkg.org/pkg/edina)
-[![RStudio CRAN Mirror’s Total
-Downloads](http://cranlogs.r-pkg.org/badges/grand-total/edina?color=brightgreen)](http://www.r-pkg.org/pkg/edina)
+status](https://github.com/tmsalab/edm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/edm)
+[![Package-License](http://img.shields.io/badge/license-GPL%20(%3E=2)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 <!-- badges: end -->
 
-The goal of ecdm is to provide a modeling framework for exploratory
-cognitive diagnostic models and classical cognitive diagnostic models.
+The goal of edm is to provide a modeling framework for exploratory
+diagnostic models and classical diagnostic models.
 
 ## Installation
 
-The `ecdm` package is currently only available via GitHub. To install
-`ecdm`, your computer will need to have a compiler. The following guides
+The `edm` package is currently only available via GitHub. To install
+`edm`, your computer will need to have a compiler. The following guides
 are avaliable:
 
-  - [Windows:
+-   [Windows:
     Rtools](http://thecoatlessprofessor.com/programming/installing-rtools-for-compiled-code-via-rcpp/)
-  - [macOS:
+-   [macOS:
     Rtools](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/)
 
 From there, please use `devtools` to retrieve the latest development
 version.
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("tmsalab/ecdm")
+if(!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("tmsalab/edm")
 ```
 
 ## Usage
 
-Load the `ecdm` package into *R*:
+Load the `edm` package into *R*:
 
 ``` r
-library(ecdm)
+library(edm)
 ```
 
 Exploratory CDM models can be estimated with:
@@ -64,54 +56,54 @@ rrum_model = rrum(<data>, <q>)
 
 ## Details
 
-The `ecdm` package is designed to act more as a “virtual” package. The
-main functionalities of `ecdm` are split across multiple packages. The
+The `edm` package is designed to act more as a “virtual” package. The
+main functionalities of `edm` are split across multiple packages. The
 rationale for this is many areas of psychometrics have overlap in terms
 of computational code used. By dividing the underlying source of the
-`ecdm` package, we are enabling fellow psychometricians to be able to
+`edm` package, we are enabling fellow psychometricians to be able to
 incorporate established routines into their own code. In addition, we
 are lowering the amount of redundancies, or copy and pasted code, within
 the CDM framework we are building.
 
-Specifically, the `ecdm` package imports estimation routines from:
+Specifically, the `edm` package imports estimation routines from:
 
-  - `dina`: Estimating the Deterministic Input, Noisy “And” Gate
+-   `dina`: Estimating the Deterministic Input, Noisy “And” Gate
     (‘DINA’) cognitive diagnostic model parameters using a Gibbs
     sampler.
-  - `edina`: Estimating the Exploratory Deterministic Input, Noisy “And”
+-   `edina`: Estimating the Exploratory Deterministic Input, Noisy “And”
     Gate (‘EDINA’) cognitive diagnostic model parameters using a Gibbs
     sampler.
-  - `rrum`: Estimating the reduced Reparametrized Unified Model (‘rRUM’)
+-   `rrum`: Estimating the reduced Reparametrized Unified Model (‘rRUM’)
     with a Gibbs sampler.
-  - `errum`: Estimating the Exploratory reduced Reparametrized Unified
+-   `errum`: Estimating the Exploratory reduced Reparametrized Unified
     Model (‘ErRUM’) with a Gibbs sampler.
 
 Moreover, we have additional packages that are used within the modeling
 process:
 
-  - `rgen`: Simulate Multivariate Probability Distributions
-  - `simcdm`: Simulate responses underneath a DINA or rRUM model.
-  - `shinyecdm`: User Interface for Modeling with Exploratory Models
+-   `rgen`: Simulate Multivariate Probability Distributions
+-   `simcdm`: Simulate responses underneath a DINA or rRUM model.
+-   `shinyedm`: User Interface for Modeling with Exploratory Models
 
-Lastly, we hace sampled data packages available here:
+Lastly, we have sampled data packages available here:
 
-  - `ecdmdata`: Data package containing psychometric modeling data used
+-   `edmdata`: Data package containing psychometric modeling data used
     in multiple packages.
 
 ## Authors
 
 James Joseph Balamuta, Steven Andrew Culpepper, and Jeffrey A. Douglas
 
-## Citing the `ecdm` package
+## Citing the `edm` package
 
-To ensure future development of the package, please cite `ecdm` package
+To ensure future development of the package, please cite `edm` package
 if used during an analysis or simulation studies. Citation information
 for the package may be acquired by using in *R*:
 
 ``` r
-citation("ecdm")
+citation("edm")
 ```
 
 ## License
 
-GPL (\>= 2)
+GPL (&gt;= 2)
