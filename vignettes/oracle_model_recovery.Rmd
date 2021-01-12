@@ -20,10 +20,10 @@ The following model recovery routine is based on the de La Torre (2009).
 ## Load Package
 
 ```r
-library("ecdm")
+library("edm")
 
-message("Running simulation with ecdm v",
-        as.character(utils::packageVersion("ecdm")),
+message("Running simulation with edm v",
+        as.character(utils::packageVersion("edm")),
         sep = "")
 ```
 
@@ -133,7 +133,6 @@ Y = sim_rrum(Q, rstar, pistar, alpha)
 
 ```r
 # Recover simulation parameters with Gibbs Sampler
-ecdm:::errum_Gibbs_Q()
-ecdm:::errum_Gibbs_Q(Y, K)
+errum(Y, K)
 ```
 
