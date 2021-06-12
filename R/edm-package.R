@@ -1,6 +1,6 @@
 #' @details
-#' The `ecdm` package re-exports several functions from other estimation
-#' packages developed by `ecdmcore`. As a result, the `ecdm` package is
+#' The `edm` package re-exports several functions from other estimation
+#' packages developed using `edmcore`. As a result, the `edm` package is
 #' partially a virtual package.
 #' @keywords internal
 "_PACKAGE"
